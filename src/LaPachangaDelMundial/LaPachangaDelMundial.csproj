@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modelos\Partido.cs" />
+    <Compile Include="Modelos\Pronostico.cs" />
+    <Compile Include="Modelos\Quiniela.cs" />
+    <Compile Include="Modelos\Seleccion.cs" />
+    <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Vistas\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,7 +84,6 @@
   <ItemGroup>
     <Folder Include="Controles\" />
     <Folder Include="Datos\" />
-    <Folder Include="Modelos\" />
     <Folder Include="Utilidades\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
