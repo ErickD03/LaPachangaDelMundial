@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using LaPachangaDelMundial.Utils;
 
 namespace LaPachangaDelMundial
 {
@@ -15,6 +9,15 @@ namespace LaPachangaDelMundial
         public MainForm()
         {
             InitializeComponent();
+            this.Load += new EventHandler(MainForm_Load);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var selecciones = JsonLoader.CargarSelecciones();
+            var partidos = JsonLoader.CargarPartidos();
+            var usuarios = JsonLoader.CargarUsuarios();
+            var quinielas = JsonLoader.CargarQuinielas();
         }
     }
 }

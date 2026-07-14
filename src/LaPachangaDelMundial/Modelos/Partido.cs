@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace LaPachangaDelMundial.Models
 {
@@ -19,6 +21,7 @@ namespace LaPachangaDelMundial.Models
         public string Fase { get; set; }        // Fase = grupos, octavos, cuartos
         public string Grupo { get; set; }       // Válido solo fase grupos
         public DateTime FechaHora { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public EstadoPartido Estado { get; set; }
 
         public Partido() { }

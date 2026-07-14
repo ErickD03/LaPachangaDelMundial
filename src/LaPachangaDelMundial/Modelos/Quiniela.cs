@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace LaPachangaDelMundial.Models
 {
@@ -12,6 +14,7 @@ namespace LaPachangaDelMundial.Models
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public TipoQuiniela Tipo { get; set; }
         public string IdCreador { get; set; }
         public List<string> IdsIntegrantes { get; set; }
