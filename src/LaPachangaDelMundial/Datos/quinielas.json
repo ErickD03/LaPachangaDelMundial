@@ -1,0 +1,65 @@
+﻿[
+  {
+    "id": "Q1",
+    "nombre": "Los Clavados del Pronostico",
+    "tipo": "Privada",
+    "idCreador": "U02",
+    "idsIntegrantes": [ "U01", "U02", "U04", "U06", "U08", "U13", "U16", "U19", "U24", "U28", "U33", "U37", "U42" ],
+    "notificaciones": [
+      "pulpo_paul acertó el marcador del partido ARG vs AUT (2-0)",
+      "la_furia_roja está en racha de 5 aciertos",
+      "Nuevo líder: pulpo_paul con 142 puntos",
+      "neymar_fan acertó el marcador del partido BRA vs HAI (4-0)"
+    ]
+  },
+  {
+    "id": "Q2",
+    "nombre": "Expertos Mundialistas",
+    "tipo": "Privada",
+    "idCreador": "U08",
+    "idsIntegrantes": [ "U02", "U03", "U07", "U08", "U12", "U17", "U20", "U24", "U29", "U34", "U38", "U43" ],
+    "notificaciones": [
+      "allez_les_bleus acertó el marcador del partido FRA vs JPN (3-0)",
+      "Nuevo líder: pulpo_paul con 142 puntos",
+      "drei_punkte sigue siendo el peor jugador de la quiniela con 62 puntos"
+    ]
+  },
+  {
+    "id": "Q3",
+    "nombre": "Pachanga Centroamericana",
+    "tipo": "Privada",
+    "idCreador": "U01",
+    "idsIntegrantes": [ "U01", "U05", "U10", "U13", "U15", "U21", "U25", "U30", "U33", "U39", "U44" ],
+    "notificaciones": [
+      "ronaldo_cr7 acertó el marcador del partido POR vs UZB (5-0)",
+      "tiki_taka está en racha de 4 aciertos",
+      "Nuevo líder: tiki_taka con 128 puntos"
+    ]
+  },
+  {
+    "id": "Q4",
+    "nombre": "Mundial Sin Fronteras",
+    "tipo": "Privada",
+    "idCreador": "U22",
+    "idsIntegrantes": [ "U04", "U09", "U10", "U14", "U18", "U22", "U26", "U31", "U35", "U40", "U42" ],
+    "notificaciones": [
+      "tico_mundialista acertó el marcador del partido USA vs PAR (4-1)",
+      "neymar_fan acertó el marcador del partido BRA vs AUS (3-0)",
+      "Nuevo líder: neymar_fan con 110 puntos"
+    ]
+  },
+  {
+    "id": "Q5",
+    "nombre": "El Mejor Pronosticador",
+    "tipo": "Privada",
+    "idCreador": "U06",
+    "idsIntegrantes": [ "U06", "U08", "U11", "U15", "U18", "U23", "U25", "U27", "U32", "U36", "U41", "U45" ],
+    "notificaciones": [
+      "ecuagol acertó el marcador del partido ECU vs GER (2-1)",
+      "ecuagol está en racha de 6 aciertos",
+      "allez_les_bleus está en racha de 3 aciertos",
+      "Nuevo líder: albiceleste99 con 134 puntos",
+      "pharaoh_fc sigue siendo el peor jugador de la quiniela con 60 puntos"
+    ]
+  }
+]

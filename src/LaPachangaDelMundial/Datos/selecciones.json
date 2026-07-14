@@ -1,0 +1,301 @@
+﻿[
+  {
+    "codigo": "MEX",
+    "nombre": "México",
+    "grupo": "A",
+    "rutaBandera": "Data/Banderas/MEX.png"
+  },
+  {
+    "codigo": "RSA",
+    "nombre": "Sudáfrica",
+    "grupo": "A",
+    "rutaBandera": "Data/Banderas/RSA.png"
+  },
+  {
+    "codigo": "KOR",
+    "nombre": "Corea del Sur",
+    "grupo": "A",
+    "rutaBandera": "Data/Banderas/KOR.png"
+  },
+  {
+    "codigo": "CZE",
+    "nombre": "República Checa",
+    "grupo": "A",
+    "rutaBandera": "Data/Banderas/CZE.png"
+  },
+
+  {
+    "codigo": "CAN",
+    "nombre": "Canadá",
+    "grupo": "B",
+    "rutaBandera": "Data/Banderas/CAN.png"
+  },
+  {
+    "codigo": "BIH",
+    "nombre": "Bosnia y Herzegovina",
+    "grupo": "B",
+    "rutaBandera": "Data/Banderas/BIH.png"
+  },
+  {
+    "codigo": "QAT",
+    "nombre": "Catar",
+    "grupo": "B",
+    "rutaBandera": "Data/Banderas/QAT.png"
+  },
+  {
+    "codigo": "SUI",
+    "nombre": "Suiza",
+    "grupo": "B",
+    "rutaBandera": "Data/Banderas/SUI.png"
+  },
+
+  {
+    "codigo": "BRA",
+    "nombre": "Brasil",
+    "grupo": "C",
+    "rutaBandera": "Data/Banderas/BRA.png"
+  },
+  {
+    "codigo": "MAR",
+    "nombre": "Marruecos",
+    "grupo": "C",
+    "rutaBandera": "Data/Banderas/MAR.png"
+  },
+  {
+    "codigo": "HAI",
+    "nombre": "Haití",
+    "grupo": "C",
+    "rutaBandera": "Data/Banderas/HAI.png"
+  },
+  {
+    "codigo": "SCO",
+    "nombre": "Escocia",
+    "grupo": "C",
+    "rutaBandera": "Data/Banderas/SCO.png"
+  },
+
+  {
+    "codigo": "USA",
+    "nombre": "Estados Unidos",
+    "grupo": "D",
+    "rutaBandera": "Data/Banderas/USA.png"
+  },
+  {
+    "codigo": "PAR",
+    "nombre": "Paraguay",
+    "grupo": "D",
+    "rutaBandera": "Data/Banderas/PAR.png"
+  },
+  {
+    "codigo": "AUS",
+    "nombre": "Australia",
+    "grupo": "D",
+    "rutaBandera": "Data/Banderas/AUS.png"
+  },
+  {
+    "codigo": "TUR",
+    "nombre": "Turquía",
+    "grupo": "D",
+    "rutaBandera": "Data/Banderas/TUR.png"
+  },
+
+  {
+    "codigo": "GER",
+    "nombre": "Alemania",
+    "grupo": "E",
+    "rutaBandera": "Data/Banderas/GER.png"
+  },
+  {
+    "codigo": "CUW",
+    "nombre": "Curazao",
+    "grupo": "E",
+    "rutaBandera": "Data/Banderas/CUW.png"
+  },
+  {
+    "codigo": "CIV",
+    "nombre": "Costa de Marfil",
+    "grupo": "E",
+    "rutaBandera": "Data/Banderas/CIV.png"
+  },
+  {
+    "codigo": "ECU",
+    "nombre": "Ecuador",
+    "grupo": "E",
+    "rutaBandera": "Data/Banderas/ECU.png"
+  },
+
+  {
+    "codigo": "NED",
+    "nombre": "Países Bajos",
+    "grupo": "F",
+    "rutaBandera": "Data/Banderas/NED.png"
+  },
+  {
+    "codigo": "JPN",
+    "nombre": "Japón",
+    "grupo": "F",
+    "rutaBandera": "Data/Banderas/JPN.png"
+  },
+  {
+    "codigo": "SWE",
+    "nombre": "Suecia",
+    "grupo": "F",
+    "rutaBandera": "Data/Banderas/SWE.png"
+  },
+  {
+    "codigo": "TUN",
+    "nombre": "Túnez",
+    "grupo": "F",
+    "rutaBandera": "Data/Banderas/TUN.png"
+  },
+
+  {
+    "codigo": "BEL",
+    "nombre": "Bélgica",
+    "grupo": "G",
+    "rutaBandera": "Data/Banderas/BEL.png"
+  },
+  {
+    "codigo": "EGY",
+    "nombre": "Egipto",
+    "grupo": "G",
+    "rutaBandera": "Data/Banderas/EGY.png"
+  },
+  {
+    "codigo": "IRN",
+    "nombre": "Irán",
+    "grupo": "G",
+    "rutaBandera": "Data/Banderas/IRN.png"
+  },
+  {
+    "codigo": "NZL",
+    "nombre": "Nueva Zelanda",
+    "grupo": "G",
+    "rutaBandera": "Data/Banderas/NZL.png"
+  },
+
+  {
+    "codigo": "ESP",
+    "nombre": "España",
+    "grupo": "H",
+    "rutaBandera": "Data/Banderas/ESP.png"
+  },
+  {
+    "codigo": "CPV",
+    "nombre": "Cabo Verde",
+    "grupo": "H",
+    "rutaBandera": "Data/Banderas/CPV.png"
+  },
+  {
+    "codigo": "KSA",
+    "nombre": "Arabia Saudita",
+    "grupo": "H",
+    "rutaBandera": "Data/Banderas/KSA.png"
+  },
+  {
+    "codigo": "URU",
+    "nombre": "Uruguay",
+    "grupo": "H",
+    "rutaBandera": "Data/Banderas/URU.png"
+  },
+
+  {
+    "codigo": "ENG",
+    "nombre": "Inglaterra",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/ENG.png"
+  },
+  {
+    "codigo": "NOR",
+    "nombre": "Noruega",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/NOR.png"
+  },
+  {
+    "codigo": "SEN",
+    "nombre": "Senegal",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/SEN.png"
+  },
+  {
+    "codigo": "SVK",
+    "nombre": "Eslovaquia",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/SVK.png"
+  },
+
+  {
+    "codigo": "ARG",
+    "nombre": "Argentina",
+    "grupo": "J",
+    "rutaBandera": "Data/Banderas/ARG.png"
+  },
+  {
+    "codigo": "JOR",
+    "nombre": "Jordania",
+    "grupo": "J",
+    "rutaBandera": "Data/Banderas/JOR.png"
+  },
+  {
+    "codigo": "ALG",
+    "nombre": "Argelia",
+    "grupo": "J",
+    "rutaBandera": "Data/Banderas/ALG.png"
+  },
+  {
+    "codigo": "AUT",
+    "nombre": "Austria",
+    "grupo": "J",
+    "rutaBandera": "Data/Banderas/AUT.png"
+  },
+
+  {
+    "codigo": "POR",
+    "nombre": "Portugal",
+    "grupo": "K",
+    "rutaBandera": "Data/Banderas/POR.png"
+  },
+  {
+    "codigo": "COL",
+    "nombre": "Colombia",
+    "grupo": "K",
+    "rutaBandera": "Data/Banderas/COL.png"
+  },
+  {
+    "codigo": "COD",
+    "nombre": "R.D. Congo",
+    "grupo": "K",
+    "rutaBandera": "Data/Banderas/COD.png"
+  },
+  {
+    "codigo": "UZB",
+    "nombre": "Uzbekistán",
+    "grupo": "K",
+    "rutaBandera": "Data/Banderas/UZB.png"
+  },
+
+  {
+    "codigo": "CRO",
+    "nombre": "Croacia",
+    "grupo": "L",
+    "rutaBandera": "Data/Banderas/CRO.png"
+  },
+  {
+    "codigo": "GHA",
+    "nombre": "Ghana",
+    "grupo": "L",
+    "rutaBandera": "Data/Banderas/GHA.png"
+  },
+  {
+    "codigo": "PAN",
+    "nombre": "Panamá",
+    "grupo": "L",
+    "rutaBandera": "Data/Banderas/PAN.png"
+  },
+  {
+    "codigo": "ING2",
+    "nombre": "Inglaterra",
+    "grupo": "L",
+    "rutaBandera": "Data/Banderas/ENG.png"
+  }
+]

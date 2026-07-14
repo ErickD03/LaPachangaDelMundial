@@ -1,0 +1,407 @@
+﻿[
+  {
+    "id": "U01",
+    "nombreUsuario": "tico_goleador",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "CRC",
+    "puntos": 87,
+    "insignias": [ "ReyDeEmpates" ],
+    "idsQuinielas": [ "Q1", "Q3" ]
+  },
+  {
+    "id": "U02",
+    "nombreUsuario": "pulpo_paul",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ARG",
+    "puntos": 142,
+    "insignias": [ "LiderRanking" ],
+    "idsQuinielas": [ "Q1", "Q2" ]
+  },
+  {
+    "id": "U03",
+    "nombreUsuario": "messimatico",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ARG",
+    "puntos": 95,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U04",
+    "nombreUsuario": "neymar_fan",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "BRA",
+    "puntos": 110,
+    "insignias": [ "RachaAciertos" ],
+    "idsQuinielas": [ "Q1", "Q4" ]
+  },
+  {
+    "id": "U05",
+    "nombreUsuario": "vamos_tricolor",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "MEX",
+    "puntos": 78,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U06",
+    "nombreUsuario": "la_furia_roja",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ESP",
+    "puntos": 131,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q5" ]
+  },
+  {
+    "id": "U07",
+    "nombreUsuario": "drei_punkte",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "GER",
+    "puntos": 62,
+    "insignias": [ "PeorJugador" ],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U08",
+    "nombreUsuario": "allez_les_bleus",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "FRA",
+    "puntos": 119,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q2", "Q5" ]
+  },
+  {
+    "id": "U09",
+    "nombreUsuario": "england_til_i_die",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ENG",
+    "puntos": 88,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U10",
+    "nombreUsuario": "samba_no_pe",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "BRA",
+    "puntos": 103,
+    "insignias": [],
+    "idsQuinielas": [ "Q3", "Q4" ]
+  },
+  {
+    "id": "U11",
+    "nombreUsuario": "oranje_forever",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "NED",
+    "puntos": 74,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U12",
+    "nombreUsuario": "azzurri_tifoso",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ITA",
+    "puntos": 55,
+    "insignias": [ "PeorDelRanking" ],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U13",
+    "nombreUsuario": "ronaldo_cr7",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "POR",
+    "puntos": 126,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q3" ]
+  },
+  {
+    "id": "U14",
+    "nombreUsuario": "samurai_blue",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "JPN",
+    "puntos": 99,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U15",
+    "nombreUsuario": "viva_mexico",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "MEX",
+    "puntos": 84,
+    "insignias": [],
+    "idsQuinielas": [ "Q3", "Q5" ]
+  },
+  {
+    "id": "U16",
+    "nombreUsuario": "gaucho_puro",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ARG",
+    "puntos": 137,
+    "insignias": [],
+    "idsQuinielas": [ "Q1" ]
+  },
+  {
+    "id": "U17",
+    "nombreUsuario": "maple_leaf",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "CAN",
+    "puntos": 67,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U18",
+    "nombreUsuario": "usa_soccer_fan",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "USA",
+    "puntos": 92,
+    "insignias": [],
+    "idsQuinielas": [ "Q4", "Q5" ]
+  },
+  {
+    "id": "U19",
+    "nombreUsuario": "the_three_lions",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ENG",
+    "puntos": 115,
+    "insignias": [],
+    "idsQuinielas": [ "Q1" ]
+  },
+  {
+    "id": "U20",
+    "nombreUsuario": "catenaccio_king",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ITA",
+    "puntos": 58,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U21",
+    "nombreUsuario": "kaizer_franz",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "GER",
+    "puntos": 79,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U22",
+    "nombreUsuario": "tico_mundialista",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "CRC",
+    "puntos": 104,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U23",
+    "nombreUsuario": "belgique_diables",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "BEL",
+    "puntos": 88,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U24",
+    "nombreUsuario": "copa_america_fan",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "URU",
+    "puntos": 71,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q2" ]
+  },
+  {
+    "id": "U25",
+    "nombreUsuario": "tiki_taka",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ESP",
+    "puntos": 128,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U26",
+    "nombreUsuario": "super_falcao",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "COL",
+    "puntos": 93,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U27",
+    "nombreUsuario": "pharaoh_fc",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "EGY",
+    "puntos": 60,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U28",
+    "nombreUsuario": "morocco_atlas",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "MAR",
+    "puntos": 116,
+    "insignias": [],
+    "idsQuinielas": [ "Q1" ]
+  },
+  {
+    "id": "U29",
+    "nombreUsuario": "senegal_lion",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "SEN",
+    "puntos": 82,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U30",
+    "nombreUsuario": "taeguk_warrior",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "KOR",
+    "puntos": 97,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U31",
+    "nombreUsuario": "viking_power",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "NOR",
+    "puntos": 73,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U32",
+    "nombreUsuario": "ecuagol",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ECU",
+    "puntos": 108,
+    "insignias": [ "RachaAciertos" ],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U33",
+    "nombreUsuario": "dragao_vermelho",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "POR",
+    "puntos": 121,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q3" ]
+  },
+  {
+    "id": "U34",
+    "nombreUsuario": "galos_dorados",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "FRA",
+    "puntos": 89,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U35",
+    "nombreUsuario": "helvetia_fc",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "SUI",
+    "puntos": 66,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U36",
+    "nombreUsuario": "albiceleste99",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "ARG",
+    "puntos": 134,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U37",
+    "nombreUsuario": "torcida_verde",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "BRA",
+    "puntos": 107,
+    "insignias": [],
+    "idsQuinielas": [ "Q1" ]
+  },
+  {
+    "id": "U38",
+    "nombreUsuario": "azteca_pride",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "MEX",
+    "puntos": 80,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U39",
+    "nombreUsuario": "ninja_futbol",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "JPN",
+    "puntos": 95,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U40",
+    "nombreUsuario": "bafana_bafana",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "RSA",
+    "puntos": 69,
+    "insignias": [],
+    "idsQuinielas": [ "Q4" ]
+  },
+  {
+    "id": "U41",
+    "nombreUsuario": "estrella_roja",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "SRB",
+    "puntos": 77,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "U42",
+    "nombreUsuario": "socceroo_mate",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "AUS",
+    "puntos": 83,
+    "insignias": [],
+    "idsQuinielas": [ "Q1", "Q4" ]
+  },
+  {
+    "id": "U43",
+    "nombreUsuario": "garra_charrua",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "URU",
+    "puntos": 91,
+    "insignias": [],
+    "idsQuinielas": [ "Q2" ]
+  },
+  {
+    "id": "U44",
+    "nombreUsuario": "red_devil_be",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "BEL",
+    "puntos": 114,
+    "insignias": [],
+    "idsQuinielas": [ "Q3" ]
+  },
+  {
+    "id": "U45",
+    "nombreUsuario": "pura_vida_gol",
+    "contrasena": "pass123",
+    "codigoPaisPreferido": "CRC",
+    "puntos": 86,
+    "insignias": [],
+    "idsQuinielas": [ "Q5" ]
+  }
+]
