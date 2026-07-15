@@ -50,12 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\UsuarioController.cs" />
     <Compile Include="Modelos\Partido.cs" />
     <Compile Include="Modelos\Pronostico.cs" />
     <Compile Include="Modelos\Quiniela.cs" />
     <Compile Include="Modelos\Seleccion.cs" />
     <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Utilidades\JsonLoader.cs" />
+    <Compile Include="Vistas\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +92,9 @@
     <Content Include="Datos\quinielas.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Vistas\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,7 +113,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controles\" />
     <Folder Include="Datos\Banderas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
