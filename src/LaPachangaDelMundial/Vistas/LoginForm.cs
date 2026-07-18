@@ -1,7 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using LaPachangaDelMundial.Controllers;
+﻿using LaPachangaDelMundial.Controllers;
 using LaPachangaDelMundial.Models;
+using LaPachangaDelMundial.Views;
+using System;
+using System.Windows.Forms;
 
 namespace LaPachangaDelMundial.Vistas
 {
@@ -45,9 +46,13 @@ namespace LaPachangaDelMundial.Vistas
 
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
-            // Por ahora mostramos un mensaje — aquí irá el RegistroForm
-            MessageBox.Show("Función de registro próximamente.",
-                "En construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RegistroForm registro = new RegistroForm(_usuarioController);
+
+            if (registro.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Ahora podés ingresar con tu nuevo usuario.",
+                    "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
