@@ -57,6 +57,12 @@
     <Compile Include="Modelos\Seleccion.cs" />
     <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Utilidades\JsonLoader.cs" />
+    <Compile Include="Vistas\PerfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\PerfilForm.Designer.cs">
+      <DependentUpon>PerfilForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroForm.cs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\PerfilForm.resx">
+      <DependentUpon>PerfilForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vistas\RegistroForm.cs.resx">
       <DependentUpon>RegistroForm.cs.cs</DependentUpon>
