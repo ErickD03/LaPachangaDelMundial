@@ -293,6 +293,12 @@
     "rutaBandera": "Data/Banderas/PAN.png"
   },
   {
+    "codigo": "FRA",
+    "nombre": "Francia",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/FRA.png"
+  },
+  {
     "codigo": "ING2",
     "nombre": "Inglaterra",
     "grupo": "L",

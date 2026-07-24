@@ -12,10 +12,10 @@ namespace LaPachangaDelMundial.Vistas
 
         public Usuario UsuarioActivo { get; private set; }
 
-        public LoginForm()
+        public LoginForm(UsuarioController usuarioController)
         {
             InitializeComponent();
-            _usuarioController = new UsuarioController();
+            _usuarioController = usuarioController;
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)

@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -50,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controles\PartidoController.cs" />
+    <Compile Include="Controles\PronosticoController.cs" />
+    <Compile Include="Controles\QuinielaController.cs" />
     <Compile Include="Controles\UsuarioController.cs" />
     <Compile Include="Modelos\Partido.cs" />
     <Compile Include="Modelos\Pronostico.cs" />
@@ -57,6 +61,29 @@
     <Compile Include="Modelos\Seleccion.cs" />
     <Compile Include="Modelos\Usuario.cs" />
     <Compile Include="Utilidades\JsonLoader.cs" />
+    <Compile Include="Utilidades\SistemaFecha.cs" />
+    <Compile Include="Vistas\PronosticoForm.Designer.cs" />
+    <Compile Include="Vistas\PartidosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\PartidosForm.Designer.cs">
+      <DependentUpon>PartidosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\PerfilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\PerfilForm.Designer.cs">
+      <DependentUpon>PerfilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\PronosticoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\QuinielaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vistas\QuinielaForm.Designer.cs">
+      <DependentUpon>QuinielaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroForm.cs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,9 +131,15 @@
     <EmbeddedResource Include="Vistas\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Vistas\PerfilForm.resx">
+      <DependentUpon>PerfilForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vistas\RegistroForm.cs.resx">
       <DependentUpon>RegistroForm.cs.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Datos\pronosticos.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
