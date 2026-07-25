@@ -1,9 +1,12 @@
 ﻿using LaPachangaDelMundial.Controllers;
 using LaPachangaDelMundial.Models;
+using LaPachangaDelMundial.Utils;
 using LaPachangaDelMundial.Views;
 using LaPachangaDelMundial.Vistas;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using LaPachangaDelMundial.Utils;
 
 namespace LaPachangaDelMundial
 {
@@ -72,6 +75,21 @@ namespace LaPachangaDelMundial
             PartidosForm partidos = new PartidosForm(_partidoController);
             partidos.ShowDialog();
         }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            List<Pronostico> pronosticos = _pronosticoController.ObtenerPorUsuario(null)
+                ?? new List<Pronostico>();
+
+            EstadisticasForm estadisticas = new EstadisticasForm(
+                _partidoController.ObtenerTodos(),
+                _usuarioController.ObtenerTodos(),
+                pronosticos,
+                JsonLoader.CargarSelecciones());
+
+            estadisticas.ShowDialog();
+        }
+
         private void btnPronosticos_Click(object sender, EventArgs e)
         {
             PronosticoForm pronosticos = new PronosticoForm(

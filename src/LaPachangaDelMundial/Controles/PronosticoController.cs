@@ -42,7 +42,7 @@ namespace LaPachangaDelMundial.Controllers
             File.WriteAllText(ruta, contenido);
         }
 
-        // valida si algun usuario pronostico el partido
+        // valida si algun usuario pronostico el partido //
         public bool YaPronostico(string idUsuario, string idPartido)
         {
             return _pronosticos.Any(p =>
@@ -50,7 +50,7 @@ namespace LaPachangaDelMundial.Controllers
                 p.IdPartido == idPartido);
         }
 
-        // realiza un registro de un nuevo prnostico
+        // realiza un registro de un nuevo prnostico //
         public bool Registrar(string idUsuario, string idPartido,
                               int golesLocal, int golesVisitante,
                               EstadoPartido estadoPartido)
@@ -74,7 +74,7 @@ namespace LaPachangaDelMundial.Controllers
             return true;
         }
 
-        // realiza el calculo de puntos para los pronosticos de un partido
+        // realiza el calculo de puntos para los pronosticos de un partido //
         public void CalcularPuntos(Partido partido)
         {
             List<Pronostico> pronosticos = _pronosticos
@@ -86,7 +86,7 @@ namespace LaPachangaDelMundial.Controllers
                 if (p.GolesLocal == partido.GolesLocal &&
                     p.GolesVisitante == partido.GolesVisitante)
                 {
-                    p.PuntosObtenidos = 5; // si es marcador exacto
+                    p.PuntosObtenidos = 5; // si es marcador exacto //
                 }
                 else
                 {
@@ -105,15 +105,18 @@ namespace LaPachangaDelMundial.Controllers
             Guardar();
         }
 
-        // Devuelve el historial de pronósticos de un usuario
+        // devuelve pronósticos de un usuario o todos si idUsuario es null //
         public List<Pronostico> ObtenerPorUsuario(string idUsuario)
         {
+            if (idUsuario == null)
+                return _pronosticos;
+
             return _pronosticos
                 .Where(p => p.IdUsuario == idUsuario)
                 .ToList();
         }
 
-        // Devuelve el ranking global de usuarios
+        // devuelve ranking global de usuarios //
         public List<RankingItem> ObtenerRankingGlobal(List<Usuario> usuarios)
         {
             return usuarios
@@ -130,7 +133,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // devuelve ranking de quiniela especifia
+        // devuelve ranking de quiniela especifia //
         public List<RankingItem> ObtenerRankingQuiniela(
             Quiniela quiniela, List<Usuario> usuarios)
         {

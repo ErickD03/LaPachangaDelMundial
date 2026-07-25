@@ -76,6 +76,16 @@ namespace LaPachangaDelMundial
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnQuinielas);
             this.ResumeLayout(false);
+
+            this.btnEstadisticas = new System.Windows.Forms.Button();
+
+            // btnEstadisticas
+            this.btnEstadisticas.Text = "Estadísticas";
+            this.btnEstadisticas.Location = new System.Drawing.Point(50, 400);
+            this.btnEstadisticas.Size = new System.Drawing.Size(150, 40);
+            this.btnEstadisticas.Click += new System.EventHandler(this.btnEstadisticas_Click);
+
+            this.Controls.Add(this.btnEstadisticas);
         }
 
         private System.Windows.Forms.Label lblBienvenida;
@@ -84,5 +94,6 @@ namespace LaPachangaDelMundial
         private System.Windows.Forms.Button btnQuinielas;
         private System.Windows.Forms.Button btnPartidos;
         private System.Windows.Forms.Button btnPronosticos;
+        private System.Windows.Forms.Button btnEstadisticas;
     }
 }
