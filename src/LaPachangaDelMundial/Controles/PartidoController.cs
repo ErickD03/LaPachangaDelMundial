@@ -8,8 +8,8 @@ namespace LaPachangaDelMundial.Controllers
 {
     public class PartidoController
     {
-        private List<Partido> _partidos;
-        private List<Seleccion> _selecciones;
+        private readonly List<Partido> _partidos;
+        private readonly List<Seleccion> _selecciones;
 
         public PartidoController()
         {
@@ -17,20 +17,20 @@ namespace LaPachangaDelMundial.Controllers
             _selecciones = JsonLoader.CargarSelecciones();
         }
 
-        // devuelve todos los partidos
+        // devuelve todos los partidos //
         public List<Partido> ObtenerTodos()
         {
             return _partidos;
         }
 
-        // devuelve el name de una seleccion por codigo
+        // devuelve el name de una seleccion por codigo //
         public string ObtenerNombreSeleccion(string codigo)
         {
             Seleccion sel = _selecciones.FirstOrDefault(s => s.Codigo == codigo);
             return sel != null ? sel.Nombre : codigo;
         }
 
-        // actualiza estado de partidos según fecha que se simule
+        // actualiza estado de partidos según fecha que se simule //
         public void ActualizarEstados()
         {
             DateTime fechaActual = SistemaFecha.FechaActual;
@@ -47,7 +47,7 @@ namespace LaPachangaDelMundial.Controllers
             }
         }
 
-        // devuelve 5 ultimos patidos terminados
+        // devuelve 5 ultimos patidos terminados //
         public List<Partido> ObtenerUltimos5()
         {
             return _partidos
@@ -57,7 +57,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // devuele partidos en 24h proximas
+        // devuele partidos en 24h proximas //
         public List<Partido> ObtenerProximos24Horas()
         {
             DateTime fechaActual = SistemaFecha.FechaActual;
@@ -71,7 +71,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // devuelve partidos de grpo especifico
+        // devuelve partidos de grpo especifico //
         public List<Partido> ObtenerPorGrupo(string grupo)
         {
             return _partidos
@@ -80,7 +80,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // devuelve partidos fase especifica 
+        // devuelve partidos fase especifico //
         public List<Partido> ObtenerPorFase(string fase)
         {
             return _partidos
@@ -89,7 +89,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // calcula tabla posociones en un grupo
+        // calcula tabla posociones en un grupo //
         public List<PosicionGrupo> CalcularTablaGrupo(string grupo)
         {
             List<Partido> partidos = ObtenerPorGrupo(grupo)
@@ -148,7 +148,7 @@ namespace LaPachangaDelMundial.Controllers
         }
     }
 
-    // clase apoyo para tablas posiciones
+    // clase apoyo para tablas posiciones //
     public class PosicionGrupo
     {
         public string Codigo { get; set; }

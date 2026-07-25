@@ -18,8 +18,8 @@ namespace LaPachangaDelMundial.Models
         public string CodigoVisitante { get; set; }
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }
-        public string Fase { get; set; }        // Fase = grupos, octavos, cuartos
-        public string Grupo { get; set; }       // Válido solo fase grupos
+        public string Fase { get; set; }        // fase como grupos, octavos, cuartos //
+        public string Grupo { get; set; }       // solo fase grupos //
         public DateTime FechaHora { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public EstadoPartido Estado { get; set; }

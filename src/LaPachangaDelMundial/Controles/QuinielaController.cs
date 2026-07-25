@@ -10,20 +10,20 @@ namespace LaPachangaDelMundial.Controllers
 {
     public class QuinielaController
     {
-        private List<Quiniela> _quinielas;
+        private readonly List<Quiniela> _quinielas;
 
         public QuinielaController()
         {
             _quinielas = JsonLoader.CargarQuinielas();
         }
 
-        // retorna las todas las quinielas
+        // retorna las todas las quinielas //
         public List<Quiniela> ObtenerTodas()
         {
             return _quinielas;
         }
 
-        // retorna las quinielas de un usuario en particular
+        // retorna las quinielas de un usuario en particular //
         public List<Quiniela> ObtenerPorUsuario(string idUsuario)
         {
             return _quinielas
@@ -31,7 +31,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // devuelve quienielas publicas
+        // devuelve quienielas publicas //
         public List<Quiniela> ObtenerPublicas()
         {
             return _quinielas
@@ -39,7 +39,7 @@ namespace LaPachangaDelMundial.Controllers
                 .ToList();
         }
 
-        // crea nueva quinuela
+        // crea nueva quinuela //
         public bool Crear(string nombre, TipoQuiniela tipo, string idCreador)
         {
             if (_quinielas.Any(q => q.Nombre == nombre))
@@ -63,7 +63,7 @@ namespace LaPachangaDelMundial.Controllers
             return true;
         }
 
-        // agrega usuario a una quiniela que ya exista
+        // agrega usuario a una quiniela que ya exista //
         public bool UnirseAQuiniela(string idQuiniela, string idUsuario)
         {
             Quiniela quiniela = _quinielas.FirstOrDefault(q => q.Id == idQuiniela);
@@ -80,7 +80,7 @@ namespace LaPachangaDelMundial.Controllers
             return true;
         }
 
-        // agrega notificacion al timeline de la quiniela
+        // agrega notificacion al timeline de la quiniela //
         public void AgregarNotificacion(string idQuiniela, string mensaje)
         {
             Quiniela quiniela = _quinielas.FirstOrDefault(q => q.Id == idQuiniela);

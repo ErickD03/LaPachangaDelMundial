@@ -7,10 +7,10 @@ namespace LaPachangaDelMundial.Controllers
 {
     public class EstadisticasController
     {
-        private List<Partido> _partidos;
-        private List<Usuario> _usuarios;
-        private List<Pronostico> _pronosticos;
-        private List<Seleccion> _selecciones;
+        private readonly List<Partido> _partidos;
+        private readonly List<Usuario> _usuarios;
+        private readonly List<Pronostico> _pronosticos;
+        private readonly List<Seleccion> _selecciones;
 
         public EstadisticasController(
             List<Partido> partidos,

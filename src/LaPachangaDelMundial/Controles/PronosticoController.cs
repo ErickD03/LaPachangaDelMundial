@@ -11,14 +11,14 @@ namespace LaPachangaDelMundial.Controllers
 {
     public class PronosticoController
     {
-        private List<Pronostico> _pronosticos;
+        private readonly List<Pronostico> _pronosticos;
 
         public PronosticoController()
         {
             _pronosticos = CargarPronosticos();
         }
 
-        private List<Pronostico> CargarPronosticos()
+        private static List<Pronostico> CargarPronosticos()
         {
             string ruta = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "Datos", "pronosticos.json");
