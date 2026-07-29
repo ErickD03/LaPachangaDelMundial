@@ -21,7 +21,7 @@ namespace LaPachangaDelMundial.Views
 
         private void RegistroForm_Load(object sender, EventArgs e)
         {
-            // se llena con las selecciones
+            // se llena con las selecciones //
             cboPais.DisplayMember = "Nombre";
             cboPais.ValueMember = "Codigo";
             cboPais.DataSource = _selecciones;

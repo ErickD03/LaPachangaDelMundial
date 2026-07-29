@@ -58,7 +58,7 @@ namespace LaPachangaDelMundial.Views
             if (string.IsNullOrEmpty(nombre)) return;
 
             DialogResult tipo = MessageBox.Show(
-                "¿Querés que sea privada?\n(No = Pública)",
+                "¿Quieres que sea privada?\n(No = Pública)",
                 "Tipo de quiniela",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -96,7 +96,7 @@ namespace LaPachangaDelMundial.Views
                 return;
             }
 
-            // Mostramos las quinielas disponibles en un selector simple
+            // mostrar quinielas disponibles en selector simple //
             string[] opciones = new string[disponibles.Count];
             for (int i = 0; i < disponibles.Count; i++)
             {

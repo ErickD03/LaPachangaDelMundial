@@ -20,13 +20,13 @@ namespace LaPachangaDelMundial.Views
 
         private void PerfilForm_Load(object sender, EventArgs e)
         {
-            // se encarga de buscar el nombre del país prefereido
+            // se encarga de buscar el nombre del país prefereido //
             Seleccion pais = _selecciones.Find(
                 s => s.Codigo == _usuario.CodigoPaisPreferido);
 
             string nombrePais = pais != null ? pais.Nombre : _usuario.CodigoPaisPreferido;
 
-            // muestra los dartos del ususario
+            // muestra los dartos del ususario //
             lblUsuarioVal.Text = _usuario.NombreUsuario;
             lblPaisVal.Text = nombrePais;
             lblPuntosVal.Text = _usuario.Puntos.ToString();

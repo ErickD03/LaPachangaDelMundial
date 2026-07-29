@@ -1,1 +1,1166 @@
-﻿[]
+﻿[
+  {
+    "idUsuario": "U01",
+    "idPartido": "A1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U01",
+    "idPartido": "A2",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U01",
+    "idPartido": "B1",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U01",
+    "idPartido": "C1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U01",
+    "idPartido": "D1",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U01",
+    "idPartido": "OCT_7",
+    "golesLocal": 3,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U02",
+    "idPartido": "A1",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "B2",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "C3",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "D1",
+    "golesLocal": 4,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "E1",
+    "golesLocal": 5,
+    "golesVisitante": 1,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "QTR_4",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U02",
+    "idPartido": "FINAL",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U03",
+    "idPartido": "A3",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U03",
+    "idPartido": "B1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U03",
+    "idPartido": "J1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U03",
+    "idPartido": "J3",
+    "golesLocal": 2,
+    "golesVisitante": 2,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U03",
+    "idPartido": "SEMI_2",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 2
+  },
+
+  {
+    "idUsuario": "U04",
+    "idPartido": "C5",
+    "golesLocal": 4,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U04",
+    "idPartido": "C1",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U04",
+    "idPartido": "D2",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U04",
+    "idPartido": "OCT_3",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U04",
+    "idPartido": "QTR_1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U05",
+    "idPartido": "A1",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U05",
+    "idPartido": "A5",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U05",
+    "idPartido": "OCT_4",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U05",
+    "idPartido": "B3",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U06",
+    "idPartido": "H1",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "H3",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "H5",
+    "golesLocal": 4,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "OCT_5",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "QTR_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "SEMI_1",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U06",
+    "idPartido": "FINAL",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U07",
+    "idPartido": "E1",
+    "golesLocal": 7,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U07",
+    "idPartido": "E3",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U07",
+    "idPartido": "E5",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U08",
+    "idPartido": "R16_8",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U08",
+    "idPartido": "QTR_1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U08",
+    "idPartido": "SEMI_1",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U08",
+    "idPartido": "FINAL",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+
+  {
+    "idUsuario": "U09",
+    "idPartido": "I1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U09",
+    "idPartido": "I3",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U09",
+    "idPartido": "I5",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U09",
+    "idPartido": "OCT_4",
+    "golesLocal": 2,
+    "golesVisitante": 3,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U10",
+    "idPartido": "C1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U10",
+    "idPartido": "C3",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U10",
+    "idPartido": "C5",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U10",
+    "idPartido": "OCT_3",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U11",
+    "idPartido": "F1",
+    "golesLocal": 2,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U11",
+    "idPartido": "F3",
+    "golesLocal": 5,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U11",
+    "idPartido": "F6",
+    "golesLocal": 1,
+    "golesVisitante": 3,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U12",
+    "idPartido": "G1",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U12",
+    "idPartido": "G3",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+
+  {
+    "idUsuario": "U13",
+    "idPartido": "K1",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U13",
+    "idPartido": "K3",
+    "golesLocal": 5,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U13",
+    "idPartido": "K5",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U13",
+    "idPartido": "R16_7",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U14",
+    "idPartido": "F2",
+    "golesLocal": 4,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U14",
+    "idPartido": "F4",
+    "golesLocal": 0,
+    "golesVisitante": 4,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U14",
+    "idPartido": "F5",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U15",
+    "idPartido": "A1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U15",
+    "idPartido": "A3",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U15",
+    "idPartido": "A5",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U16",
+    "idPartido": "J1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U16",
+    "idPartido": "J3",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U16",
+    "idPartido": "J5",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U16",
+    "idPartido": "OCT_7",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U16",
+    "idPartido": "QTR_4",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U16",
+    "idPartido": "SEMI_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U17",
+    "idPartido": "B1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U17",
+    "idPartido": "B3",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U17",
+    "idPartido": "B5",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U18",
+    "idPartido": "D1",
+    "golesLocal": 4,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U18",
+    "idPartido": "D3",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U18",
+    "idPartido": "D5",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U18",
+    "idPartido": "OCT_6",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U19",
+    "idPartido": "I1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U19",
+    "idPartido": "OCT_4",
+    "golesLocal": 3,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U19",
+    "idPartido": "QTR_3",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U19",
+    "idPartido": "SEMI_2",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U20",
+    "idPartido": "G1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U20",
+    "idPartido": "G2",
+    "golesLocal": 2,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U21",
+    "idPartido": "E1",
+    "golesLocal": 5,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U21",
+    "idPartido": "E3",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U22",
+    "idPartido": "D1",
+    "golesLocal": 4,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U22",
+    "idPartido": "D3",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U22",
+    "idPartido": "OCT_6",
+    "golesLocal": 2,
+    "golesVisitante": 3,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U23",
+    "idPartido": "G1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U23",
+    "idPartido": "G3",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U23",
+    "idPartido": "G5",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U24",
+    "idPartido": "H6",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U24",
+    "idPartido": "H2",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U24",
+    "idPartido": "SEMI_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U25",
+    "idPartido": "H1",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U25",
+    "idPartido": "H3",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U25",
+    "idPartido": "OCT_5",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U25",
+    "idPartido": "QTR_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U25",
+    "idPartido": "FINAL",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U26",
+    "idPartido": "K2",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U26",
+    "idPartido": "K4",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U26",
+    "idPartido": "OCT_8",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U27",
+    "idPartido": "G4",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U27",
+    "idPartido": "G6",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U28",
+    "idPartido": "C2",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U28",
+    "idPartido": "C4",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U28",
+    "idPartido": "C6",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U28",
+    "idPartido": "R16_2",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U28",
+    "idPartido": "QTR_1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U29",
+    "idPartido": "I2",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U29",
+    "idPartido": "I4",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U30",
+    "idPartido": "A2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U30",
+    "idPartido": "A4",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 0
+  },
+  {
+    "idUsuario": "U30",
+    "idPartido": "A6",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U31",
+    "idPartido": "I2",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U31",
+    "idPartido": "OCT_3",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U31",
+    "idPartido": "QTR_3",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U32",
+    "idPartido": "E5",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U32",
+    "idPartido": "E2",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U32",
+    "idPartido": "E4",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U32",
+    "idPartido": "E6",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U33",
+    "idPartido": "K1",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U33",
+    "idPartido": "K5",
+    "golesLocal": 0,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U33",
+    "idPartido": "R16_7",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U33",
+    "idPartido": "OCT_5",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U34",
+    "idPartido": "R16_8",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U34",
+    "idPartido": "SEMI_1",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U35",
+    "idPartido": "B2",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U35",
+    "idPartido": "B4",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U36",
+    "idPartido": "J1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U36",
+    "idPartido": "J5",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U36",
+    "idPartido": "QTR_4",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U36",
+    "idPartido": "SEMI_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U37",
+    "idPartido": "C1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U37",
+    "idPartido": "C3",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U37",
+    "idPartido": "C5",
+    "golesLocal": 4,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U38",
+    "idPartido": "A1",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U38",
+    "idPartido": "A3",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U38",
+    "idPartido": "OCT_4",
+    "golesLocal": 3,
+    "golesVisitante": 2,
+    "puntosObtenidos": 0
+  },
+
+  {
+    "idUsuario": "U39",
+    "idPartido": "F4",
+    "golesLocal": 0,
+    "golesVisitante": 4,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U39",
+    "idPartido": "F5",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U40",
+    "idPartido": "A1",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 2
+  },
+  {
+    "idUsuario": "U40",
+    "idPartido": "A4",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U40",
+    "idPartido": "OCT_1",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U41",
+    "idPartido": "G2",
+    "golesLocal": 2,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U41",
+    "idPartido": "G4",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U42",
+    "idPartido": "D2",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U42",
+    "idPartido": "D4",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U42",
+    "idPartido": "D6",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U43",
+    "idPartido": "H2",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U43",
+    "idPartido": "H6",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U44",
+    "idPartido": "G1",
+    "golesLocal": 1,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U44",
+    "idPartido": "G5",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U44",
+    "idPartido": "QTR_2",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U44",
+    "idPartido": "SEMI_1",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U44",
+    "idPartido": "FINAL",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+
+  {
+    "idUsuario": "U45",
+    "idPartido": "H1",
+    "golesLocal": 3,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U45",
+    "idPartido": "H5",
+    "golesLocal": 4,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U45",
+    "idPartido": "OCT_5",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "puntosObtenidos": 5
+  },
+  {
+    "idUsuario": "U45",
+    "idPartido": "FINAL",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "puntosObtenidos": 5
+  }
+]

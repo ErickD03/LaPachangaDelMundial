@@ -200,12 +200,6 @@
   },
 
   {
-    "codigo": "ENG",
-    "nombre": "Inglaterra",
-    "grupo": "I",
-    "rutaBandera": "Data/Banderas/ENG.png"
-  },
-  {
     "codigo": "NOR",
     "nombre": "Noruega",
     "grupo": "I",
@@ -222,6 +216,12 @@
     "nombre": "Eslovaquia",
     "grupo": "I",
     "rutaBandera": "Data/Banderas/SVK.png"
+  },
+  {
+    "codigo": "FRA",
+    "nombre": "Francia",
+    "grupo": "I",
+    "rutaBandera": "Data/Banderas/FRA.png"
   },
 
   {
@@ -293,13 +293,7 @@
     "rutaBandera": "Data/Banderas/PAN.png"
   },
   {
-    "codigo": "FRA",
-    "nombre": "Francia",
-    "grupo": "I",
-    "rutaBandera": "Data/Banderas/FRA.png"
-  },
-  {
-    "codigo": "ING2",
+    "codigo": "ENG",
     "nombre": "Inglaterra",
     "grupo": "L",
     "rutaBandera": "Data/Banderas/ENG.png"

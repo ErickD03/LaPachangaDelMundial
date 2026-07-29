@@ -537,7 +537,7 @@
 
   {
     "id": "I1",
-    "codigoLocal": "ENG",
+    "codigoLocal": "FRA",
     "codigoVisitante": "SVK",
     "golesLocal": 2,
     "golesVisitante": 0,
@@ -559,7 +559,7 @@
   },
   {
     "id": "I3",
-    "codigoLocal": "ENG",
+    "codigoLocal": "FRA",
     "codigoVisitante": "NOR",
     "golesLocal": 1,
     "golesVisitante": 1,
@@ -581,7 +581,7 @@
   },
   {
     "id": "I5",
-    "codigoLocal": "ENG",
+    "codigoLocal": "FRA",
     "codigoVisitante": "SEN",
     "golesLocal": 3,
     "golesVisitante": 0,
@@ -738,7 +738,7 @@
 
   {
     "id": "L1",
-    "codigoLocal": "ENG2",
+    "codigoLocal": "ENG",
     "codigoVisitante": "CRO",
     "golesLocal": 4,
     "golesVisitante": 2,
@@ -760,7 +760,7 @@
   },
   {
     "id": "L3",
-    "codigoLocal": "ENG2",
+    "codigoLocal": "ENG",
     "codigoVisitante": "GHA",
     "golesLocal": 0,
     "golesVisitante": 0,
@@ -783,7 +783,7 @@
   {
     "id": "L5",
     "codigoLocal": "PAN",
-    "codigoVisitante": "ENG2",
+    "codigoVisitante": "ENG",
     "golesLocal": 0,
     "golesVisitante": 2,
     "fase": "Grupos",
@@ -894,46 +894,182 @@
 
   {
     "id": "OCT_1",
-    "codigoLocal": "ARG",
-    "codigoVisitante": "USA",
+    "codigoLocal": "RSA",
+    "codigoVisitante": "CAN",
     "golesLocal": 0,
-    "golesVisitante": 0,
+    "golesVisitante": 1,
     "fase": "Octavos",
     "grupo": "",
-    "fechaHora": "2026-07-05T20:00:00",
-    "estado": "Pendiente"
+    "fechaHora": "2026-07-04T20:00:00",
+    "estado": "Finalizado"
   },
   {
     "id": "OCT_2",
-    "codigoLocal": "ESP",
-    "codigoVisitante": "ENG",
+    "codigoLocal": "PAR",
+    "codigoVisitante": "FRA",
     "golesLocal": 0,
-    "golesVisitante": 0,
+    "golesVisitante": 1,
     "fase": "Octavos",
     "grupo": "",
-    "fechaHora": "2026-07-05T23:00:00",
-    "estado": "Pendiente"
+    "fechaHora": "2026-07-04T23:00:00",
+    "estado": "Finalizado"
   },
   {
     "id": "OCT_3",
     "codigoLocal": "BRA",
-    "codigoVisitante": "MEX",
-    "golesLocal": 0,
-    "golesVisitante": 0,
+    "codigoVisitante": "NOR",
+    "golesLocal": 1,
+    "golesVisitante": 2,
     "fase": "Octavos",
     "grupo": "",
-    "fechaHora": "2026-07-06T20:00:00",
-    "estado": "Pendiente"
+    "fechaHora": "2026-07-05T20:00:00",
+    "estado": "Finalizado"
   },
   {
     "id": "OCT_4",
+    "codigoLocal": "MEX",
+    "codigoVisitante": "ENG",
+    "golesLocal": 2,
+    "golesVisitante": 3,
+    "fase": "Octavos",
+    "grupo": "",
+    "fechaHora": "2026-07-05T23:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "OCT_5",
     "codigoLocal": "POR",
-    "codigoVisitante": "FRA",
+    "codigoVisitante": "ESP",
+    "golesLocal": 0,
+    "golesVisitante": 1,
+    "fase": "Octavos",
+    "grupo": "",
+    "fechaHora": "2026-07-06T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "OCT_6",
+    "codigoLocal": "USA",
+    "codigoVisitante": "BEL",
+    "golesLocal": 1,
+    "golesVisitante": 4,
+    "fase": "Octavos",
+    "grupo": "",
+    "fechaHora": "2026-07-06T23:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "OCT_7",
+    "codigoLocal": "ARG",
+    "codigoVisitante": "EGY",
+    "golesLocal": 3,
+    "golesVisitante": 2,
+    "fase": "Octavos",
+    "grupo": "",
+    "fechaHora": "2026-07-07T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "OCT_8",
+    "codigoLocal": "SUI",
+    "codigoVisitante": "COL",
     "golesLocal": 0,
     "golesVisitante": 0,
     "fase": "Octavos",
     "grupo": "",
-    "fechaHora": "2026-07-06T23:00:00",
-    "estado": "Pendiente"
+    "fechaHora": "2026-07-07T23:00:00",
+    "estado": "Finalizado"
+  },
+
+  {
+    "id": "QTR_1",
+    "codigoLocal": "FRA",
+    "codigoVisitante": "MAR",
+    "golesLocal": 2,
+    "golesVisitante": 0,
+    "fase": "Cuartos",
+    "grupo": "",
+    "fechaHora": "2026-07-09T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "QTR_2",
+    "codigoLocal": "ESP",
+    "codigoVisitante": "BEL",
+    "golesLocal": 2,
+    "golesVisitante": 1,
+    "fase": "Cuartos",
+    "grupo": "",
+    "fechaHora": "2026-07-10T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "QTR_3",
+    "codigoLocal": "NOR",
+    "codigoVisitante": "ENG",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "fase": "Cuartos",
+    "grupo": "",
+    "fechaHora": "2026-07-11T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "QTR_4",
+    "codigoLocal": "ARG",
+    "codigoVisitante": "SUI",
+    "golesLocal": 3,
+    "golesVisitante": 1,
+    "fase": "Cuartos",
+    "grupo": "",
+    "fechaHora": "2026-07-11T23:00:00",
+    "estado": "Finalizado"
+  },
+
+  {
+    "id": "SEMI_1",
+    "codigoLocal": "FRA",
+    "codigoVisitante": "ESP",
+    "golesLocal": 0,
+    "golesVisitante": 2,
+    "fase": "Semifinales",
+    "grupo": "",
+    "fechaHora": "2026-07-14T20:00:00",
+    "estado": "Finalizado"
+  },
+  {
+    "id": "SEMI_2",
+    "codigoLocal": "ENG",
+    "codigoVisitante": "ARG",
+    "golesLocal": 1,
+    "golesVisitante": 2,
+    "fase": "Semifinales",
+    "grupo": "",
+    "fechaHora": "2026-07-15T20:00:00",
+    "estado": "Finalizado"
+  },
+
+  {
+    "id": "3ERO",
+    "codigoLocal": "FRA",
+    "codigoVisitante": "ENG",
+    "golesLocal": 4,
+    "golesVisitante": 6,
+    "fase": "TercerPuesto",
+    "grupo": "",
+    "fechaHora": "2026-07-18T20:00:00",
+    "estado": "Finalizado"
+  },
+
+  {
+    "id": "FINAL",
+    "codigoLocal": "ESP",
+    "codigoVisitante": "ARG",
+    "golesLocal": 1,
+    "golesVisitante": 0,
+    "fase": "Final",
+    "grupo": "",
+    "fechaHora": "2026-07-19T20:00:00",
+    "estado": "Finalizado"
   }
 ]

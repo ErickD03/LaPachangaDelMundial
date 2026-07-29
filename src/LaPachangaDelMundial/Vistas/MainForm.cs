@@ -52,7 +52,7 @@ namespace LaPachangaDelMundial
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             DialogResult confirm = MessageBox.Show(
-                "¿Seguro que querés cerrar sesión?",
+                "¿Seguro que quieres cerrar sesión?",
                 "Cerrar sesión",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);

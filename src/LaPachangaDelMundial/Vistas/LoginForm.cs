@@ -25,7 +25,7 @@ namespace LaPachangaDelMundial.Vistas
 
             if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
             {
-                MessageBox.Show("Por favor completá todos los campos.",
+                MessageBox.Show("Por favor, completa todos los campos.",
                     "Campos vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -50,7 +50,7 @@ namespace LaPachangaDelMundial.Vistas
 
             if (registro.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Ahora podés ingresar con tu nuevo usuario.",
+                MessageBox.Show("Ahora puedes ingresar con tu nuevo usuario.",
                     "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

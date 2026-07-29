@@ -23,7 +23,7 @@ namespace LaPachangaDelMundial.Views
 
             lblFechaSimulada.Text =
                 $"Fecha simulada: {SistemaFecha.FechaActual:dd/MM/yyyy HH:mm} " +
-                $"(Fase actual: Octavos de Final)";
+                $"(Fase actual: Mundial Finalizado)";
 
             CargarUltimos5();
             CargarGrupos();
@@ -112,7 +112,7 @@ namespace LaPachangaDelMundial.Views
         {
             lstEliminatoria.Items.Clear();
 
-            string[] fases = { "Dieciseisavos", "Octavos" };
+            string[] fases = { "Dieciseisavos", "Octavos", "Cuartos", "Semifinales", "TercerPuesto", "Final" };
             foreach (string fase in fases)
             {
                 List<Partido> partidos = _partidoController.ObtenerPorFase(fase);
