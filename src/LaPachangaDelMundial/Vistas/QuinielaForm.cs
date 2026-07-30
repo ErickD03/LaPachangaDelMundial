@@ -27,12 +27,24 @@ namespace LaPachangaDelMundial.Views
         private void CargarMisQuinielas()
         {
             _misQuinielas = _quinielaController.ObtenerPorUsuario(_usuarioActivo.Id);
+
             lstMisQuinielas.Items.Clear();
 
-            foreach (var q in _misQuinielas)
+            foreach (Quiniela q in _misQuinielas)
             {
-                string tipo = q.Tipo == TipoQuiniela.Privada ? "[Privada]" : "[Pública]";
-                lstMisQuinielas.Items.Add($"{tipo} {q.Nombre} ({q.IdsIntegrantes.Count} integrantes)");
+                string tipo = "";
+
+                if (q.Tipo == TipoQuiniela.Privada)
+                {
+                    tipo = "[Privada]";
+                }
+                else
+                {
+                    tipo = "[Pública]";
+                }
+
+                lstMisQuinielas.Items.Add(tipo + " " + q.Nombre +
+                    " (" + q.IdsIntegrantes.Count + " integrantes)");
             }
 
             lstTimeline.Items.Clear();
@@ -41,13 +53,20 @@ namespace LaPachangaDelMundial.Views
         private void lstMisQuinielas_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = lstMisQuinielas.SelectedIndex;
-            if (index < 0) return;
+
+            if (index < 0)
+            {
+                return;
+            }
 
             Quiniela seleccionada = _misQuinielas[index];
+
             lstTimeline.Items.Clear();
 
-            foreach (string notif in seleccionada.Notificaciones)
-                lstTimeline.Items.Add(notif);
+            foreach (string notificacion in seleccionada.Notificaciones)
+            {
+                lstTimeline.Items.Add(notificacion);
+            }
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
@@ -85,7 +104,7 @@ namespace LaPachangaDelMundial.Views
 
         private void btnUnirse_Click(object sender, EventArgs e)
         {
-            var todasLasQuinielas = _quinielaController.ObtenerTodas();
+            List<Quiniela> todasLasQuinielas = _quinielaController.ObtenerTodas();
             var disponibles = todasLasQuinielas.FindAll(
                 q => !q.IdsIntegrantes.Contains(_usuarioActivo.Id));
 
@@ -112,13 +131,15 @@ namespace LaPachangaDelMundial.Views
 
             if (string.IsNullOrEmpty(seleccion)) return;
 
-            Quiniela encontrada = disponibles.Find(q => q.Nombre == seleccion);
+            Quiniela encontrada = null;
 
-            if (encontrada == null)
+            foreach (Quiniela q in disponibles)
             {
-                MessageBox.Show("No se encontró esa quiniela.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (q.Nombre == seleccion)
+                {
+                    encontrada = q;
+                    break;
+                }
             }
 
             bool unido = _quinielaController.UnirseAQuiniela(

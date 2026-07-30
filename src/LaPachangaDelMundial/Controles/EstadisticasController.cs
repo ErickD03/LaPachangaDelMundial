@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using LaPachangaDelMundial.Models;
 
 namespace LaPachangaDelMundial.Controllers
@@ -24,179 +23,318 @@ namespace LaPachangaDelMundial.Controllers
             _selecciones = selecciones;
         }
 
-        // equipo con mayores probabilidades de ganar en un periodo específico //
+        private string ObtenerNombre(string codigo)
+        {
+            foreach (Seleccion seleccion in _selecciones)
+            {
+                if (seleccion.Codigo == codigo)
+                {
+                    return seleccion.Nombre;
+                }
+            }
+
+            return codigo;
+        }
+
+        private List<Partido> ObtenerPartidosFinalizados(DateTime desde, DateTime hasta)
+        {
+            List<Partido> resultado = new List<Partido>();
+            foreach (Partido partido in _partidos)
+            {
+                if (partido.Estado == EstadoPartido.Finalizado &&
+                    partido.FechaHora >= desde && partido.FechaHora <= hasta)
+                {
+                    resultado.Add(partido);
+                }
+            }
+            return resultado;
+        }
+
+        private List<Pronostico> ObtenerPronosticosEnRango(DateTime desde, DateTime hasta)
+        {
+            List<string> idsPartidos = new List<string>();
+            foreach (Partido partido in _partidos)
+            {
+                if (partido.FechaHora >= desde && partido.FechaHora <= hasta)
+                    idsPartidos.Add(partido.Id);
+            }
+
+            List<Pronostico> resultado = new List<Pronostico>();
+            foreach (Pronostico pronostico in _pronosticos)
+            {
+                if (idsPartidos.Contains(pronostico.IdPartido))
+                    resultado.Add(pronostico);
+            }
+            return resultado;
+        }
+
+        // equipo más apostado como ganador //
         public string EquipoMasApostado(DateTime desde, DateTime hasta)
         {
-            var partidosRango = _partidos
-                .Where(p => p.FechaHora >= desde && p.FechaHora <= hasta)
-                .Select(p => p.Id)
-                .ToList();
+            List<Pronostico> pronosticos = ObtenerPronosticosEnRango(desde, hasta);
 
-            var apuestas = _pronosticos
-                .Where(p => partidosRango.Contains(p.IdPartido))
-                .GroupBy(p =>
+            string codigoGanador = "";
+            int maxVotos = 0;
+
+            Dictionary<string, int> conteo = new Dictionary<string, int>();
+
+            foreach (Pronostico pronostico in pronosticos)
+            {
+                Partido partido = null;
+                foreach (Partido p in _partidos)
                 {
-                    Partido partido = _partidos.FirstOrDefault(pa => pa.Id == p.IdPartido);
-                    if (partido == null) return "";
-                    return p.GolesLocal > p.GolesVisitante
-                        ? partido.CodigoLocal
-                        : p.GolesVisitante > p.GolesLocal
-                            ? partido.CodigoVisitante
-                            : "Empate";
-                })
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
+                    if (p.Id == pronostico.IdPartido) { partido = p; break; }
+                }
+                if (partido == null) continue;
 
-            if (apuestas == null) return "Sin datos";
+                string apostado = "";
+                if (pronostico.GolesLocal > pronostico.GolesVisitante)
+                    apostado = partido.CodigoLocal;
+                else if (pronostico.GolesVisitante > pronostico.GolesLocal)
+                    apostado = partido.CodigoVisitante;
+                else
+                    apostado = "Empate";
 
-            Seleccion sel = _selecciones.FirstOrDefault(s => s.Codigo == apuestas.Key);
-            return sel != null ? sel.Nombre : apuestas.Key;
+                if (apostado == "Empate") continue;
+
+                if (!conteo.ContainsKey(apostado))
+                    conteo[apostado] = 0;
+                conteo[apostado]++;
+
+                if (conteo[apostado] > maxVotos)
+                {
+                    maxVotos = conteo[apostado];
+                    codigoGanador = apostado;
+                }
+            }
+
+            if (codigoGanador == "") return "Sin datos";
+            return ObtenerNombre(codigoGanador);
         }
 
-        // resultado más repetido en rango de fechas //
+        // resultado más repetido en partidos finalizados //
         public string ResultadoMasRepetido(DateTime desde, DateTime hasta)
         {
-            var resultado = _partidos
-                .Where(p => p.Estado == EstadoPartido.Finalizado &&
-                            p.FechaHora >= desde && p.FechaHora <= hasta)
-                .GroupBy(p => $"{p.GolesLocal}-{p.GolesVisitante}")
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
+            Dictionary<string, int> resultados = new Dictionary<string, int>();
 
-            return resultado != null
-                ? $"{resultado.Key} ({resultado.Count()} veces)"
-                : "Sin datos";
+            foreach (Partido partido in _partidos)
+            {
+                if (partido.Estado == EstadoPartido.Finalizado &&
+                    partido.FechaHora >= desde &&
+                    partido.FechaHora <= hasta)
+                {
+                    string marcador = partido.GolesLocal + "-" + partido.GolesVisitante;
+
+                    if (resultados.ContainsKey(marcador))
+                        resultados[marcador]++;
+                    else
+                        resultados.Add(marcador, 1);
+                }
+            }
+
+            string mejor = "";
+            int mayor = 0;
+
+            foreach (KeyValuePair<string, int> dato in resultados)
+            {
+                if (dato.Value > mayor)
+                {
+                    mayor = dato.Value;
+                    mejor = dato.Key;
+                }
+            }
+
+            if (mejor == "")
+                return "Sin datos";
+
+            return mejor + " (" + mayor + " veces)";
         }
 
-        // partido más aciertos marcador exacto //
+        // partido con más aciertos de marcador exacto //
         public string PartidoConMasAciertos(DateTime desde, DateTime hasta)
         {
-            var partidosRango = _partidos
-                .Where(p => p.Estado == EstadoPartido.Finalizado &&
-                            p.FechaHora >= desde && p.FechaHora <= hasta)
-                .ToList();
+            List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
 
-            Partido mejor = null;
+            Partido mejorPartido = null;
             int maxAciertos = 0;
 
-            foreach (Partido p in partidosRango)
+            foreach (Partido partido in partidos)
             {
-                int aciertos = _pronosticos.Count(pr =>
-                    pr.IdPartido == p.Id &&
-                    pr.GolesLocal == p.GolesLocal &&
-                    pr.GolesVisitante == p.GolesVisitante);
+                int aciertos = 0;
+                foreach (Pronostico pronostico in _pronosticos)
+                {
+                    if (pronostico.IdPartido == partido.Id &&
+                        pronostico.GolesLocal == partido.GolesLocal &&
+                        pronostico.GolesVisitante == partido.GolesVisitante)
+                    {
+                        aciertos++;
+                    }
+                }
 
                 if (aciertos > maxAciertos)
                 {
                     maxAciertos = aciertos;
-                    mejor = p;
+                    mejorPartido = partido;
                 }
             }
 
-            if (mejor == null) return "Sin datos";
+            if (mejorPartido == null) return "Sin datos";
 
-            Seleccion local = _selecciones.FirstOrDefault(s => s.Codigo == mejor.CodigoLocal);
-            Seleccion visitante = _selecciones.FirstOrDefault(s => s.Codigo == mejor.CodigoVisitante);
-
-            string nombreLocal = local != null ? local.Nombre : mejor.CodigoLocal;
-            string nombreVisitante = visitante != null ? visitante.Nombre : mejor.CodigoVisitante;
-
-            return $"{nombreLocal} vs {nombreVisitante} ({maxAciertos} aciertos)";
+            string local = ObtenerNombre(mejorPartido.CodigoLocal);
+            string visitante = ObtenerNombre(mejorPartido.CodigoVisitante);
+            return $"{local} vs {visitante} ({maxAciertos} aciertos)";
         }
 
-        // ususario más aciertos en rango de fecha //
+        // usuario con más aciertos exactos en el rango //
         public string UsuarioConMasAciertos(DateTime desde, DateTime hasta)
         {
-            var partidosRango = _partidos
-                .Where(p => p.Estado == EstadoPartido.Finalizado &&
-                            p.FechaHora >= desde && p.FechaHora <= hasta)
-                .Select(p => p.Id)
-                .ToList();
+            List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
 
-            var mejor = _pronosticos
-                .Where(p => partidosRango.Contains(p.IdPartido) &&
-                            p.PuntosObtenidos == 5)
-                .GroupBy(p => p.IdUsuario)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
+            List<string> idsPartidos = new List<string>();
+            foreach (Partido partido in partidos)
+                idsPartidos.Add(partido.Id);
 
-            if (mejor == null) return "Sin datos";
+            Dictionary<string, int> aciertos = new Dictionary<string, int>();
 
-            Usuario usuario = _usuarios.FirstOrDefault(u => u.Id == mejor.Key);
-            return usuario != null
-                ? $"{usuario.NombreUsuario} ({mejor.Count()} aciertos exactos)"
-                : mejor.Key;
+            foreach (Pronostico pronostico in _pronosticos)
+            {
+                if (!idsPartidos.Contains(pronostico.IdPartido)) continue;
+                if (pronostico.PuntosObtenidos != 5) continue;
+
+                if (!aciertos.ContainsKey(pronostico.IdUsuario))
+                    aciertos[pronostico.IdUsuario] = 0;
+                aciertos[pronostico.IdUsuario]++;
+            }
+
+            string mejorUsuario = "";
+            int maxAciertos = 0;
+
+            foreach (KeyValuePair<string, int> item in aciertos)
+            {
+                if (item.Value > maxAciertos)
+                {
+                    maxAciertos = item.Value;
+                    mejorUsuario = item.Key;
+                }
+            }
+
+            if (mejorUsuario == "") return "Sin datos";
+
+            foreach (Usuario u in _usuarios)
+            {
+                if (u.Id == mejorUsuario)
+                    return $"{u.NombreUsuario} ({maxAciertos} aciertos exactos)";
+            }
+
+            return "Sin datos";
         }
 
-        // partido más pronostico registrados //
+        // partido con más pronósticos registrados //
         public string PartidoConMasPronosticos(DateTime desde, DateTime hasta)
         {
-            var partidosRango = _partidos
-                .Where(p => p.FechaHora >= desde && p.FechaHora <= hasta)
-                .Select(p => p.Id)
-                .ToList();
+            List<Pronostico> pronosticos = ObtenerPronosticosEnRango(desde, hasta);
 
-            var mejor = _pronosticos
-                .Where(p => partidosRango.Contains(p.IdPartido))
-                .GroupBy(p => p.IdPartido)
-                .OrderByDescending(g => g.Count())
-                .FirstOrDefault();
+            Dictionary<string, int> conteo = new Dictionary<string, int>();
 
-            if (mejor == null) return "Sin datos";
+            foreach (Pronostico pronostico in pronosticos)
+            {
+                if (!conteo.ContainsKey(pronostico.IdPartido))
+                    conteo[pronostico.IdPartido] = 0;
+                conteo[pronostico.IdPartido]++;
+            }
 
-            Partido partido = _partidos.FirstOrDefault(p => p.Id == mejor.Key);
-            if (partido == null) return "Sin datos";
+            string mejorId = "";
+            int maxPronosticos = 0;
 
-            Seleccion local = _selecciones.FirstOrDefault(s => s.Codigo == partido.CodigoLocal);
-            Seleccion visitante = _selecciones.FirstOrDefault(s => s.Codigo == partido.CodigoVisitante);
+            foreach (KeyValuePair<string, int> item in conteo)
+            {
+                if (item.Value > maxPronosticos)
+                {
+                    maxPronosticos = item.Value;
+                    mejorId = item.Key;
+                }
+            }
 
-            string nombreLocal = local != null ? local.Nombre : partido.CodigoLocal;
-            string nombreVisitante = visitante != null ? visitante.Nombre : partido.CodigoVisitante;
+            if (mejorId == "") return "Sin datos";
 
-            return $"{nombreLocal} vs {nombreVisitante} ({mejor.Count()} pronósticos)";
+            foreach (Partido partido in _partidos)
+            {
+                if (partido.Id == mejorId)
+                {
+                    string local = ObtenerNombre(partido.CodigoLocal);
+                    string visitante = ObtenerNombre(partido.CodigoVisitante);
+                    return $"{local} vs {visitante} ({maxPronosticos} pronósticos)";
+                }
+            }
+
+            return "Sin datos";
         }
 
-        // promedio goles partido rango de fechas //
+        // promedio de goles por partido en el rango //
         public string PromedioGoles(DateTime desde, DateTime hasta)
         {
-            var partidos = _partidos
-                .Where(p => p.Estado == EstadoPartido.Finalizado &&
-                            p.FechaHora >= desde && p.FechaHora <= hasta)
-                .ToList();
+            int totalGoles = 0;
+            int cantidad = 0;
 
-            if (partidos.Count == 0) return "Sin datos";
+            foreach (Partido partido in _partidos)
+            {
+                if (partido.Estado == EstadoPartido.Finalizado &&
+                    partido.FechaHora >= desde &&
+                    partido.FechaHora <= hasta)
+                {
+                    totalGoles += partido.GolesLocal + partido.GolesVisitante;
+                    cantidad++;
+                }
+            }
 
-            double promedio = partidos
-                .Average(p => p.GolesLocal + p.GolesVisitante);
+            if (cantidad == 0)
+                return "Sin datos";
 
-            return $"{promedio:F2} goles por partido";
+            double promedio = (double)totalGoles / cantidad;
+
+            return promedio.ToString("F2") + " goles por partido";
         }
 
-        // equipo sorpressa según diferencia de goles entre los no favoritos //
+        // mejor rendimiento entre no favoritos //
         public string EquipoSorpresa(DateTime desde, DateTime hasta)
         {
-            string[] favoritos = { "BRA", "ARG", "FRA", "ESP", "ENG", "GER", "POR" };
+            List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
 
-            var sorpresa = _partidos
-                .Where(p => p.Estado == EstadoPartido.Finalizado &&
-                            p.FechaHora >= desde && p.FechaHora <= hasta)
-                .SelectMany(p => new[]
+            List<string> favoritos = new List<string> { "BRA", "ARG", "FRA", "ESP", "ENG", "GER", "POR" };
+
+            Dictionary<string, int> diferencias = new Dictionary<string, int>();
+
+            foreach (Partido partido in partidos)
+            {
+                if (!favoritos.Contains(partido.CodigoLocal))
                 {
-                    new { Codigo = p.CodigoLocal,
-                          Goles = p.GolesLocal - p.GolesVisitante },
-                    new { Codigo = p.CodigoVisitante,
-                          Goles = p.GolesVisitante - p.GolesLocal }
-                })
-                .Where(x => !favoritos.Contains(x.Codigo))
-                .GroupBy(x => x.Codigo)
-                .Select(g => new { Codigo = g.Key, Total = g.Sum(x => x.Goles) })
-                .OrderByDescending(x => x.Total)
-                .FirstOrDefault();
+                    if (!diferencias.ContainsKey(partido.CodigoLocal))
+                        diferencias[partido.CodigoLocal] = 0;
+                    diferencias[partido.CodigoLocal] += partido.GolesLocal - partido.GolesVisitante;
+                }
 
-            if (sorpresa == null) return "Sin datos";
+                if (!favoritos.Contains(partido.CodigoVisitante))
+                {
+                    if (!diferencias.ContainsKey(partido.CodigoVisitante))
+                        diferencias[partido.CodigoVisitante] = 0;
+                    diferencias[partido.CodigoVisitante] += partido.GolesVisitante - partido.GolesLocal;
+                }
+            }
 
-            Seleccion sel = _selecciones.FirstOrDefault(s => s.Codigo == sorpresa.Codigo);
-            return sel != null ? sel.Nombre : sorpresa.Codigo;
+            string mejorEquipo = "";
+            int mejorDiferencia = int.MinValue;
+
+            foreach (KeyValuePair<string, int> item in diferencias)
+            {
+                if (item.Value > mejorDiferencia)
+                {
+                    mejorDiferencia = item.Value;
+                    mejorEquipo = item.Key;
+                }
+            }
+
+            if (mejorEquipo == "") return "Sin datos";
+            return ObtenerNombre(mejorEquipo);
         }
     }
 }

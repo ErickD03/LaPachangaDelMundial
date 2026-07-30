@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace LaPachangaDelMundial.Controllers
 {
@@ -45,10 +44,18 @@ namespace LaPachangaDelMundial.Controllers
         // valida si algun usuario pronostico el partido //
         public bool YaPronostico(string idUsuario, string idPartido)
         {
-            return _pronosticos.Any(p =>
-                p.IdUsuario == idUsuario &&
-                p.IdPartido == idPartido);
+            foreach (Pronostico partido in _pronosticos)
+            {
+                if (partido.IdUsuario == idUsuario &&
+                    partido.IdPartido == idPartido)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
+
 
         // realiza un registro de un nuevo prnostico //
         public bool Registrar(string idUsuario, string idPartido,
@@ -77,33 +84,42 @@ namespace LaPachangaDelMundial.Controllers
         // realiza el calculo de puntos para los pronosticos de un partido //
         public void CalcularPuntos(Partido partido)
         {
-            List<Pronostico> pronosticos = _pronosticos
-                .Where(p => p.IdPartido == partido.Id)
-                .ToList();
-
-            foreach (Pronostico p in pronosticos)
+            foreach (Pronostico pronostico in _pronosticos)
             {
-                if (p.GolesLocal == partido.GolesLocal &&
-                    p.GolesVisitante == partido.GolesVisitante)
+                if (pronostico.IdPartido != partido.Id)
+                    continue;
+
+                if (pronostico.GolesLocal == partido.GolesLocal &&
+                    pronostico.GolesVisitante == partido.GolesVisitante)
                 {
-                    p.PuntosObtenidos = 5; // si es marcador exacto //
+                    pronostico.PuntosObtenidos = 5;
                 }
                 else
                 {
-                    bool acertoGanador =
-                        (p.GolesLocal > p.GolesVisitante &&
-                         partido.GolesLocal > partido.GolesVisitante) ||
-                        (p.GolesLocal < p.GolesVisitante &&
-                         partido.GolesLocal < partido.GolesVisitante) ||
-                        (p.GolesLocal == p.GolesVisitante &&
-                         partido.GolesLocal == partido.GolesVisitante);
+                    bool acertoGanador = false;
 
-                    p.PuntosObtenidos = acertoGanador ? 2 : 0;
+                    if (pronostico.GolesLocal > pronostico.GolesVisitante &&
+                        partido.GolesLocal > partido.GolesVisitante)
+                        acertoGanador = true;
+
+                    if (pronostico.GolesLocal < pronostico.GolesVisitante &&
+                        partido.GolesLocal < partido.GolesVisitante)
+                        acertoGanador = true;
+
+                    if (pronostico.GolesLocal == pronostico.GolesVisitante &&
+                        partido.GolesLocal == partido.GolesVisitante)
+                        acertoGanador = true;
+
+                    if (acertoGanador)
+                        pronostico.PuntosObtenidos = 2;
+                    else
+                        pronostico.PuntosObtenidos = 0;
                 }
             }
 
             Guardar();
         }
+
 
         // devuelve pronósticos de un usuario o todos si idUsuario es null //
         public List<Pronostico> ObtenerPorUsuario(string idUsuario)
@@ -111,45 +127,80 @@ namespace LaPachangaDelMundial.Controllers
             if (idUsuario == null)
                 return _pronosticos;
 
-            return _pronosticos
-                .Where(p => p.IdUsuario == idUsuario)
-                .ToList();
+            List<Pronostico> lista = new List<Pronostico>();
+
+            foreach (Pronostico pronostico in _pronosticos)
+            {
+                if (pronostico.IdUsuario == idUsuario)
+                {
+                    lista.Add(pronostico);
+                }
+            }
+            return lista;
         }
+
 
         // devuelve ranking global de usuarios //
         public List<RankingItem> ObtenerRankingGlobal(List<Usuario> usuarios)
         {
-            return usuarios
-                .Select(u => new RankingItem
+            List<RankingItem> ranking = new List<RankingItem>();
+
+            foreach (Usuario usuario in usuarios)
+            {
+                int puntos = usuario.Puntos;
+
+                foreach (Pronostico pronostico in _pronosticos)
                 {
-                    IdUsuario = u.Id,
-                    NombreUsuario = u.NombreUsuario,
-                    Puntos = u.Puntos +
-                        _pronosticos
-                            .Where(p => p.IdUsuario == u.Id)
-                            .Sum(p => p.PuntosObtenidos)
-                })
-                .OrderByDescending(r => r.Puntos)
-                .ToList();
+                    if (pronostico.IdUsuario == usuario.Id)
+                    {
+                        puntos += pronostico.PuntosObtenidos;
+                    }
+                }
+
+                RankingItem item = new RankingItem();
+                item.IdUsuario = usuario.Id;
+                item.NombreUsuario = usuario.NombreUsuario;
+                item.Puntos = puntos;
+
+                ranking.Add(item);
+            }
+
+            ranking.Sort((a, b) => b.Puntos.CompareTo(a.Puntos));
+
+            return ranking;
         }
 
         // devuelve ranking de quiniela especifia //
-        public List<RankingItem> ObtenerRankingQuiniela(
-            Quiniela quiniela, List<Usuario> usuarios)
+        public List<RankingItem> ObtenerRankingQuiniela(Quiniela quiniela, List<Usuario> usuarios)
         {
-            return usuarios
-                .Where(u => quiniela.IdsIntegrantes.Contains(u.Id))
-                .Select(u => new RankingItem
+            List<RankingItem> ranking = new List<RankingItem>();
+
+            foreach (Usuario usuario in usuarios)
+            {
+                if (!quiniela.IdsIntegrantes.Contains(usuario.Id))
+                    continue;
+
+                int puntos = usuario.Puntos;
+
+                foreach (Pronostico partido in _pronosticos)
                 {
-                    IdUsuario = u.Id,
-                    NombreUsuario = u.NombreUsuario,
-                    Puntos = u.Puntos +
-                        _pronosticos
-                            .Where(p => p.IdUsuario == u.Id)
-                            .Sum(p => p.PuntosObtenidos)
-                })
-                .OrderByDescending(r => r.Puntos)
-                .ToList();
+                    if (partido.IdUsuario == usuario.Id)
+                    {
+                        puntos += partido.PuntosObtenidos;
+                    }
+                }
+
+                RankingItem item = new RankingItem();
+                item.IdUsuario = usuario.Id;
+                item.NombreUsuario = usuario.NombreUsuario;
+                item.Puntos = puntos;
+
+                ranking.Add(item);
+            }
+
+            ranking.Sort((a, b) => b.Puntos.CompareTo(a.Puntos));
+
+            return ranking;
         }
     }
 

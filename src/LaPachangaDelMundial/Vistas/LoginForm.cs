@@ -50,7 +50,7 @@ namespace LaPachangaDelMundial.Vistas
 
             if (registro.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Ahora puedes ingresar con tu nuevo usuario.",
+                MessageBox.Show("Listo, puedes ingresar con tu nuevo usuario.",
                     "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

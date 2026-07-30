@@ -24,7 +24,6 @@ namespace LaPachangaDelMundial.Views
 
         private void EstadisticasForm_Load(object sender, EventArgs e)
         {
-            // calcula con el rango defecto al abrir //
             Calcular();
         }
 
@@ -41,7 +40,7 @@ namespace LaPachangaDelMundial.Views
             if (desde > hasta)
             {
                 MessageBox.Show("La fecha 'Desde' no puede ser mayor que 'Hasta'.",
-                    "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    "Fechas incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

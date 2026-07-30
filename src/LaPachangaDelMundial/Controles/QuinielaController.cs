@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System;
@@ -26,24 +25,44 @@ namespace LaPachangaDelMundial.Controllers
         // retorna las quinielas de un usuario en particular //
         public List<Quiniela> ObtenerPorUsuario(string idUsuario)
         {
-            return _quinielas
-                .Where(q => q.IdsIntegrantes.Contains(idUsuario))
-                .ToList();
+            List<Quiniela> lista = new List<Quiniela>();
+
+            foreach (Quiniela quiniela in _quinielas)
+            {
+                if (quiniela.IdsIntegrantes.Contains(idUsuario))
+                {
+                    lista.Add(quiniela);
+                }
+            }
+
+            return lista;
         }
 
         // devuelve quienielas publicas //
         public List<Quiniela> ObtenerPublicas()
         {
-            return _quinielas
-                .Where(q => q.Tipo == TipoQuiniela.Publica)
-                .ToList();
+            List<Quiniela> lista = new List<Quiniela>();
+
+            foreach (Quiniela quiniela in _quinielas)
+            {
+                if (quiniela.Tipo == TipoQuiniela.Publica)
+                {
+                    lista.Add(quiniela);
+                }
+            }
+            return lista;
         }
 
         // crea nueva quinuela //
         public bool Crear(string nombre, TipoQuiniela tipo, string idCreador)
         {
-            if (_quinielas.Any(q => q.Nombre == nombre))
-                return false;
+            foreach (Quiniela quiniela in _quinielas)
+            {
+                if (quiniela.Nombre == nombre)
+                {
+                    return false;
+                }
+            }
 
             Quiniela nueva = new Quiniela
             {
@@ -66,10 +85,21 @@ namespace LaPachangaDelMundial.Controllers
         // agrega usuario a una quiniela que ya exista //
         public bool UnirseAQuiniela(string idQuiniela, string idUsuario)
         {
-            Quiniela quiniela = _quinielas.FirstOrDefault(q => q.Id == idQuiniela);
+            Quiniela quiniela = null;
+
+            foreach (Quiniela q in _quinielas)
+            {
+                if (q.Id == idQuiniela)
+                {
+                    quiniela = q;
+                    break;
+                }
+            }
 
             if (quiniela == null)
+            {
                 return false;
+            }
 
             if (quiniela.IdsIntegrantes.Contains(idUsuario))
                 return false;
@@ -83,8 +113,21 @@ namespace LaPachangaDelMundial.Controllers
         // agrega notificacion al timeline de la quiniela //
         public void AgregarNotificacion(string idQuiniela, string mensaje)
         {
-            Quiniela quiniela = _quinielas.FirstOrDefault(q => q.Id == idQuiniela);
-            if (quiniela == null) return;
+            Quiniela quiniela = null;
+
+            foreach (Quiniela q in _quinielas)
+            {
+                if (q.Id == idQuiniela)
+                {
+                    quiniela = q;
+                    break;
+                }
+            }
+
+            if (quiniela == null)
+            {
+                return;
+            }
 
             quiniela.Notificaciones.Add(mensaje);
             Guardar();

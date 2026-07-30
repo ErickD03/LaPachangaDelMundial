@@ -22,8 +22,9 @@ namespace LaPachangaDelMundial.Views
             _partidoController.ActualizarEstados();
 
             lblFechaSimulada.Text =
-                $"Fecha simulada: {SistemaFecha.FechaActual:dd/MM/yyyy HH:mm} " +
-                $"(Fase actual: Mundial Finalizado)";
+                "Fecha simulada: " +
+                SistemaFecha.FechaActual.ToString("dd/MM/yyyy HH:mm");
+
 
             CargarUltimos5();
             CargarGrupos();
@@ -38,8 +39,17 @@ namespace LaPachangaDelMundial.Views
             {
                 string local = _partidoController.ObtenerNombreSeleccion(p.CodigoLocal);
                 string visitante = _partidoController.ObtenerNombreSeleccion(p.CodigoVisitante);
-                lstUltimos.Items.Add(
-                    $"{p.FechaHora:dd/MM} | {local,-20} {p.GolesLocal} - {p.GolesVisitante,-2} {visitante}");
+                string texto = p.FechaHora.ToString("dd/MM");
+                texto += " | ";
+                texto += local;
+                texto += " ";
+                texto += p.GolesLocal;
+                texto += " - ";
+                texto += p.GolesVisitante;
+                texto += " ";
+                texto += visitante;
+
+                lstUltimos.Items.Add(texto);
             }
         }
 
@@ -137,18 +147,25 @@ namespace LaPachangaDelMundial.Views
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (tabControl.SelectedIndex)
+            if (tabControl.SelectedIndex == 0)
             {
-                case 0: CargarUltimos5(); break;
-                case 1: CargarProximos24(); break;
-                case 2:
-                    if (cboGrupo.SelectedIndex >= 0)
-                    {
-                        string grupo = cboGrupo.SelectedItem.ToString().Replace("Grupo ", "");
-                        CargarTablaGrupo(grupo);
-                    }
-                    break;
-                case 3: CargarEliminatoria(); break;
+                CargarUltimos5();
+            }
+            else if (tabControl.SelectedIndex == 1)
+            {
+                CargarProximos24();
+            }
+            else if (tabControl.SelectedIndex == 2)
+            {
+                if (cboGrupo.SelectedIndex >= 0)
+                {
+                    string grupo = cboGrupo.SelectedItem.ToString().Replace("Grupo ", "");
+                    CargarTablaGrupo(grupo);
+                }
+            }
+            else if (tabControl.SelectedIndex == 3)
+            {
+                CargarEliminatoria();
             }
         }
 

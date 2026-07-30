@@ -64,7 +64,7 @@ namespace LaPachangaDelMundial.Views
                 return;
             }
 
-            MessageBox.Show($"¡Registro exitoso! Ya podés ingresar con tu usuario.",
+            MessageBox.Show($"¡Registro exitoso! Ya puedes ingresar con tu usuario.",
                 "Registro completado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             this.DialogResult = DialogResult.OK;
