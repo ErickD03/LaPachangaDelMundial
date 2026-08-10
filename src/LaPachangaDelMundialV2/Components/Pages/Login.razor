@@ -1,0 +1,66 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject UsuarioController UsuarioCtrl
+@inject NavigationManager Nav
+
+<h3>La Pachanga del Mundial</h3>
+<h5>Iniciar Sesión</h5>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p style="color:red;">@mensaje</p>
+}
+
+<div>
+    <label>Usuario:</label>
+    <input @bind="nombreUsuario" placeholder="Nombre de usuario" />
+</div>
+
+<br />
+
+<div>
+    <label>Contraseña:</label>
+    <input @bind="contrasena" type="password" placeholder="Contraseña" />
+</div>
+
+<br />
+
+<button @onclick="Ingresar">Ingresar</button>
+<button @onclick="IrARegistro">Registrarse</button>
+
+@code {
+    string nombreUsuario = "";
+    string contrasena = "";
+    string mensaje = "";
+
+    void Ingresar()
+    {
+        mensaje = "";
+
+        if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
+        {
+            mensaje = "Es necesario completar todos los campos.";
+            return;
+        }
+
+        Usuario usuario = UsuarioCtrl.Login(nombreUsuario, contrasena);
+
+        if (usuario == null)
+        {
+            mensaje = "Usuario o contraseña incorrectos.";
+            return;
+        }
+
+        Sesion.IniciarSesion(usuario);
+        Nav.NavigateTo("/dashboard");
+    }
+
+    void IrARegistro()
+    {
+        Nav.NavigateTo("/registro");
+    }
+}

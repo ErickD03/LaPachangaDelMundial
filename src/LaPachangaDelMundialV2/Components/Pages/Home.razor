@@ -1,0 +1,63 @@
+﻿@page "/"
+@page "/dashboard"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Utils
+@using LaPachangaDelMundialV2.Models
+@inject SesionUsuario Sesion
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>¡Bienvenido, @Sesion.UsuarioActivo.NombreUsuario!</h3>
+
+    <hr />
+
+    <div>
+        <h5>Mi perfil</h5>
+        <p><strong>País preferido:</strong> @Sesion.UsuarioActivo.CodigoPaisPreferido</p>
+        <p><strong>Puntos:</strong> @Sesion.UsuarioActivo.Puntos</p>
+
+        @if (Sesion.UsuarioActivo.Insignias.Count > 0)
+        {
+            <p><strong>Insignias:</strong> @string.Join(", ", Sesion.UsuarioActivo.Insignias)</p>
+        }
+        else
+        {
+            <p><strong>Insignias:</strong> Sin insignias aún</p>
+        }
+    </div>
+
+    <hr />
+
+    <div>
+        <h5>Menú</h5>
+        <button @onclick="IrAPartidos">Partidos</button>
+        <button @onclick="IrAQuinielas">Quinielas</button>
+        <button @onclick="IrAPronosticos">Pronósticos</button>
+        <button @onclick="IrAEstadisticas">Estadísticas</button>
+        <button @onclick="CerrarSesion">Cerrar sesión</button>
+    </div>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado)
+            Nav.NavigateTo("/login");
+    }
+
+    void IrAPartidos() => Nav.NavigateTo("/partidos");
+    void IrAQuinielas() => Nav.NavigateTo("/quinielas");
+    void IrAPronosticos() => Nav.NavigateTo("/pronosticos");
+    void IrAEstadisticas() => Nav.NavigateTo("/estadisticas");
+
+    void CerrarSesion()
+    {
+        Sesion.CerrarSesion();
+        Nav.NavigateTo("/login");
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LaPachangaDelMundial.Utils
+namespace LaPachangaDelMundialV2.Utils
 {
     public static class SistemaFecha
     {
