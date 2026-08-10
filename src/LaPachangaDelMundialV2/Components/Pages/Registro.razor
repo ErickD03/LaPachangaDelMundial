@@ -1,0 +1,95 @@
+﻿@page "/registro"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject UsuarioController UsuarioCtrl
+@inject NavigationManager Nav
+
+<h3>Registro de Usuario</h3>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <p style="color:@colorMensaje;">@mensaje</p>
+}
+
+<div>
+    <label>Nombre de usuario:</label>
+    <input @bind="nombreUsuario" placeholder="Mínimo 4 caracteres" />
+</div>
+<br />
+<div>
+    <label>Contraseña:</label>
+    <input @bind="contrasena" type="password" placeholder="Mínimo 6 caracteres" />
+</div>
+<br />
+<div>
+    <label>País preferido:</label>
+    <select @bind="codigoPais">
+        <option value="">-- Seleccioná un país --</option>
+        @foreach (var seleccion in selecciones)
+        {
+            <option value="@seleccion.Codigo">@seleccion.Nombre</option>
+        }
+    </select>
+</div>
+<br />
+<button @onclick="Registrar">Registrarse</button>
+<button @onclick="IrALogin">Cancelar</button>
+
+@code {
+    string nombreUsuario = "";
+    string contrasena = "";
+    string codigoPais = "";
+    string mensaje = "";
+    string colorMensaje = "red";
+
+    List<Seleccion> selecciones = new List<Seleccion>();
+
+    protected override void OnInitialized()
+    {
+        selecciones = JsonLoader.CargarSelecciones();
+    }
+
+    void Registrar()
+    {
+        mensaje = "";
+
+        if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
+        {
+            mensaje = "Por favor completá todos los campos.";
+            return;
+        }
+
+        if (nombreUsuario.Length < 4)
+        {
+            mensaje = "El nombre de usuario debe tener al menos 4 caracteres.";
+            return;
+        }
+
+        if (contrasena.Length < 6)
+        {
+            mensaje = "La contraseña debe tener al menos 6 caracteres.";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(codigoPais))
+        {
+            mensaje = "Por favor seleccioná un país.";
+            return;
+        }
+
+        bool registrado = UsuarioCtrl.Registrar(nombreUsuario, contrasena, codigoPais);
+
+        if (!registrado)
+        {
+            mensaje = "Ese nombre de usuario ya está en uso. Elegí otro.";
+            return;
+        }
+
+        colorMensaje = "green";
+        mensaje = "¡Registro exitoso! Ya podés iniciar sesión.";
+    }
+
+    void IrALogin() => Nav.NavigateTo("/login");
+}
