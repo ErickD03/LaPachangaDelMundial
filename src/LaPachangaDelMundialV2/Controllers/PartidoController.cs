@@ -136,7 +136,7 @@ namespace LaPachangaDelMundialV2.Controllers
             foreach (Partido partido in _partidos)
             {
                 if (partido.Fase == fase)
-                resultado.Add(partido);
+                    resultado.Add(partido);
             }
 
             return resultado;

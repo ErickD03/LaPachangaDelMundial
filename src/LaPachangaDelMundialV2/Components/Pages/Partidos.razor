@@ -1,0 +1,163 @@
+﻿@page "/partidos"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject PartidoController PartidoCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Partidos del Mundial 2026</h3>
+    <button @onclick="VolverDashboard">← Volver</button>
+    <hr />
+
+    <div>
+        <button @onclick='() => pestanaActiva = "ultimos"'>Últimos 5</button>
+        <button @onclick='() => pestanaActiva = "proximos"'>Próximos 24h</button>
+        <button @onclick='() => pestanaActiva = "grupos"'>Tabla de Grupos</button>
+        <button @onclick='() => pestanaActiva = "eliminatoria"'>Fase Eliminatoria</button>
+    </div>
+
+    <hr />
+
+    @if (pestanaActiva == "ultimos")
+    {
+        <h5>Últimos 5 partidos</h5>
+        @foreach (var p in ultimos)
+        {
+            <p>@p.FechaHora.ToString("dd/MM") | @PartidoCtrl.ObtenerNombreSeleccion(p.CodigoLocal) @p.GolesLocal - @p.GolesVisitante @PartidoCtrl.ObtenerNombreSeleccion(p.CodigoVisitante)</p>
+        }
+    }
+
+    @if (pestanaActiva == "proximos")
+    {
+        <h5>Próximos partidos (24 horas)</h5>
+        @if (proximos.Count == 0)
+        {
+            <p>No hay partidos en las próximas 24 horas.</p>
+        }
+        else
+        {
+            @foreach (var p in proximos)
+            {
+                <p>@p.FechaHora.ToString("dd/MM HH:mm") | @PartidoCtrl.ObtenerNombreSeleccion(p.CodigoLocal) vs @PartidoCtrl.ObtenerNombreSeleccion(p.CodigoVisitante) [@p.Fase]</p>
+            }
+        }
+    }
+
+    @if (pestanaActiva == "grupos")
+    {
+        <h5>Tabla de Grupos</h5>
+        <select @bind="grupoSeleccionado" @bind:after="CargarTabla">
+            @foreach (var g in grupos)
+            {
+                <option value="@g">Grupo @g</option>
+            }
+        </select>
+
+        <br /><br />
+
+        @if (tablaGrupo.Count > 0)
+        {
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>#</th>
+                    <th>Equipo</th>
+                    <th>PJ</th>
+                    <th>G</th>
+                    <th>E</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DG</th>
+                    <th>Pts</th>
+                </tr>
+                @for (int i = 0; i < tablaGrupo.Count; i++)
+                {
+                    var pos = tablaGrupo[i];
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@pos.Nombre</td>
+                        <td>@pos.PartidosJugados</td>
+                        <td>@pos.Ganados</td>
+                        <td>@pos.Empatados</td>
+                        <td>@pos.Perdidos</td>
+                        <td>@pos.GolesFavor</td>
+                        <td>@pos.GolesContra</td>
+                        <td>@pos.DiferenciaGoles</td>
+                        <td>@pos.Puntos</td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+
+    @if (pestanaActiva == "eliminatoria")
+    {
+        <h5>Fase Eliminatoria</h5>
+        @foreach (var fase in fases)
+        {
+            var partidos = PartidoCtrl.ObtenerPorFase(fase);
+            @if (partidos.Count > 0)
+            {
+                <h6>=== @fase ===</h6>
+                @foreach (var p in partidos)
+                {
+                    string local = PartidoCtrl.ObtenerNombreSeleccion(p.CodigoLocal);
+                    string visitante = PartidoCtrl.ObtenerNombreSeleccion(p.CodigoVisitante);
+                    @if (p.Estado == EstadoPartido.Finalizado)
+                    {
+                        <p>@local @p.GolesLocal - @p.GolesVisitante @visitante</p>
+                    }
+                    else
+                    {
+                        <p>@local vs @visitante [@p.Estado]</p>
+                    }
+                }
+            }
+        }
+    }
+}
+
+@code {
+
+    void VolverDashboard()
+    {
+        Nav.NavigateTo("/dashboard");
+    }
+
+    string pestanaActiva = "ultimos";
+    string grupoSeleccionado = "A";
+
+    List<Partido> ultimos = new List<Partido>();
+    List<Partido> proximos = new List<Partido>();
+    List<PosicionGrupo> tablaGrupo = new List<PosicionGrupo>();
+
+    string[] grupos = { "A","B","C","D","E","F","G","H","I","J","K","L" };
+    string[] fases = { "Dieciseisavos","Octavos","Cuartos","Semifinales","TercerPuesto","Final" };
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        PartidoCtrl.ActualizarEstados();
+        ultimos = PartidoCtrl.ObtenerUltimos5();
+        proximos = PartidoCtrl.ObtenerProximos24Horas();
+        CargarTabla();
+    }
+
+    void CargarTabla()
+    {
+        tablaGrupo = PartidoCtrl.CalcularTablaGrupo(grupoSeleccionado);
+    }
+}
