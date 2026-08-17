@@ -1,0 +1,211 @@
+﻿@page "/quinielas"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject QuinielaController QuinielaCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Mis Quinielas</h3>
+    <button @onclick="VolverDashboard">← Volver</button>
+    <hr />
+
+    <div>
+        <button @onclick='() => pestanaActiva = "misquinielas"'>Mis Quinielas</button>
+        <button @onclick='() => pestanaActiva = "crear"'>Crear Quiniela</button>
+        <button @onclick='() => pestanaActiva = "unirse"'>Unirse a Quiniela</button>
+    </div>
+
+    <hr />
+
+    @if (pestanaActiva == "misquinielas")
+    {
+        <h5>Mis Quinielas</h5>
+        @if (misQuinielas.Count == 0)
+        {
+            <p>No pertenecés a ninguna quiniela todavía.</p>
+        }
+        else
+        {
+            @foreach (var q in misQuinielas)
+            {
+                <div style="border:1px solid gray; padding:10px; margin:10px 0;">
+                    <h6>@q.Nombre (@q.Tipo)</h6>
+                    <p>Integrantes: @q.IdsIntegrantes.Count</p>
+                    <button @onclick="() => VerTimeline(q)">Ver Timeline</button>
+                </div>
+            }
+        }
+
+        @if (quinielaSeleccionada != null)
+        {
+            <hr />
+            <h5>Timeline de @quinielaSeleccionada.Nombre</h5>
+            @if (quinielaSeleccionada.Notificaciones.Count == 0)
+            {
+                <p>Sin notificaciones aún.</p>
+            }
+            else
+            {
+                @foreach (var notif in quinielaSeleccionada.Notificaciones)
+                {
+                    <p>🔔 @notif</p>
+                }
+            }
+        }
+    }
+
+    @if (pestanaActiva == "crear")
+    {
+        <h5>Crear nueva quiniela</h5>
+
+        @if (!string.IsNullOrEmpty(mensajeCrear))
+        {
+            <p style="color:@colorMensaje;">@mensajeCrear</p>
+        }
+
+        <div>
+            <label>Nombre:</label>
+            <input @bind="nombreNuevaQuiniela" placeholder="Nombre de la quiniela" />
+        </div>
+        <br />
+        <div>
+            <label>Tipo:</label>
+            <select @bind="tipoNuevaQuiniela">
+                <option value="Privada">Privada</option>
+                <option value="Publica">Pública</option>
+            </select>
+        </div>
+        <br />
+        <button @onclick="CrearQuiniela">Crear</button>
+    }
+
+    @if (pestanaActiva == "unirse")
+    {
+        <h5>Unirse a una quiniela</h5>
+
+        @if (!string.IsNullOrEmpty(mensajeUnirse))
+        {
+            <p style="color:@colorMensajeUnirse;">@mensajeUnirse</p>
+        }
+
+        <p>Quinielas disponibles:</p>
+        @foreach (var q in quinielasDisponibles)
+        {
+            <div style="border:1px solid gray; padding:10px; margin:5px 0;">
+                <p><strong>@q.Nombre</strong> (@q.Tipo) — @q.IdsIntegrantes.Count integrantes</p>
+                <button @onclick="() => UnirseAQuiniela(q)">Unirse</button>
+            </div>
+        }
+
+        @if (quinielasDisponibles.Count == 0)
+        {
+            <p>No hay quinielas disponibles para unirse.</p>
+        }
+    }
+}
+
+@code {
+    string pestanaActiva = "misquinielas";
+    string nombreNuevaQuiniela = "";
+    string tipoNuevaQuiniela = "Privada";
+    string mensajeCrear = "";
+    string mensajeUnirse = "";
+    string colorMensaje = "green";
+    string colorMensajeUnirse = "green";
+
+    List<Quiniela> misQuinielas = new List<Quiniela>();
+    List<Quiniela> quinielasDisponibles = new List<Quiniela>();
+    Quiniela quinielaSeleccionada = null;
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        CargarDatos();
+    }
+
+    void CargarDatos()
+    {
+        misQuinielas = QuinielaCtrl.ObtenerPorUsuario(Sesion.UsuarioActivo.Id);
+
+        List<Quiniela> todas = QuinielaCtrl.ObtenerTodas();
+        quinielasDisponibles = new List<Quiniela>();
+
+        foreach (Quiniela q in todas)
+        {
+            if (!q.IdsIntegrantes.Contains(Sesion.UsuarioActivo.Id))
+                quinielasDisponibles.Add(q);
+        }
+    }
+
+    void VerTimeline(Quiniela q)
+    {
+        quinielaSeleccionada = q;
+    }
+
+    void CrearQuiniela()
+    {
+        mensajeCrear = "";
+
+        if (string.IsNullOrEmpty(nombreNuevaQuiniela))
+        {
+            colorMensaje = "red";
+            mensajeCrear = "Por favor ingresá un nombre para la quiniela.";
+            return;
+        }
+
+        TipoQuiniela tipo = tipoNuevaQuiniela == "Privada"
+            ? TipoQuiniela.Privada
+            : TipoQuiniela.Publica;
+
+        bool creada = QuinielaCtrl.Crear(
+            nombreNuevaQuiniela, tipo, Sesion.UsuarioActivo.Id);
+
+        if (creada)
+        {
+            colorMensaje = "green";
+            mensajeCrear = $"Quiniela '{nombreNuevaQuiniela}' creada exitosamente.";
+            nombreNuevaQuiniela = "";
+            CargarDatos();
+        }
+        else
+        {
+            colorMensaje = "red";
+            mensajeCrear = "Ya existe una quiniela con ese nombre.";
+        }
+    }
+
+    void UnirseAQuiniela(Quiniela q)
+    {
+        bool unido = QuinielaCtrl.UnirseAQuiniela(q.Id, Sesion.UsuarioActivo.Id);
+
+        if (unido)
+        {
+            colorMensajeUnirse = "green";
+            mensajeUnirse = $"Te uniste a '{q.Nombre}' exitosamente.";
+            CargarDatos();
+        }
+        else
+        {
+            colorMensajeUnirse = "red";
+            mensajeUnirse = "No se pudo unir a la quiniela.";
+        }
+    }
+
+    void VolverDashboard()
+    {
+        Nav.NavigateTo("/dashboard");
+    }
+}
