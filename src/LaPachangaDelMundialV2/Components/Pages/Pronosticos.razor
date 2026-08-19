@@ -1,0 +1,237 @@
+﻿@page "/pronosticos"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject PronosticoController PronosticoCtrl
+@inject PartidoController PartidoCtrl
+@inject UsuarioController UsuarioCtrl
+@inject QuinielaController QuinielaCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Pronósticos</h3>
+    <button @onclick="VolverDashboard">← Volver</button>
+    <hr />
+
+    <div>
+        <button @onclick='() => pestanaActiva = "pronosticar"'>Pronosticar</button>
+        <button @onclick='() => pestanaActiva = "historial"'>Mi Historial</button>
+        <button @onclick='() => pestanaActiva = "ranking"'>Ranking</button>
+    </div>
+
+    <hr />
+
+    @if (pestanaActiva == "pronosticar")
+    {
+        <h5>Partidos disponibles para pronosticar</h5>
+
+        @if (partidosPendientes.Count == 0)
+        {
+            <p>No hay partidos disponibles para pronosticar.</p>
+        }
+        else
+        {
+            @foreach (var partido in partidosPendientes)
+            {
+                string local = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal);
+                string visitante = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante);
+                bool yaPronostico = PronosticoCtrl.YaPronostico(Sesion.UsuarioActivo.Id, partido.Id);
+
+                <div style="border:1px solid gray; padding:10px; margin:5px 0;">
+                    <p><strong>@partido.FechaHora.ToString("dd/MM HH:mm")</strong> — @local vs @visitante [@partido.Fase]</p>
+
+                    @if (yaPronostico)
+                    {
+                        <p style="color:green;">✓ Ya pronosticaste este partido</p>
+                    }
+                    else
+                    {
+                        <div>
+                            <label>@local:</label>
+                            <input type="number" min="0" max="20"
+                                   @bind="golesLocal[partido.Id]" style="width:50px;" />
+                            <label> - @visitante:</label>
+                            <input type="number" min="0" max="20"
+                                   @bind="golesVisitante[partido.Id]" style="width:50px;" />
+                            <button @onclick="() => Pronosticar(partido)">Guardar</button>
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+        @if (!string.IsNullOrEmpty(mensajePronostico))
+        {
+            <p style="color:green;">@mensajePronostico</p>
+        }
+    }
+
+    @if (pestanaActiva == "historial")
+    {
+        <h5>Mi Historial de Pronósticos</h5>
+
+        @if (historial.Count == 0)
+        {
+            <p>No tenés pronósticos registrados aún.</p>
+        }
+        else
+        {
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Partido</th>
+                    <th>Tu pronóstico</th>
+                    <th>Resultado real</th>
+                    <th>Puntos</th>
+                </tr>
+                @foreach (var pronostico in historial)
+                {
+                    Partido partido = PartidoCtrl.ObtenerTodos().Find(partido => partido.Id == pronostico.IdPartido);
+                    @if (partido != null)
+                    {
+                        string local = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal);
+                        string visitante = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante);
+                        string resultado = partido.Estado == EstadoPartido.Finalizado
+                        ? $"{partido.GolesLocal} - {partido.GolesVisitante}"
+                        : "Pendiente";
+                        string puntos = partido.Estado == EstadoPartido.Finalizado
+                        ? pronostico.PuntosObtenidos.ToString()
+                        : "-";
+
+                        <tr>
+                            <td>@local vs @visitante</td>
+                            <td>@pronostico.GolesLocal - @pronostico.GolesVisitante</td>
+                            <td>@resultado</td>
+                            <td>@puntos</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    }
+
+    @if (pestanaActiva == "ranking")
+    {
+        <h5>Ranking</h5>
+
+        <select @bind="quinielaRanking" @bind:after="CargarRanking">
+            <option value="global">Ranking Global</option>
+            @foreach (var quiniela in misQuinielas)
+            {
+                <option value="@quiniela.Id">@quiniela.Nombre</option>
+            }
+        </select>
+
+        <br />
+        <br />
+
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Puntos</th>
+            </tr>
+            @for (int i = 0; i < ranking.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@ranking[i].NombreUsuario</td>
+                    <td>@ranking[i].Puntos</td>
+                </tr>
+            }
+        </table>
+    }
+}
+
+@code {
+    string pestanaActiva = "pronosticar";
+    string mensajePronostico = "";
+    string quinielaRanking = "global";
+
+    List<Partido> partidosPendientes = new List<Partido>();
+    List<Pronostico> historial = new List<Pronostico>();
+    List<RankingItem> ranking = new List<RankingItem>();
+    List<Quiniela> misQuinielas = new List<Quiniela>();
+
+    Dictionary<string, int> golesLocal = new Dictionary<string, int>();
+    Dictionary<string, int> golesVisitante = new Dictionary<string, int>();
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        CargarDatos();
+    }
+
+    void CargarDatos()
+    {
+        PartidoCtrl.ActualizarEstados();
+
+        partidosPendientes = new List<Partido>();
+        foreach (Partido partido in PartidoCtrl.ObtenerTodos())
+        {
+            if (partido.Estado == EstadoPartido.Pendiente)
+            {
+                partidosPendientes.Add(partido);
+                if (!golesLocal.ContainsKey(partido.Id))
+                    golesLocal[partido.Id] = 0;
+                if (!golesVisitante.ContainsKey(partido.Id))
+                    golesVisitante[partido.Id] = 0;
+            }
+        }
+
+        historial = PronosticoCtrl.ObtenerPorUsuario(Sesion.UsuarioActivo.Id);
+        misQuinielas = QuinielaCtrl.ObtenerPorUsuario(Sesion.UsuarioActivo.Id);
+        CargarRanking();
+    }
+
+    void Pronosticar(Partido partido)
+    {
+        int gl = golesLocal.ContainsKey(partido.Id) ? golesLocal[partido.Id] : 0;
+        int gv = golesVisitante.ContainsKey(partido.Id) ? golesVisitante[partido.Id] : 0;
+
+        bool registrado = PronosticoCtrl.Registrar(
+            Sesion.UsuarioActivo.Id,
+            partido.Id,
+            gl,
+            gv,
+            partido.Estado);
+
+        if (registrado)
+        {
+            mensajePronostico = "¡Pronóstico guardado exitosamente!";
+            CargarDatos();
+        }
+    }
+
+    void CargarRanking()
+    {
+        List<Usuario> todos = UsuarioCtrl.ObtenerTodos();
+
+        if (quinielaRanking == "global")
+        {
+            ranking = PronosticoCtrl.ObtenerRankingGlobal(todos);
+        }
+        else
+        {
+            Quiniela quiniela = QuinielaCtrl.ObtenerTodas().Find(qu => qu.Id == quinielaRanking);
+            if (quiniela != null)
+                ranking = PronosticoCtrl.ObtenerRankingQuiniela(quiniela, todos);
+        }
+    }
+
+    void VolverDashboard()
+    {
+        Nav.NavigateTo("/dashboard");
+    }
+}

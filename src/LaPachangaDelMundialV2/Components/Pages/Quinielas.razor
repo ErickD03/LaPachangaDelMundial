@@ -34,12 +34,12 @@ else
         }
         else
         {
-            @foreach (var q in misQuinielas)
+            @foreach (var quinielas in misQuinielas)
             {
                 <div style="border:1px solid gray; padding:10px; margin:10px 0;">
-                    <h6>@q.Nombre (@q.Tipo)</h6>
-                    <p>Integrantes: @q.IdsIntegrantes.Count</p>
-                    <button @onclick="() => VerTimeline(q)">Ver Timeline</button>
+                    <h6>@quinielas.Nombre (@quinielas.Tipo)</h6>
+                    <p>Integrantes: @quinielas.IdsIntegrantes.Count</p>
+                    <button @onclick="() => VerTimeline(quinielas)">Ver Timeline</button>
                 </div>
             }
         }
@@ -97,11 +97,11 @@ else
         }
 
         <p>Quinielas disponibles:</p>
-        @foreach (var q in quinielasDisponibles)
+        @foreach (var quiniela in quinielasDisponibles)
         {
             <div style="border:1px solid gray; padding:10px; margin:5px 0;">
-                <p><strong>@q.Nombre</strong> (@q.Tipo) — @q.IdsIntegrantes.Count integrantes</p>
-                <button @onclick="() => UnirseAQuiniela(q)">Unirse</button>
+                <p><strong>@quiniela.Nombre</strong> (@quiniela.Tipo) — @quiniela.IdsIntegrantes.Count integrantes</p>
+                <button @onclick="() => UnirseAQuiniela(quiniela)">Unirse</button>
             </div>
         }
 
@@ -143,16 +143,16 @@ else
         List<Quiniela> todas = QuinielaCtrl.ObtenerTodas();
         quinielasDisponibles = new List<Quiniela>();
 
-        foreach (Quiniela q in todas)
+        foreach (Quiniela quiniela in todas)
         {
-            if (!q.IdsIntegrantes.Contains(Sesion.UsuarioActivo.Id))
-                quinielasDisponibles.Add(q);
+            if (!quiniela.IdsIntegrantes.Contains(Sesion.UsuarioActivo.Id))
+                quinielasDisponibles.Add(quiniela);
         }
     }
 
-    void VerTimeline(Quiniela q)
+    void VerTimeline(Quiniela quiniela)
     {
-        quinielaSeleccionada = q;
+        quinielaSeleccionada = quiniela;
     }
 
     void CrearQuiniela()
@@ -187,14 +187,14 @@ else
         }
     }
 
-    void UnirseAQuiniela(Quiniela q)
+    void UnirseAQuiniela(Quiniela quiniela)
     {
-        bool unido = QuinielaCtrl.UnirseAQuiniela(q.Id, Sesion.UsuarioActivo.Id);
+        bool unido = QuinielaCtrl.UnirseAQuiniela(quiniela.Id, Sesion.UsuarioActivo.Id);
 
         if (unido)
         {
             colorMensajeUnirse = "green";
-            mensajeUnirse = $"Te uniste a '{q.Nombre}' exitosamente.";
+            mensajeUnirse = $"Te uniste a '{quiniela.Nombre}' exitosamente.";
             CargarDatos();
         }
         else
