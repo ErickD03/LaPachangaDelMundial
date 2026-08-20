@@ -1,0 +1,148 @@
+﻿@page "/adminusuarios"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject UsuarioController UsuarioCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Gestión de Usuarios</h3>
+    <button @onclick="VolverAdmin">← Volver</button>
+    <hr />
+
+    @if (!string.IsNullOrEmpty(mensaje))
+    {
+        <p style="color:@colorMensaje;">@mensaje</p>
+    }
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Usuario</th>
+            <th>País</th>
+            <th>Puntos</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        @foreach (var usuario in usuarios)
+        {
+            @if (!usuario.EsAdministrador)
+            {
+                <tr>
+                    <td>@usuario.NombreUsuario</td>
+                    <td>@usuario.CodigoPaisPreferido</td>
+                    <td>@usuario.Puntos</td>
+                    <td>@(usuario.Activo ? "Activo" : "Desactivado")</td>
+                    <td>
+                        @if (usuarioEditandoId == usuario.Id)
+                        {
+                            <input @bind="nuevaContrasena" placeholder="Nueva contraseña" type="password" />
+                            <button @onclick="() => ConfirmarReset(usuario)">Confirmar</button>
+                            <button @onclick="CancelarReset">Cancelar</button>
+                        }
+                        else
+                        {
+                            <button @onclick="() => IniciarReset(usuario)">Reset contraseña</button>
+                        }
+                        @if (usuario.Activo)
+                        {
+                            <button @onclick="() => DesactivarUsuario(usuario)">Desactivar</button>
+                        }
+                        else
+                        {
+                            <button @onclick="() => ActivarUsuario(usuario)">Activar</button>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+
+@code {
+    List<Usuario> usuarios = new List<Usuario>();
+    string mensaje = "";
+    string colorMensaje = "green";
+    string usuarioEditandoId = "";
+    string nuevaContrasena = "";
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        usuarios = UsuarioCtrl.ObtenerTodos();
+    }
+
+    void ResetearContrasena(Usuario u)
+    {
+        UsuarioCtrl.ResetearContrasena(u.Id, "pass123");
+        colorMensaje = "green";
+        mensaje = $"Contraseña de '{u.NombreUsuario}' reseteada a 'pass123'.";
+    }
+
+    void DesactivarUsuario(Usuario u)
+    {
+        UsuarioCtrl.DesactivarUsuario(u.Id);
+        colorMensaje = "orange";
+        mensaje = $"Usuario '{u.NombreUsuario}' desactivado.";
+        usuarios = UsuarioCtrl.ObtenerTodos();
+    }
+
+    void ActivarUsuario(Usuario u)
+    {
+        UsuarioCtrl.ActivarUsuario(u.Id);
+        colorMensaje = "green";
+        mensaje = $"Usuario '{u.NombreUsuario}' activado.";
+        usuarios = UsuarioCtrl.ObtenerTodos();
+    }
+
+    void VolverAdmin()
+    {
+        Nav.NavigateTo("/admindashboard");
+    }
+
+    void IniciarReset(Usuario usuario)
+    {
+        usuarioEditandoId = usuario.Id;
+        nuevaContrasena = "";
+    }
+
+    void ConfirmarReset(Usuario usuario)
+    {
+        if (string.IsNullOrEmpty(nuevaContrasena))
+        {
+            colorMensaje = "red";
+            mensaje = "La contraseña no puede estar vacía.";
+            return;
+        }
+
+        if (nuevaContrasena.Length < 6)
+        {
+            colorMensaje = "red";
+            mensaje = "La contraseña debe tener al menos 6 caracteres.";
+            return;
+        }
+
+        UsuarioCtrl.ResetearContrasena(usuario.Id, nuevaContrasena);
+        colorMensaje = "green";
+        mensaje = $"Contraseña de '{usuario.NombreUsuario}' actualizada correctamente.";
+        usuarioEditandoId = "";
+        nuevaContrasena = "";
+    }
+
+    void CancelarReset()
+    {
+        usuarioEditandoId = "";
+        nuevaContrasena = "";
+    }
+}

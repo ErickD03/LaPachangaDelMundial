@@ -11,6 +11,8 @@ namespace LaPachangaDelMundialV2.Models
         public int Puntos { get; set; }
         public List<string> Insignias { get; set; }
         public List<string> IdsQuinielas { get; set; }
+        public bool EsAdministrador { get; set; }
+        public bool Activo { get; set; } = true;
 
         public Usuario()
         {

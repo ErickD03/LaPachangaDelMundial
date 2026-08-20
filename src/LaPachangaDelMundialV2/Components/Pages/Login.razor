@@ -43,7 +43,14 @@
 
         if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
         {
-            mensaje = "Es necesario completar todos los campos.";
+            mensaje = "Por favor completa todos los campos.";
+            return;
+        }
+
+        Usuario usuarioDesactivado = UsuarioCtrl.ObtenerDesactivado(nombreUsuario);
+        if (usuarioDesactivado != null)
+        {
+            mensaje = "Tu cuenta está desactivada, ponerse en contacto con el administrador.";
             return;
         }
 
@@ -56,7 +63,11 @@
         }
 
         Sesion.IniciarSesion(usuario);
-        Nav.NavigateTo("/dashboard");
+
+        if (usuario.EsAdministrador)
+            Nav.NavigateTo("/admindashboard");
+        else
+            Nav.NavigateTo("/dashboard");
     }
 
     void IrARegistro()

@@ -1,0 +1,141 @@
+﻿@page "/adminpartidos"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject PartidoController PartidoCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Gestión de Partidos</h3>
+    <button @onclick="VolverAdmin">← Volver</button>
+    <hr />
+
+    @if (!string.IsNullOrEmpty(mensaje))
+    {
+        <p style="color:@colorMensaje;">@mensaje</p>
+    }
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Fecha</th>
+            <th>Local</th>
+            <th>Marcador</th>
+            <th>Visitante</th>
+            <th>Fase</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        @foreach (var partidos in partidos)
+        {
+            <tr>
+                <td>@partidos.FechaHora.ToString("dd/MM HH:mm")</td>
+                <td>@PartidoCtrl.ObtenerNombreSeleccion(partidos.CodigoLocal)</td>
+                <td>@partidos.GolesLocal - @partidos.GolesVisitante</td>
+                <td>@PartidoCtrl.ObtenerNombreSeleccion(partidos.CodigoVisitante)</td>
+                <td>@partidos.Fase</td>
+                <td>@partidos.Estado</td>
+                <td>
+                    <button @onclick="() => SeleccionarPartido(partidos)">Editar</button>
+                </td>
+            </tr>
+        }
+    </table>
+
+    @if (partidoEditando != null)
+    {
+        <hr />
+        <h5>Editando: @PartidoCtrl.ObtenerNombreSeleccion(partidoEditando.CodigoLocal) vs @PartidoCtrl.ObtenerNombreSeleccion(partidoEditando.CodigoVisitante)</h5>
+
+        <div>
+            <label>Goles local:</label>
+            <input type="number" min="0" max="20" @bind="golesLocalEdit" style="width:60px;" />
+            <label> - Goles visitante:</label>
+            <input type="number" min="0" max="20" @bind="golesVisitanteEdit" style="width:60px;" />
+        </div>
+        <br />
+        <div>
+            <label>Estado:</label>
+            <select @bind="estadoEdit">
+                <option value="Pendiente">Pendiente</option>
+                <option value="EnCurso">En Curso</option>
+                <option value="Finalizado">Finalizado</option>
+            </select>
+        </div>
+        <br />
+        <div>
+            <label>Fecha y hora:</label>
+            <input type="datetime-local" @bind="fechaEdit" />
+        </div>
+        <br />
+        <button @onclick="GuardarCambios">Guardar</button>
+        <button @onclick="Cancelar">Cancelar</button>
+    }
+}
+
+@code {
+    List<Partido> partidos = new List<Partido>();
+    Partido partidoEditando = null;
+    int golesLocalEdit = 0;
+    int golesVisitanteEdit = 0;
+    string estadoEdit = "Pendiente";
+    DateTime fechaEdit = DateTime.Now;
+    string mensaje = "";
+    string colorMensaje = "green";
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        partidos = PartidoCtrl.ObtenerTodos();
+    }
+
+    void SeleccionarPartido(Partido partido)
+    {
+        partidoEditando = partido;
+        golesLocalEdit = partido.GolesLocal;
+        golesVisitanteEdit = partido.GolesVisitante;
+        estadoEdit = partido.Estado.ToString();
+        fechaEdit = partido.FechaHora;
+    }
+
+    void GuardarCambios()
+    {
+        if (partidoEditando == null) return;
+
+        partidoEditando.GolesLocal = golesLocalEdit;
+        partidoEditando.GolesVisitante = golesVisitanteEdit;
+        partidoEditando.FechaHora = fechaEdit;
+
+        if (estadoEdit == "Pendiente")
+            partidoEditando.Estado = EstadoPartido.Pendiente;
+        else if (estadoEdit == "EnCurso")
+            partidoEditando.Estado = EstadoPartido.EnCurso;
+        else
+            partidoEditando.Estado = EstadoPartido.Finalizado;
+
+        colorMensaje = "green";
+        mensaje = "Partido actualizado correctamente.";
+        partidoEditando = null;
+    }
+
+    void Cancelar()
+    {
+        partidoEditando = null;
+    }
+
+    void VolverAdmin()
+    {
+        Nav.NavigateTo("/admindashboard");
+    }
+}

@@ -403,5 +403,15 @@
     "puntos": 86,
     "insignias": [],
     "idsQuinielas": [ "Q5" ]
+  },
+  {
+    "id": "ADMIN",
+    "nombreUsuario": "admin",
+    "contrasena": "admin123",
+    "codigoPaisPreferido": "",
+    "puntos": 0,
+    "insignias": [],
+    "idsQuinielas": [],
+    "esAdministrador": true
   }
 ]

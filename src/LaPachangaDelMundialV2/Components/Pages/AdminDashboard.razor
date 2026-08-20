@@ -1,0 +1,42 @@
+﻿@page "/admindashboard"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Panel de Administración</h3>
+    <h5>Bienvenido, @Sesion.UsuarioActivo.NombreUsuario</h5>
+    <hr />
+
+    <div>
+        <h5>Gestión</h5>
+        <button @onclick="IrAPartidos">⚽ Gestionar Partidos</button>
+        <button @onclick="IrAUsuarios">👥 Gestionar Usuarios</button>
+        <button @onclick="IrAEstadisticas">📊 Estadísticas</button>
+        <button @onclick="CerrarSesion">🚪 Cerrar Sesión</button>
+    </div>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
+            Nav.NavigateTo("/login");
+    }
+
+    void IrAPartidos() => Nav.NavigateTo("/adminpartidos");
+    void IrAUsuarios() => Nav.NavigateTo("/adminusuarios");
+    void IrAEstadisticas() => Nav.NavigateTo("/estadisticas");
+
+    void CerrarSesion()
+    {
+        Sesion.CerrarSesion();
+        Nav.NavigateTo("/login");
+    }
+}

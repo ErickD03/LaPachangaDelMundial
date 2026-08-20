@@ -15,12 +15,19 @@ namespace LaPachangaDelMundialV2.Controllers
             _usuarios = JsonLoader.CargarUsuarios();
         }
 
-        // revisa si el usuario y contraseña existen //
+        /// <summary>
+        /// revisa si el usuario y contraseña existen
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <param name="contrasena"></param>
+        /// <returns></returns>
         public Usuario Login(string nombreUsuario, string contrasena)
         {
             foreach (Usuario usuario in _usuarios)
             {
-                if (usuario.NombreUsuario == nombreUsuario && usuario.Contrasena == contrasena)
+                if (usuario.NombreUsuario == nombreUsuario &&
+                    usuario.Contrasena == contrasena &&
+                    usuario.Activo)
                 {
                     return usuario;
                 }
@@ -28,7 +35,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return null;
         }
 
-        // este revisa si un nombre de usuario ya está en uso //
+        /// <summary>
+        /// este revisa si un nombre de usuario ya está en uso
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <returns></returns>
         public bool ExisteUsuario(string nombreUsuario)
         {
             foreach (Usuario usuario in _usuarios)
@@ -41,7 +52,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return false;
         }
 
-        // retorna un usuario por su ID //
+        /// <summary>
+        /// retorna un usuario por su ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Usuario ObtenerPorId(string id)
         {
             foreach (Usuario usuario in _usuarios)
@@ -54,12 +69,21 @@ namespace LaPachangaDelMundialV2.Controllers
             return null;
         }
 
-        // retorna la lista completa de usuarios
+        /// <summary>
+        /// retorna la lista completa de usuarios
+        /// </summary>
+        /// <returns></returns>
         public List<Usuario> ObtenerTodos()
         {
             return _usuarios;
         }
-        // este registra un nuevo usuario //
+        /// <summary>
+        /// este registra un nuevo usuario
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <param name="contrasena"></param>
+        /// <param name="codigoPais"></param>
+        /// <returns></returns>
         public bool Registrar(string nombreUsuario, string contrasena, string codigoPais)
         {
             if (ExisteUsuario(nombreUsuario))
@@ -89,6 +113,55 @@ namespace LaPachangaDelMundialV2.Controllers
                 Newtonsoft.Json.Formatting.Indented);
 
             System.IO.File.WriteAllText(ruta, contenido);
+        }
+
+        public void ResetearContrasena(string idUsuario, string nuevaContrasena)
+        {
+            foreach (Usuario usuario in _usuarios)
+            {
+                if (usuario.Id == idUsuario)
+                {
+                    usuario.Contrasena = nuevaContrasena;
+                    break;
+                }
+            }
+            GuardarUsuarios();
+        }
+
+        public void DesactivarUsuario(string idUsuario)
+        {
+            foreach (Usuario usuario in _usuarios)
+            {
+                if (usuario.Id == idUsuario)
+                {
+                    usuario.Activo = false;
+                    break;
+                }
+            }
+            GuardarUsuarios();
+        }
+
+        public void ActivarUsuario(string idUsuario)
+        {
+            foreach (Usuario usuario in _usuarios)
+            {
+                if (usuario.Id == idUsuario)
+                {
+                    usuario.Activo = true;
+                    break;
+                }
+            }
+            GuardarUsuarios();
+        }
+
+        public Usuario ObtenerDesactivado(string nombreUsuario)
+        {
+            foreach (Usuario usuario in _usuarios)
+            {
+                if (usuario.NombreUsuario == nombreUsuario && !usuario.Activo)
+                    return usuario;
+            }
+            return null;
         }
     }
 }
