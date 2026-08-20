@@ -2,10 +2,22 @@
 {
     public class Seleccion
     {
-        public string Codigo { get; set; }      // como BRA, ARG, FRA //
-        public string Nombre { get; set; }      // completo: Costa Rica //
-        public string Grupo { get; set; }       // A, B, C, D, E //
-        public string RutaBandera { get; set; } // png bandera //
+        /// <summary>
+        /// como BRA, ARG, FRA
+        /// </summary>
+        public string Codigo { get; set; }
+        /// <summary>
+        /// completo: Costa Rica
+        /// </summary>
+        public string Nombre { get; set; }
+        /// <summary>
+        /// A, B, C, D
+        /// </summary>
+        public string Grupo { get; set; }
+        /// <summary>
+        /// png bandera
+        /// </summary>
+        public string RutaBandera { get; set; }
 
         public Seleccion() { }
 

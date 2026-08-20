@@ -1,0 +1,123 @@
+﻿@page "/estadisticas"
+@rendermode InteractiveServer
+@using LaPachangaDelMundialV2.Controllers
+@using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Utils
+@inject SesionUsuario Sesion
+@inject PartidoController PartidoCtrl
+@inject UsuarioController UsuarioCtrl
+@inject PronosticoController PronosticoCtrl
+@inject NavigationManager Nav
+
+@if (!Sesion.EstaLogueado)
+{
+    <p>Redirigiendo...</p>
+}
+else
+{
+    <h3>Estadísticas del Mundial 2026</h3>
+    <button @onclick="VolverDashboard">← Volver</button>
+    <hr />
+
+    <div>
+        <label>Desde:</label>
+        <input type="date" @bind="fechaDesde" />
+        <label>Hasta:</label>
+        <input type="date" @bind="fechaHasta" />
+        <button @onclick="Calcular">Calcular</button>
+    </div>
+
+    <hr />
+
+    @if (calculado)
+    {
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Indicador</th>
+                <th>Resultado</th>
+            </tr>
+            <tr>
+                <td><strong>Equipo más apostado</strong></td>
+                <td>@equipoMasApostado</td>
+            </tr>
+            <tr>
+                <td><strong>Resultado más repetido</strong></td>
+                <td>@resultadoMasRepetido</td>
+            </tr>
+            <tr>
+                <td><strong>Partido con más aciertos</strong></td>
+                <td>@partidoMasAciertos</td>
+            </tr>
+            <tr>
+                <td><strong>Usuario con más aciertos</strong></td>
+                <td>@usuarioMasAciertos</td>
+            </tr>
+            <tr>
+                <td><strong>Partido con más pronósticos</strong></td>
+                <td>@partidoMasPronosticos</td>
+            </tr>
+            <tr>
+                <td><strong>Promedio de goles</strong></td>
+                <td>@promedioGoles</td>
+            </tr>
+            <tr>
+                <td><strong>Equipo sorpresa</strong></td>
+                <td>@equipoSorpresa</td>
+            </tr>
+        </table>
+    }
+}
+
+@code {
+    DateTime fechaDesde = new DateTime(2026, 6, 11);
+    DateTime fechaHasta = new DateTime(2026, 7, 19);
+    bool calculado = false;
+
+    string equipoMasApostado = "";
+    string resultadoMasRepetido = "";
+    string partidoMasAciertos = "";
+    string usuarioMasAciertos = "";
+    string partidoMasPronosticos = "";
+    string promedioGoles = "";
+    string equipoSorpresa = "";
+
+    protected override void OnInitialized()
+    {
+        if (!Sesion.EstaLogueado)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+    }
+
+    void Calcular()
+    {
+        if (fechaDesde > fechaHasta)
+            return;
+
+        List<Partido> partidos = PartidoCtrl.ObtenerTodos();
+        List<Usuario> usuarios = UsuarioCtrl.ObtenerTodos();
+        List<Pronostico> pronosticos = PronosticoCtrl.ObtenerPorUsuario(null);
+        List<Seleccion> selecciones = JsonLoader.CargarSelecciones();
+
+        EstadisticasController ctrl = new EstadisticasController(
+            partidos, usuarios, pronosticos, selecciones);
+
+        DateTime hasta = fechaHasta.AddDays(1).AddSeconds(-1);
+
+        equipoMasApostado = ctrl.EquipoMasApostado(fechaDesde, hasta);
+        resultadoMasRepetido = ctrl.ResultadoMasRepetido(fechaDesde, hasta);
+        partidoMasAciertos = ctrl.PartidoConMasAciertos(fechaDesde, hasta);
+        usuarioMasAciertos = ctrl.UsuarioConMasAciertos(fechaDesde, hasta);
+        partidoMasPronosticos = ctrl.PartidoConMasPronosticos(fechaDesde, hasta);
+        promedioGoles = ctrl.PromedioGoles(fechaDesde, hasta);
+        equipoSorpresa = ctrl.EquipoSorpresa(fechaDesde, hasta);
+
+        calculado = true;
+    }
+
+    void VolverDashboard()
+    {
+        Nav.NavigateTo("/dashboard");
+    }
+}
