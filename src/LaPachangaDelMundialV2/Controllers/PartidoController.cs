@@ -7,22 +7,30 @@ namespace LaPachangaDelMundialV2.Controllers
 {
     public class PartidoController
     {
-        private readonly List<Partido> _partidos;
+        private List<Partido> _partidos;
         private readonly List<Seleccion> _selecciones;
 
         public PartidoController()
         {
             _partidos = JsonLoader.CargarPartidos();
             _selecciones = JsonLoader.CargarSelecciones();
+            ActualizarEstados();
         }
 
-        // este devuelve todos los partidos //
+        /// <summary>
+        /// este devuelve todos los partidos
+        /// </summary>
+        /// <returns></returns>
         public List<Partido> ObtenerTodos()
         {
             return _partidos;
         }
 
-        // este devuelve el nombre completo de una selección dado su código //
+        /// <summary>
+        /// este devuelve el nombre completo de una selección dado su código
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public string ObtenerNombreSeleccion(string codigo)
         {
             foreach (Seleccion seleccion in _selecciones)
@@ -33,24 +41,29 @@ namespace LaPachangaDelMundialV2.Controllers
             return codigo;
         }
 
-        // realiza la actualización el estado de cada partido según la fecha simulada //
+        /// <summary>
+        /// realiza la actualización el estado de cada partido según la fecha simulada
+        /// </summary>
         public void ActualizarEstados()
         {
+            // Recargamos los partidos frescos del JSON cada vez
+            _partidos = JsonLoader.CargarPartidos();
+
             DateTime fechaActual = SistemaFecha.FechaActual;
 
-            foreach (Partido partido in _partidos)
+            foreach (Partido p in _partidos)
             {
-                if (partido.Estado == EstadoPartido.Finalizado)
-                    continue;
-
-                if (partido.FechaHora <= fechaActual)
-                    partido.Estado = EstadoPartido.EnCurso;
+                if (p.FechaHora <= fechaActual)
+                    p.Estado = EstadoPartido.Finalizado;
                 else
-                    partido.Estado = EstadoPartido.Pendiente;
+                    p.Estado = EstadoPartido.Pendiente;
             }
         }
 
-        // devuelve los últimos 5 partidos finalizados //
+        /// <summary>
+        /// devuelve los últimos 5 partidos finalizados
+        /// </summary>
+        /// <returns></returns>
         public List<Partido> ObtenerUltimos5()
         {
             List<Partido> finalizados = new List<Partido>();
@@ -80,7 +93,10 @@ namespace LaPachangaDelMundialV2.Controllers
             return ultimos;
         }
 
-        //devuelve partidos pendientes en las próximas 24 horas //
+        /// <summary>
+        /// devuelve partidos pendientes en las próximas 24 horas
+        /// </summary>
+        /// <returns></returns>
         public List<Partido> ObtenerProximos24Horas()
         {
             DateTime fechaActual = SistemaFecha.FechaActual;
@@ -114,7 +130,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return proximos;
         }
 
-        // returna los partidos de un grupo específico //
+        /// <summary>
+        /// returna los partidos de un grupo específico
+        /// </summary>
+        /// <param name="grupo"></param>
+        /// <returns></returns>
         public List<Partido> ObtenerPorGrupo(string grupo)
         {
             List<Partido> resultado = new List<Partido>();
@@ -128,7 +148,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return resultado;
         }
 
-        // devuelve los partidos de una fase específica //
+        /// <summary>
+        /// devuelve los partidos de una fase específica
+        /// </summary>
+        /// <param name="fase"></param>
+        /// <returns></returns>
         public List<Partido> ObtenerPorFase(string fase)
         {
             List<Partido> resultado = new List<Partido>();
@@ -142,7 +166,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return resultado;
         }
 
-        // realiza un calculo en la tabla de posiciones de un grupo //
+        /// <summary>
+        /// realiza un calculo en la tabla de posiciones de un grupo
+        /// </summary>
+        /// <param name="grupo"></param>
+        /// <returns></returns>
         public List<PosicionGrupo> CalcularTablaGrupo(string grupo)
         {
             List<Partido> partidos = new List<Partido>();
@@ -227,7 +255,9 @@ namespace LaPachangaDelMundialV2.Controllers
         }
     }
 
-    // trabaja como clase auxiliar para la tabla de posiciones //
+    /// <summary>
+    /// trabaja como clase auxiliar para la tabla de posiciones
+    /// </summary>
     public class PosicionGrupo
     {
         public string Codigo { get; set; }

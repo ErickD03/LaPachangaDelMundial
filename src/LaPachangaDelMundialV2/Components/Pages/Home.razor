@@ -3,8 +3,11 @@
 @rendermode InteractiveServer
 @using LaPachangaDelMundialV2.Utils
 @using LaPachangaDelMundialV2.Models
+@using LaPachangaDelMundialV2.Controllers
 @inject SesionUsuario Sesion
 @inject NavigationManager Nav
+@inject PartidoController PartidoCtrl
+@inject PronosticoController PronosticoCtrl
 
 @if (!Sesion.EstaLogueado)
 {
@@ -16,28 +19,48 @@ else
 
     <hr />
 
-    <div>
-        <h5>Mi perfil</h5>
-        <p><strong>País preferido:</strong> @Sesion.UsuarioActivo.CodigoPaisPreferido</p>
-        <p><strong>Puntos:</strong> @Sesion.UsuarioActivo.Puntos</p>
+    @if (!Sesion.EsAdministrador)
+    {
+        <div>
+            <h5>Mi perfil</h5>
+            <p><strong>País preferido:</strong> @Sesion.UsuarioActivo.CodigoPaisPreferido</p>
+            <p><strong>Puntos:</strong> @Sesion.UsuarioActivo.Puntos</p>
 
-        @if (Sesion.UsuarioActivo.Insignias.Count > 0)
-        {
-            <p><strong>Insignias:</strong> @string.Join(", ", Sesion.UsuarioActivo.Insignias)</p>
-        }
-        else
-        {
-            <p><strong>Insignias:</strong> Sin insignias aún</p>
-        }
-    </div>
+            @if (Sesion.UsuarioActivo.Insignias.Count > 0)
+            {
+                <p><strong>Insignias:</strong> @string.Join(", ", Sesion.UsuarioActivo.Insignias)</p>
+            }
+            else
+            {
+                <p><strong>Insignias:</strong> Sin insignias aún</p>
+            }
+        </div>
 
-    <hr />
+        <hr />
+
+        @if (partidosSinPronosticar.Count > 0)
+        {
+            <div style="background-color:#fff3cd; border:1px solid #ffc107; padding:10px; margin:10px 0;">
+                <h5>⚠️ Partidos por pronosticar en las próximas 24 horas</h5>
+                @foreach (var partido in partidosSinPronosticar)
+                {
+                    string local = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal);
+                    string visitante = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante);
+                    <p>⚽ @partido.FechaHora.ToString("dd/MM HH:mm") — @local vs @visitante</p>
+                }
+                <button @onclick="IrAPronosticos">Ir a Pronósticos</button>
+            </div>
+        }
+    }
 
     <div>
         <h5>Menú</h5>
         <button @onclick="IrAPartidos">Partidos</button>
         <button @onclick="IrAQuinielas">Quinielas</button>
-        <button @onclick="IrAPronosticos">Pronósticos</button>
+        @if (!Sesion.EsAdministrador)
+        {
+            <button @onclick="IrAPronosticos">Pronósticos</button>
+        }
         <button @onclick="IrAEstadisticas">Estadísticas</button>
         <button @onclick="CerrarSesion">Cerrar sesión</button>
     </div>
@@ -47,7 +70,13 @@ else
     protected override void OnInitialized()
     {
         if (!Sesion.EstaLogueado)
+        {
             Nav.NavigateTo("/login");
+            return;
+        }
+
+        PartidoCtrl.ActualizarEstados();
+        CargarNotificaciones();
     }
 
     void IrAPartidos() => Nav.NavigateTo("/partidos");
@@ -59,5 +88,22 @@ else
     {
         Sesion.CerrarSesion();
         Nav.NavigateTo("/login");
+    }
+
+    List<Partido> partidosSinPronosticar = new List<Partido>();
+
+    void CargarNotificaciones()
+    {
+        partidosSinPronosticar = new List<Partido>();
+        List<Partido> proximos = PartidoCtrl.ObtenerProximos24Horas();
+
+        foreach (Partido partido in proximos)
+        {
+            bool yaPronostico = PronosticoCtrl.YaPronostico(
+                Sesion.UsuarioActivo.Id, partido.Id);
+
+            if (!yaPronostico)
+                partidosSinPronosticar.Add(partido);
+        }
     }
 }

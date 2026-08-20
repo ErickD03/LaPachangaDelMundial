@@ -22,6 +22,7 @@ else
         <button @onclick='() => pestanaActiva = "proximos"'>Próximos 24h</button>
         <button @onclick='() => pestanaActiva = "grupos"'>Tabla de Grupos</button>
         <button @onclick='() => pestanaActiva = "eliminatoria"'>Fase Eliminatoria</button>
+        <button @onclick="CargarDatos">🔄 Recargar con fecha actual</button>
     </div>
 
     <hr />
@@ -150,6 +151,11 @@ else
             return;
         }
 
+        CargarDatos();
+    }
+
+    void CargarDatos()
+    {
         PartidoCtrl.ActualizarEstados();
         ultimos = PartidoCtrl.ObtenerUltimos5();
         proximos = PartidoCtrl.ObtenerProximos24Horas();

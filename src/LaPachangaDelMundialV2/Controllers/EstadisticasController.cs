@@ -68,7 +68,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return resultado;
         }
 
-        // equipo más apostado como ganador //
+        /// <summary>
+        /// equipo más apostado como ganador
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string EquipoMasApostado(DateTime desde, DateTime hasta)
         {
             List<Pronostico> pronosticos = ObtenerPronosticosEnRango(desde, hasta);
@@ -112,7 +117,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return ObtenerNombre(codigoGanador);
         }
 
-        // resultado más repetido en partidos finalizados //
+        /// <summary>
+        /// resultado más repetido en partidos finalizados
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string ResultadoMasRepetido(DateTime desde, DateTime hasta)
         {
             Dictionary<string, int> resultados = new Dictionary<string, int>();
@@ -150,7 +160,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return mejor + " (" + mayor + " veces)";
         }
 
-        // partido con más aciertos de marcador exacto //
+        /// <summary>
+        /// partido con más aciertos de marcador exacto
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string PartidoConMasAciertos(DateTime desde, DateTime hasta)
         {
             List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
@@ -185,7 +200,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return $"{local} vs {visitante} ({maxAciertos} aciertos)";
         }
 
-        // usuario con más aciertos exactos en el rango //
+        /// <summary>
+        /// usuario con más aciertos exactos en el rango
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string UsuarioConMasAciertos(DateTime desde, DateTime hasta)
         {
             List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
@@ -200,6 +220,19 @@ namespace LaPachangaDelMundialV2.Controllers
             {
                 if (!idsPartidos.Contains(pronostico.IdPartido)) continue;
                 if (pronostico.PuntosObtenidos != 5) continue;
+
+                Usuario usuario = null;
+                foreach (Usuario us in _usuarios)
+                {
+                    if (us.Id == pronostico.IdUsuario)
+                    {
+                        usuario = us;
+                        break;
+                    }
+                }
+
+                if (usuario == null) continue;
+                if (usuario.EsAdministrador) continue;
 
                 if (!aciertos.ContainsKey(pronostico.IdUsuario))
                     aciertos[pronostico.IdUsuario] = 0;
@@ -220,16 +253,21 @@ namespace LaPachangaDelMundialV2.Controllers
 
             if (mejorUsuario == "") return "Sin datos";
 
-            foreach (Usuario u in _usuarios)
+            foreach (Usuario usuario in _usuarios)
             {
-                if (u.Id == mejorUsuario)
-                    return $"{u.NombreUsuario} ({maxAciertos} aciertos exactos)";
+                if (usuario.Id == mejorUsuario)
+                    return $"{usuario.NombreUsuario} ({maxAciertos} aciertos exactos)";
             }
 
             return "Sin datos";
         }
 
-        // partido con más pronósticos registrados //
+        /// <summary>
+        /// partido con más pronósticos registrados
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string PartidoConMasPronosticos(DateTime desde, DateTime hasta)
         {
             List<Pronostico> pronosticos = ObtenerPronosticosEnRango(desde, hasta);
@@ -270,7 +308,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return "Sin datos";
         }
 
-        // promedio de goles por partido en el rango //
+        /// <summary>
+        /// promedio de goles por partido en el rango
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string PromedioGoles(DateTime desde, DateTime hasta)
         {
             int totalGoles = 0;
@@ -295,7 +338,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return promedio.ToString("F2") + " goles por partido";
         }
 
-        // mejor rendimiento entre no favoritos //
+        /// <summary>
+        /// mejor rendimiento entre no favoritos
+        /// </summary>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        /// <returns></returns>
         public string EquipoSorpresa(DateTime desde, DateTime hasta)
         {
             List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);

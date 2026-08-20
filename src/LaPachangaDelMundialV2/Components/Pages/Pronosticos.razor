@@ -218,15 +218,22 @@ else
     {
         List<Usuario> todos = UsuarioCtrl.ObtenerTodos();
 
+        List<Usuario> usuariosNormales = new List<Usuario>();
+        foreach (Usuario usuario in todos)
+        {
+            if (!usuario.EsAdministrador)
+                usuariosNormales.Add(usuario);
+        }
+
         if (quinielaRanking == "global")
         {
-            ranking = PronosticoCtrl.ObtenerRankingGlobal(todos);
+            ranking = PronosticoCtrl.ObtenerRankingGlobal(usuariosNormales);
         }
         else
         {
             Quiniela quiniela = QuinielaCtrl.ObtenerTodas().Find(qu => qu.Id == quinielaRanking);
             if (quiniela != null)
-                ranking = PronosticoCtrl.ObtenerRankingQuiniela(quiniela, todos);
+                ranking = PronosticoCtrl.ObtenerRankingQuiniela(quiniela, usuariosNormales);
         }
     }
 
