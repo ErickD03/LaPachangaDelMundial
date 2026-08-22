@@ -8,6 +8,7 @@
 @inject UsuarioController UsuarioCtrl
 @inject PronosticoController PronosticoCtrl
 @inject NavigationManager Nav
+@inject IJSRuntime JS
 
 @if (!Sesion.EstaLogueado)
 {
@@ -31,6 +32,10 @@ else
 
     @if (calculado)
     {
+        <br />
+        <button @onclick="DescargarCSV">⬇️ Descargar CSV</button>
+        <button @onclick="DescargarTXT">⬇️ Descargar TXT</button>
+
         <table border="1" cellpadding="8">
             <tr>
                 <th>Indicador</th>
@@ -119,5 +124,34 @@ else
     void VolverDashboard()
     {
         Nav.NavigateTo("/dashboard");
+    }
+
+    async Task DescargarCSV()
+    {
+        string contenido = "Indicador,Resultado\n";
+        contenido += $"Equipo más apostado,{equipoMasApostado}\n";
+        contenido += $"Resultado más repetido,{resultadoMasRepetido}\n";
+        contenido += $"Partido con más aciertos,{partidoMasAciertos}\n";
+        contenido += $"Usuario con más aciertos,{usuarioMasAciertos}\n";
+        contenido += $"Partido con más pronósticos,{partidoMasPronosticos}\n";
+        contenido += $"Promedio de goles,{promedioGoles}\n";
+        contenido += $"Equipo sorpresa,{equipoSorpresa}\n";
+
+        await JS.InvokeVoidAsync("descargarArchivo", "estadisticas.csv", contenido);
+    }
+
+    async Task DescargarTXT()
+    {
+        string contenido = "ESTADÍSTICAS MUNDIAL 2026\n";
+        contenido += "================================\n";
+        contenido += $"Equipo más apostado: {equipoMasApostado}\n";
+        contenido += $"Resultado más repetido: {resultadoMasRepetido}\n";
+        contenido += $"Partido con más aciertos: {partidoMasAciertos}\n";
+        contenido += $"Usuario con más aciertos: {usuarioMasAciertos}\n";
+        contenido += $"Partido con más pronósticos: {partidoMasPronosticos}\n";
+        contenido += $"Promedio de goles: {promedioGoles}\n";
+        contenido += $"Equipo sorpresa: {equipoSorpresa}\n";
+
+        await JS.InvokeVoidAsync("descargarArchivo", "estadisticas.txt", contenido);
     }
 }
