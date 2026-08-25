@@ -12,18 +12,16 @@
 @if (!Sesion.EstaLogueado)
 {
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header bg-dark text-white text-center">
-                        <h4>⚽ La Pachanga del Mundial</h4>
-                    </div>
+        <div class="card shadow mx-auto" style="max-width: 600px;">
 
-                    <div class="card-body text-center">
-                        <p>Redirigiendo...</p>
-                    </div>
-                </div>
+            <div class="card-header bg-dark text-white text-center">
+                <h4 class="mb-0">⚽ La Pachanga del Mundial</h4>
             </div>
+
+            <div class="card-body text-center">
+                <p class="mb-0">Redirigiendo...</p>
+            </div>
+
         </div>
     </div>
 }
@@ -31,140 +29,134 @@ else
 {
     <div class="container mt-5">
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        <div class="card shadow mx-auto" style="max-width: 800px;">
 
-                <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h3 class="mb-0">⚽ La Pachanga del Mundial</h3>
+            </div>
 
-                    <div class="card-header bg-dark text-white text-center">
-                        <h3>⚽ La Pachanga del Mundial</h3>
-                    </div>
+            <div class="card-body">
 
-                    <div class="card-body">
+                <h5 class="text-center mb-4">
+                    ¡Bienvenido, @Sesion.UsuarioActivo.NombreUsuario!
+                </h5>
 
-                        <h5 class="card-title text-center mb-4">
-                            ¡Bienvenido, @Sesion.UsuarioActivo.NombreUsuario!
-                        </h5>
+                @if (!Sesion.EsAdministrador)
+                {
+                    <h5 class="mb-3">👤 Mi perfil</h5>
 
-                        @if (!Sesion.EsAdministrador)
-                        {
-                            <h5>Mi perfil</h5>
+                    <div class="row mb-3">
 
-                            <div class="mb-3">
-                                <strong>País preferido:</strong>
-                                @Sesion.UsuarioActivo.CodigoPaisPreferido
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>País preferido:</strong>
+                            @Sesion.UsuarioActivo.CodigoPaisPreferido
+                        </div>
 
-                            <div class="mb-3">
-                                <strong>Puntos:</strong>
-                                <span class="badge bg-success">
-                                    @Sesion.UsuarioActivo.Puntos
-                                </span>
-                            </div>
-
-                            <div class="mb-3">
-                                <strong>Insignias:</strong>
-
-                                @if (Sesion.UsuarioActivo.Insignias.Count > 0)
-                                {
-                                    @foreach (var insignia in Sesion.UsuarioActivo.Insignias)
-                                    {
-                                        <span class="badge bg-warning text-dark me-1">
-                                            @insignia
-                                        </span>
-                                    }
-                                }
-                                else
-                                {
-                                    <span class="text-muted">
-                                        Sin insignias aún
-                                    </span>
-                                }
-                            </div>
-
-                            <hr />
-
-                            @if (partidosSinPronosticar.Count > 0)
-                            {
-                                <div class="alert alert-warning">
-
-                                    <h5 class="alert-heading">
-                                        ⚠️ Partidos por pronosticar
-                                    </h5>
-
-                                    <p>
-                                        Tienes partidos que comienzan
-                                        en las próximas 24 horas.
-                                    </p>
-
-                                    @foreach (var partido in partidosSinPronosticar)
-                                    {
-                                        string local =
-                                        PartidoCtrl.ObtenerNombreSeleccion(
-                                        partido.CodigoLocal);
-
-                                        string visitante =
-                                        PartidoCtrl.ObtenerNombreSeleccion(
-                                        partido.CodigoVisitante);
-
-                                        <div class="mb-2">
-                                            ⚽
-                                            <strong>
-                                                @partido.FechaHora.ToString("dd/MM HH:mm")
-                                            </strong>
-                                            —
-                                            @local vs @visitante
-                                        </div>
-                                    }
-
-                                    <div class="d-grid mt-3">
-                                        <button class="btn btn-warning"
-                                                @onclick="IrAPronosticos">
-                                            Ir a Pronósticos
-                                        </button>
-                                    </div>
-
-                                </div>
-                            }
-                        }
-
-                        <hr />
-
-                        <h5 class="mb-3">Menú</h5>
-
-                        <div class="d-grid gap-2">
-
-                            <button class="btn btn-success"
-                                    @onclick="IrAPartidos">
-                                ⚽ Partidos
-                            </button>
-
-                            <button class="btn btn-success"
-                                    @onclick="IrAQuinielas">
-                                🏆 Quinielas
-                            </button>
-
-                            @if (!Sesion.EsAdministrador)
-                            {
-                                <button class="btn btn-success"
-                                        @onclick="IrAPronosticos">
-                                    🎯 Pronósticos
-                                </button>
-                            }
-
-                            <button class="btn btn-success"
-                                    @onclick="IrAEstadisticas">
-                                📊 Estadísticas
-                            </button>
-
-                            <button class="btn btn-outline-secondary mt-2"
-                                    @onclick="CerrarSesion">
-                                Cerrar sesión
-                            </button>
-
+                        <div class="col-md-6 mb-2">
+                            <strong>Puntos:</strong>
+                            <span class="badge bg-success">
+                                @Sesion.UsuarioActivo.Puntos
+                            </span>
                         </div>
 
                     </div>
+
+                    <div class="mb-3">
+                        <strong>Insignias:</strong>
+
+                        @if (Sesion.UsuarioActivo.Insignias.Count > 0)
+                        {
+                            @foreach (var insignia in Sesion.UsuarioActivo.Insignias)
+                            {
+                                <span class="badge bg-warning text-dark me-1">
+                                    @insignia
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                Sin insignias aún
+                            </span>
+                        }
+                    </div>
+
+                    <hr />
+
+                    @if (partidosSinPronosticar.Count > 0)
+                    {
+                        <div class="alert alert-warning">
+
+                            <h5 class="alert-heading">
+                                ⚠️ Partidos por pronosticar
+                            </h5>
+
+                            <p>
+                                Tienes partidos que comienzan en las próximas 24 horas.
+                            </p>
+
+                            @foreach (var partido in partidosSinPronosticar)
+                            {
+                                string local =
+                                PartidoCtrl.ObtenerNombreSeleccion(
+                                partido.CodigoLocal);
+
+                                string visitante =
+                                PartidoCtrl.ObtenerNombreSeleccion(
+                                partido.CodigoVisitante);
+
+                                <div class="mb-2">
+                                    ⚽
+                                    <strong>
+                                        @partido.FechaHora.ToString("dd/MM HH:mm")
+                                    </strong>
+                                    — @local vs @visitante
+                                </div>
+                            }
+
+                            <button class="btn btn-warning w-100 mt-2"
+                                    @onclick="IrAPronosticos">
+                                Ir a Pronósticos
+                            </button>
+
+                        </div>
+                    }
+                }
+
+                <hr />
+
+                <h5 class="mb-3">📋 Menú</h5>
+
+                <div class="d-grid gap-2">
+
+                    <button class="btn btn-success"
+                            @onclick="IrAPartidos">
+                        ⚽ Partidos
+                    </button>
+
+                    <button class="btn btn-success"
+                            @onclick="IrAQuinielas">
+                        🏆 Quinielas
+                    </button>
+
+                    @if (!Sesion.EsAdministrador)
+                    {
+                        <button class="btn btn-success"
+                                @onclick="IrAPronosticos">
+                            🎯 Pronósticos
+                        </button>
+                    }
+
+                    <button class="btn btn-success"
+                            @onclick="IrAEstadisticas">
+                        📊 Estadísticas
+                    </button>
+
+                    <button class="btn btn-outline-secondary mt-2"
+                            @onclick="CerrarSesion">
+                        🚪 Cerrar sesión
+                    </button>
+
                 </div>
 
             </div>
@@ -172,7 +164,6 @@ else
 
     </div>
 }
-
 
 @code {
     protected override void OnInitialized()

@@ -10,18 +10,16 @@
 @if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
 {
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header bg-dark text-white text-center">
-                        <h4>⚽ La Pachanga del Mundial</h4>
-                    </div>
+        <div class="card shadow mx-auto" style="max-width: 600px;">
 
-                    <div class="card-body text-center">
-                        <p>Redirigiendo...</p>
-                    </div>
-                </div>
+            <div class="card-header bg-dark text-white text-center">
+                <h4 class="mb-0">⚽ La Pachanga del Mundial</h4>
             </div>
+
+            <div class="card-body text-center">
+                <p class="mb-0">Redirigiendo...</p>
+            </div>
+
         </div>
     </div>
 }
@@ -29,145 +27,128 @@ else
 {
     <div class="container mt-5">
 
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+        <div class="card shadow">
 
-                <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h3 class="mb-0">⚽ Gestión de Partidos</h3>
+            </div>
 
-                    <div class="card-header bg-dark text-white text-center">
-                        <h3>⚽ Gestión de Partidos</h3>
+            <div class="card-body">
+
+                <button class="btn btn-outline-secondary mb-3"
+                        @onclick="VolverAdmin">
+                    ← Volver
+                </button>
+
+                @if (!string.IsNullOrEmpty(mensaje))
+                {
+                    <div class="alert @(colorMensaje == "green" ? "alert-success" : "alert-danger")">
+                        @mensaje
                     </div>
+                }
 
-                    <div class="card-body">
+                <h5 class="mb-3">Partidos</h5>
 
-                        <div class="mb-3">
-                            <button class="btn btn-outline-secondary"
-                                    @onclick="VolverAdmin">
-                                ← Volver
-                            </button>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Local</th>
+                                <th class="text-center">Marcador</th>
+                                <th>Visitante</th>
+                                <th>Fase</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var partido in partidos)
+                            {
+                                <tr>
+                                    <td>
+                                        @partido.FechaHora.ToString("dd/MM HH:mm")
+                                    </td>
+
+                                    <td>
+                                        @PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal)
+                                    </td>
+
+                                    <td class="text-center">
+                                        <strong>
+                                            @partido.GolesLocal - @partido.GolesVisitante
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        @PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante)
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            @partido.Fase
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @if (partido.Estado == EstadoPartido.Finalizado)
+                                        {
+                                            <span class="badge bg-success">
+                                                @partido.Estado
+                                            </span>
+                                        }
+                                        else if (partido.Estado == EstadoPartido.EnCurso)
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                En Curso
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @partido.Estado
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary"
+                                                @onclick="() => SeleccionarPartido(partido)">
+                                            ✏️ Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+                @if (partidoEditando != null)
+                {
+                    <hr class="my-4" />
+
+                    <div class="card shadow-sm">
+
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">✏️ Editando partido</h5>
                         </div>
 
-                        @if (!string.IsNullOrEmpty(mensaje))
-                        {
-                            <div class="alert @(colorMensaje == "green" ? "alert-success" : "alert-danger")">
-                                @mensaje
-                            </div>
-                        }
+                        <div class="card-body">
 
-                        <h5 class="mb-3">Partidos</h5>
-
-                        <div class="table-responsive">
-
-                            <table class="table table-striped table-hover align-middle">
-
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Local</th>
-                                        <th class="text-center">Marcador</th>
-                                        <th>Visitante</th>
-                                        <th>Fase</th>
-                                        <th>Estado</th>
-                                        <th class="text-center">Acciones</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    @foreach (var partido in partidos)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @partido.FechaHora.ToString("dd/MM HH:mm")
-                                            </td>
-
-                                            <td>
-                                                @PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal)
-                                            </td>
-
-                                            <td class="text-center">
-                                                <strong>
-                                                    @partido.GolesLocal - @partido.GolesVisitante
-                                                </strong>
-                                            </td>
-
-                                            <td>
-                                                @PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante)
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-secondary">
-                                                    @partido.Fase
-                                                </span>
-                                            </td>
-
-                                            <td>
-                                                @if (partido.Estado == EstadoPartido.Finalizado)
-                                                {
-                                                    <span class="badge bg-success">
-                                                        @partido.Estado
-                                                    </span>
-                                                }
-                                                else if (partido.Estado == EstadoPartido.EnCurso)
-                                                {
-                                                    <span class="badge bg-warning text-dark">
-                                                        En Curso
-                                                    </span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge bg-secondary">
-                                                        @partido.Estado
-                                                    </span>
-                                                }
-                                            </td>
-
-                                            <td class="text-center">
-                                                <button type="button"
-                                                        class="btn btn-sm btn-outline-primary"
-                                                        @onclick="() => SeleccionarPartido(partido)">
-                                                    ✏️ Editar
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                        @if (partidoEditando != null)
-                        {
-                            <hr />
-
-                            <div class="card shadow-sm mt-4">
-
-                                <div class="card-header bg-dark text-white">
-                                    <h5 class="mb-0">
-                                        ✏️ Editando partido
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <h5 class="text-center mb-4">
-                                        @PartidoCtrl.ObtenerNombreSeleccion(
-                                        partidoEditando.CodigoLocal)
+                            <h5 class="text-center mb-4">
+                                @PartidoCtrl.ObtenerNombreSeleccion(partidoEditando.CodigoLocal)
                                 <span class="text-muted mx-2">vs</span>
-                                @PartidoCtrl.ObtenerNombreSeleccion(
-                                                                partidoEditando.CodigoVisitante)
+                                @PartidoCtrl.ObtenerNombreSeleccion(partidoEditando.CodigoVisitante)
                             </h5>
 
+                            <div class="row">
 
-                            <div class="row mb-3">
-
-                                <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="form-label">
-                                        Goles local
-                                    </label>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Goles local</label>
                                     <input type="number"
                                            min="0"
                                            max="20"
@@ -175,11 +156,8 @@ else
                                            @bind="golesLocalEdit" />
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label">
-                                        Goles visitante
-                                    </label>
-
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Goles visitante</label>
                                     <input type="number"
                                            min="0"
                                            max="20"
@@ -189,47 +167,26 @@ else
 
                             </div>
 
-
                             <div class="mb-3">
-
-                                <label class="form-label">
-                                    Estado
-                                </label>
+                                <label class="form-label">Estado</label>
 
                                 <select class="form-select"
                                         @bind="estadoEdit">
-
-                                    <option value="Pendiente">
-                                        Pendiente
-                                    </option>
-
-                                    <option value="EnCurso">
-                                        En Curso
-                                    </option>
-
-                                    <option value="Finalizado">
-                                        Finalizado
-                                    </option>
-
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="EnCurso">En Curso</option>
+                                    <option value="Finalizado">Finalizado</option>
                                 </select>
-
                             </div>
 
                             <div class="mb-4">
-
-                                <label class="form-label">
-                                    Fecha y hora
-                                </label>
+                                <label class="form-label">Fecha y hora</label>
 
                                 <input type="datetime-local"
                                        class="form-control"
                                        @bind="fechaEdit" />
-
                             </div>
 
-
                             <div class="d-grid gap-2 d-md-flex">
-
                                 <button class="btn btn-success flex-fill"
                                         @onclick="GuardarCambios">
                                     💾 Guardar
@@ -239,23 +196,17 @@ else
                                         @onclick="Cancelar">
                                     Cancelar
                                 </button>
-
                             </div>
 
                         </div>
-
                     </div>
-                                        }
-
-                    </div>
-                </div>
+                }
 
             </div>
         </div>
 
     </div>
 }
-
 
 @code {
     List<Partido> partidos = new List<Partido>();

@@ -53,14 +53,14 @@
 
         if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
         {
-            mensaje = "Por favor completa todos los campos.";
+            mensaje = "Por favor complete todos los campos.";
             return;
         }
 
         Usuario usuarioDesactivado = UsuarioCtrl.ObtenerDesactivado(nombreUsuario);
         if (usuarioDesactivado != null)
         {
-            mensaje = "Tu cuenta está desactivada, ponerse en contacto con el administrador.";
+            mensaje = "Cuenta desactivada, ponerse en contacto con el administrador.";
             return;
         }
 

@@ -12,65 +12,137 @@
 
 @if (!Sesion.EstaLogueado)
 {
-    <p>Redirigiendo...</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Redirigiendo...</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <h3>Estadísticas del Mundial 2026</h3>
-    <button @onclick="VolverDashboard">← Volver</button>
-    <hr />
+    <div class="container mt-5">
 
-    <div>
-        <label>Desde:</label>
-        <input type="date" @bind="fechaDesde" />
-        <label>Hasta:</label>
-        <input type="date" @bind="fechaHasta" />
-        <button @onclick="Calcular">Calcular</button>
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">⚽ Estadísticas del Mundial 2026</h3>
+
+                    <button class="btn btn-outline-light" @onclick="VolverDashboard">
+                        ← Volver
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title mb-3">Seleccionar período</h5>
+
+                <div class="row align-items-end">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Desde:</label>
+                        <input type="date"
+                               class="form-control"
+                               @bind="fechaDesde" />
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Hasta:</label>
+                        <input type="date"
+                               class="form-control"
+                               @bind="fechaHasta" />
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <button class="btn btn-success w-100"
+                                @onclick="Calcular">
+                            📊 Calcular estadísticas
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @if (calculado)
+        {
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Resultados</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="d-flex gap-2 mb-4">
+                        <button class="btn btn-outline-primary"
+                                @onclick="DescargarCSV">
+                            ⬇️ Descargar CSV
+                        </button>
+
+                        <button class="btn btn-outline-secondary"
+                                @onclick="DescargarTXT">
+                            ⬇️ Descargar TXT
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Equipo más apostado</td>
+                                    <td><strong>@equipoMasApostado</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Resultado más repetido</td>
+                                    <td><strong>@resultadoMasRepetido</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Partido con más aciertos</td>
+                                    <td><strong>@partidoMasAciertos</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Usuario con más aciertos</td>
+                                    <td><strong>@usuarioMasAciertos</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Partido con más pronósticos</td>
+                                    <td><strong>@partidoMasPronosticos</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Promedio de goles</td>
+                                    <td><strong>@promedioGoles</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Equipo sorpresa</td>
+                                    <td><strong>@equipoSorpresa</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        }
     </div>
-
-    <hr />
-
-    @if (calculado)
-    {
-        <br />
-        <button @onclick="DescargarCSV">⬇️ Descargar CSV</button>
-        <button @onclick="DescargarTXT">⬇️ Descargar TXT</button>
-
-        <table border="1" cellpadding="8">
-            <tr>
-                <th>Indicador</th>
-                <th>Resultado</th>
-            </tr>
-            <tr>
-                <td><strong>Equipo más apostado</strong></td>
-                <td>@equipoMasApostado</td>
-            </tr>
-            <tr>
-                <td><strong>Resultado más repetido</strong></td>
-                <td>@resultadoMasRepetido</td>
-            </tr>
-            <tr>
-                <td><strong>Partido con más aciertos</strong></td>
-                <td>@partidoMasAciertos</td>
-            </tr>
-            <tr>
-                <td><strong>Usuario con más aciertos</strong></td>
-                <td>@usuarioMasAciertos</td>
-            </tr>
-            <tr>
-                <td><strong>Partido con más pronósticos</strong></td>
-                <td>@partidoMasPronosticos</td>
-            </tr>
-            <tr>
-                <td><strong>Promedio de goles</strong></td>
-                <td>@promedioGoles</td>
-            </tr>
-            <tr>
-                <td><strong>Equipo sorpresa</strong></td>
-                <td>@equipoSorpresa</td>
-            </tr>
-        </table>
-    }
 }
 
 @code {

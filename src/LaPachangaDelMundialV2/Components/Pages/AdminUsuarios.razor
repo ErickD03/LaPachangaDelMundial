@@ -10,22 +10,16 @@
 @if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
 {
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <div class="card shadow mx-auto" style="max-width: 600px;">
 
-                <div class="card shadow">
-
-                    <div class="card-header bg-dark text-white text-center">
-                        <h4>⚽ La Pachanga del Mundial</h4>
-                    </div>
-
-                    <div class="card-body text-center">
-                        <p>Redirigiendo...</p>
-                    </div>
-
-                </div>
-
+            <div class="card-header bg-dark text-white text-center">
+                <h4 class="mb-0">⚽ La Pachanga del Mundial</h4>
             </div>
+
+            <div class="card-body text-center">
+                <p class="mb-0">Redirigiendo...</p>
+            </div>
+
         </div>
     </div>
 }
@@ -33,161 +27,142 @@ else
 {
     <div class="container mt-5">
 
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+        <div class="card shadow">
 
-                <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h3 class="mb-0">⚽ Gestión de Usuarios</h3>
+            </div>
 
-                    <div class="card-header bg-dark text-white text-center">
-                        <h3>⚽ Gestión de Usuarios</h3>
+            <div class="card-body">
+
+                <button type="button"
+                        class="btn btn-outline-secondary mb-3"
+                        @onclick="VolverAdmin">
+                    ← Volver
+                </button>
+
+                @if (!string.IsNullOrEmpty(mensaje))
+                {
+                    <div class="alert alert-success">
+                        @mensaje
                     </div>
+                }
 
-                    <div class="card-body">
+                <h5 class="mb-3">Usuarios registrados</h5>
 
-                        <div class="mb-3">
-                            <button type="button"
-                                    class="btn btn-outline-secondary"
-                                    @onclick="VolverAdmin">
-                                ← Volver
-                            </button>
-                        </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
 
-                        @if (!string.IsNullOrEmpty(mensaje))
-                        {
-                            <div class="alert alert-success">
-                                @mensaje
-                            </div>
-                        }
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Usuario</th>
+                                <th>País</th>
+                                <th>Puntos</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
 
-                        <h5 class="mb-3">Usuarios registrados</h5>
-
-                        <div class="table-responsive">
-
-                            <table class="table table-striped table-hover align-middle">
-
-                                <thead class="table-dark">
+                        <tbody>
+                            @foreach (var usuario in usuarios)
+                            {
+                                @if (!usuario.EsAdministrador)
+                                {
                                     <tr>
-                                        <th>Usuario</th>
-                                        <th>País</th>
-                                        <th>Puntos</th>
-                                        <th>Estado</th>
-                                        <th class="text-center">Acciones</th>
-                                    </tr>
-                                </thead>
 
-                                <tbody>
+                                        <td>
+                                            <strong>@usuario.NombreUsuario</strong>
+                                        </td>
 
-                                    @foreach (var usuario in usuarios)
-                                    {
-                                        @if (!usuario.EsAdministrador)
-                                        {
-                                            <tr>
+                                        <td>
+                                            @usuario.CodigoPaisPreferido
+                                        </td>
 
-                                                <td>
-                                                    <strong>
-                                                        @usuario.NombreUsuario
-                                                    </strong>
-                                                </td>
+                                        <td>
+                                            <span class="badge bg-success">
+                                                @usuario.Puntos
+                                            </span>
+                                        </td>
 
-                                                <td>
-                                                    @usuario.CodigoPaisPreferido
-                                                </td>
+                                        <td>
+                                            @if (usuario.Activo)
+                                            {
+                                                <span class="badge bg-success">
+                                                    Activo
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary">
+                                                    Desactivado
+                                                </span>
+                                            }
+                                        </td>
 
-                                                <td>
-                                                    <span class="badge bg-success">
-                                                        @usuario.Puntos
-                                                    </span>
-                                                </td>
+                                        <td class="text-center">
 
-                                                <td>
+                                            @if (usuarioEditandoId == usuario.Id)
+                                            {
+                                                <div class="d-flex gap-2 justify-content-center flex-wrap">
+
+                                                    <input class="form-control"
+                                                           style="max-width: 250px;"
+                                                           @bind="nuevaContrasena"
+                                                           placeholder="Nueva contraseña"
+                                                           type="password" />
+
+                                                    <button type="button"
+                                                            class="btn btn-success"
+                                                            @onclick="() => ConfirmarReset(usuario)">
+                                                        ✓ Confirmar
+                                                    </button>
+
+                                                    <button type="button"
+                                                            class="btn btn-outline-secondary"
+                                                            @onclick="CancelarReset">
+                                                        Cancelar
+                                                    </button>
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex gap-2 justify-content-center flex-wrap">
+
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-warning"
+                                                            @onclick="() => IniciarReset(usuario)">
+                                                        🔑 Reset contraseña
+                                                    </button>
+
                                                     @if (usuario.Activo)
                                                     {
-                                                        <span class="badge bg-success">
-                                                            Activo
-                                                        </span>
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-danger"
+                                                                @onclick="() => DesactivarUsuario(usuario)">
+                                                            🚫 Desactivar
+                                                        </button>
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge bg-secondary">
-                                                            Desactivado
-                                                        </span>
-                                                    }
-                                                </td>
-
-                                                <td>
-
-                                                    @if (usuarioEditandoId == usuario.Id)
-                                                    {
-                                                        <div class="row g-2">
-
-                                                            <div class="col-md-5">
-                                                                <input class="form-control"
-                                                                       @bind="nuevaContrasena"
-                                                                       placeholder="Nueva contraseña"
-                                                                       type="password" />
-                                                            </div>
-
-                                                            <div class="col-md-3">
-                                                                <button type="button"
-                                                                        class="btn btn-success w-100"
-                                                                        @onclick="() => ConfirmarReset(usuario)">
-                                                                    ✓ Confirmar
-                                                                </button>
-                                                            </div>
-
-                                                            <div class="col-md-3">
-                                                                <button type="button"
-                                                                        class="btn btn-outline-secondary w-100"
-                                                                        @onclick="CancelarReset">
-                                                                    Cancelar
-                                                                </button>
-                                                            </div>
-
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="d-flex gap-2 flex-wrap">
-
-                                                            <button type="button"
-                                                                    class="btn btn-sm btn-outline-warning"
-                                                                    @onclick="() => IniciarReset(usuario)">
-                                                                🔑 Reset contraseña
-                                                            </button>
-
-                                                            @if (usuario.Activo)
-                                                            {
-                                                                <button type="button"
-                                                                        class="btn btn-sm btn-outline-danger"
-                                                                        @onclick="() => DesactivarUsuario(usuario)">
-                                                                    🚫 Desactivar
-                                                                </button>
-                                                            }
-                                                            else
-                                                            {
-                                                                <button type="button"
-                                                                        class="btn btn-sm btn-outline-success"
-                                                                        @onclick="() => ActivarUsuario(usuario)">
-                                                                    ✓ Activar
-                                                                </button>
-                                                            }
-
-                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-success"
+                                                                @onclick="() => ActivarUsuario(usuario)">
+                                                            ✓ Activar
+                                                        </button>
                                                     }
 
-                                                </td>
+                                                </div>
+                                            }
 
-                                            </tr>
-                                        }
-                                    }
+                                        </td>
 
-                                </tbody>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
 
-                            </table>
-
-                        </div>
-
-                    </div>
+                    </table>
                 </div>
 
             </div>
@@ -195,7 +170,6 @@ else
 
     </div>
 }
-
 
 @code {
     List<Usuario> usuarios = new List<Usuario>();
@@ -215,26 +189,26 @@ else
         usuarios = UsuarioCtrl.ObtenerTodos();
     }
 
-    void ResetearContrasena(Usuario u)
+    void ResetearContrasena(Usuario usuario)
     {
-        UsuarioCtrl.ResetearContrasena(u.Id, "pass123");
+        UsuarioCtrl.ResetearContrasena(usuario.Id, "pass123");
         colorMensaje = "green";
-        mensaje = $"Contraseña de '{u.NombreUsuario}' reseteada a 'pass123'.";
+        mensaje = $"Contraseña de '{usuario.NombreUsuario}' reseteada a 'pass123'.";
     }
 
-    void DesactivarUsuario(Usuario u)
+    void DesactivarUsuario(Usuario usuario)
     {
-        UsuarioCtrl.DesactivarUsuario(u.Id);
+        UsuarioCtrl.DesactivarUsuario(usuario.Id);
         colorMensaje = "orange";
-        mensaje = $"Usuario '{u.NombreUsuario}' desactivado.";
+        mensaje = $"Usuario '{usuario.NombreUsuario}' desactivado.";
         usuarios = UsuarioCtrl.ObtenerTodos();
     }
 
-    void ActivarUsuario(Usuario u)
+    void ActivarUsuario(Usuario usuario)
     {
-        UsuarioCtrl.ActivarUsuario(u.Id);
+        UsuarioCtrl.ActivarUsuario(usuario.Id);
         colorMensaje = "green";
-        mensaje = $"Usuario '{u.NombreUsuario}' activado.";
+        mensaje = $"Usuario '{usuario.NombreUsuario}' activado.";
         usuarios = UsuarioCtrl.ObtenerTodos();
     }
 

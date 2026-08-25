@@ -74,7 +74,7 @@
 
         if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(contrasena))
         {
-            mensaje = "Por favor completá todos los campos.";
+            mensaje = "Por favor completa todos los campos.";
             return;
         }
 
@@ -92,7 +92,7 @@
 
         if (string.IsNullOrEmpty(codigoPais))
         {
-            mensaje = "Por favor seleccioná un país.";
+            mensaje = "Por favor selecciona un país.";
             return;
         }
 
@@ -100,12 +100,12 @@
 
         if (!registrado)
         {
-            mensaje = "Ese nombre de usuario ya está en uso. Elegí otro.";
+            mensaje = "Ese nombre de usuario ya está en uso. Elija otro.";
             return;
         }
 
         colorMensaje = "green";
-        mensaje = "¡Registro exitoso! Ya podés iniciar sesión.";
+        mensaje = "¡Registro exitoso! Ya puedes iniciar sesión.";
     }
 
     void IrALogin() => Nav.NavigateTo("/login");
