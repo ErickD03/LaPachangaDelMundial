@@ -4,6 +4,9 @@ using LaPachangaDelMundialV2.Models;
 
 namespace LaPachangaDelMundialV2.Controllers
 {
+    /// <summary>
+    /// controla las estadísticas de los partidos y pronósticos
+    /// </summary>
     public class EstadisticasController
     {
         private readonly List<Partido> _partidos;
@@ -11,6 +14,13 @@ namespace LaPachangaDelMundialV2.Controllers
         private readonly List<Pronostico> _pronosticos;
         private readonly List<Seleccion> _selecciones;
 
+        /// <summary>
+        /// crea el controlador con las listas necesarias para trabajar con las estadísticas.
+        /// </summary>
+        /// <param name="partidos"></param>
+        /// <param name="usuarios"></param>
+        /// <param name="pronosticos"></param>
+        /// <param name="selecciones"></param>
         public EstadisticasController(
             List<Partido> partidos,
             List<Usuario> usuarios,
@@ -210,6 +220,8 @@ namespace LaPachangaDelMundialV2.Controllers
         {
             List<Partido> partidos = ObtenerPartidosFinalizados(desde, hasta);
 
+            if (partidos.Count == 0) return "Sin datos";
+
             List<string> idsPartidos = new List<string>();
             foreach (Partido partido in partidos)
                 idsPartidos.Add(partido.Id);
@@ -218,26 +230,16 @@ namespace LaPachangaDelMundialV2.Controllers
 
             foreach (Pronostico pronostico in _pronosticos)
             {
+                if (pronostico == null) continue;
                 if (!idsPartidos.Contains(pronostico.IdPartido)) continue;
                 if (pronostico.PuntosObtenidos != 5) continue;
-
-                Usuario usuario = null;
-                foreach (Usuario us in _usuarios)
-                {
-                    if (us.Id == pronostico.IdUsuario)
-                    {
-                        usuario = us;
-                        break;
-                    }
-                }
-
-                if (usuario == null) continue;
-                if (usuario.EsAdministrador) continue;
 
                 if (!aciertos.ContainsKey(pronostico.IdUsuario))
                     aciertos[pronostico.IdUsuario] = 0;
                 aciertos[pronostico.IdUsuario]++;
             }
+
+            if (aciertos.Count == 0) return "Sin datos";
 
             string mejorUsuario = "";
             int maxAciertos = 0;
@@ -251,10 +253,11 @@ namespace LaPachangaDelMundialV2.Controllers
                 }
             }
 
-            if (mejorUsuario == "") return "Sin datos";
+            if (string.IsNullOrEmpty(mejorUsuario)) return "Sin datos";
 
             foreach (Usuario usuario in _usuarios)
             {
+                if (usuario == null) continue;
                 if (usuario.Id == mejorUsuario)
                     return $"{usuario.NombreUsuario} ({maxAciertos} aciertos exactos)";
             }

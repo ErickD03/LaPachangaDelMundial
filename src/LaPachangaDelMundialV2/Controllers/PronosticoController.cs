@@ -34,13 +34,20 @@ namespace LaPachangaDelMundialV2.Controllers
 
         private void Guardar()
         {
-            string ruta = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, "Datos", "pronosticos.json");
+            try
+            {
+                string ruta = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory, "Datos", "pronosticos.json");
 
-            string contenido = JsonConvert.SerializeObject(
-                _pronosticos, Formatting.Indented);
+                string contenido = JsonConvert.SerializeObject(
+                    _pronosticos, Formatting.Indented);
 
-            File.WriteAllText(ruta, contenido);
+                File.WriteAllText(ruta, contenido);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al guardar los pronosticos: {ex.Message}");
+            }
         }
 
         /// <summary>

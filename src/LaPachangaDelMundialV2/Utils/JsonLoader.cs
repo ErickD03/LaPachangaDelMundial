@@ -52,6 +52,10 @@ namespace LaPachangaDelMundialV2.Utils
                 return default;
             }
         }
+        public static List<Pronostico> CargarPronosticos()
+        {
+            return CargarArchivo<List<Pronostico>>("pronosticos.json");
+        }
     }
 }
 
