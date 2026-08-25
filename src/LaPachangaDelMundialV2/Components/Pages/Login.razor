@@ -7,30 +7,40 @@
 @inject UsuarioController UsuarioCtrl
 @inject NavigationManager Nav
 
-<h3>La Pachanga del Mundial</h3>
-<h5>Iniciar Sesión</h5>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3>⚽ La Pachanga del Mundial</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Iniciar Sesión</h5>
 
-@if (!string.IsNullOrEmpty(mensaje))
-{
-    <p style="color:red;">@mensaje</p>
-}
+                    @if (!string.IsNullOrEmpty(mensaje))
+                    {
+                        <div class="alert alert-danger">@mensaje</div>
+                    }
 
-<div>
-    <label>Usuario:</label>
-    <input @bind="nombreUsuario" placeholder="Nombre de usuario" />
+                    <div class="mb-3">
+                        <label class="form-label">Usuario</label>
+                        <input class="form-control" @bind="nombreUsuario" placeholder="Nombre de usuario" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input class="form-control" @bind="contrasena" type="password" placeholder="Contraseña" />
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" @onclick="Ingresar">Ingresar</button>
+                        <button class="btn btn-outline-secondary" @onclick="IrARegistro">Registrarse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<br />
-
-<div>
-    <label>Contraseña:</label>
-    <input @bind="contrasena" type="password" placeholder="Contraseña" />
-</div>
-
-<br />
-
-<button @onclick="Ingresar">Ingresar</button>
-<button @onclick="IrARegistro">Registrarse</button>
 
 @code {
     string nombreUsuario = "";

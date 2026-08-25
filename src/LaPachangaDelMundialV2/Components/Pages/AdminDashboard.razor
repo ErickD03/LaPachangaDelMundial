@@ -6,22 +6,124 @@
 
 @if (!Sesion.EstaLogueado || !Sesion.EsAdministrador)
 {
-    <p>Redirigiendo...</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="card shadow">
+
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4>⚽ La Pachanga del Mundial</h4>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <p>Redirigiendo...</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <h3>Panel de Administración</h3>
-    <h5>Bienvenido, @Sesion.UsuarioActivo.NombreUsuario</h5>
-    <hr />
+    <div class="container mt-5">
 
-    <div>
-        <h5>Gestión</h5>
-        <button @onclick="IrAPartidos">⚽ Gestionar Partidos</button>
-        <button @onclick="IrAUsuarios">👥 Gestionar Usuarios</button>
-        <button @onclick="IrAEstadisticas">📊 Estadísticas</button>
-        <button @onclick="CerrarSesion">🚪 Cerrar Sesión</button>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <div class="card shadow">
+
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3>⚽ La Pachanga del Mundial</h3>
+
+                        <p class="mb-0">
+                            Panel de Administración —
+                            <strong>@Sesion.UsuarioActivo.NombreUsuario</strong>
+                        </p>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title text-center mb-4">
+                            🛠️ Gestión
+                        </h5>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <button type="button"
+                                        class="btn btn-outline-primary w-100 py-3"
+                                        @onclick="IrAPartidos">
+
+                                    <div class="fs-3">
+                                        ⚽
+                                    </div>
+
+                                    Gestionar Partidos
+
+                                </button>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <button type="button"
+                                        class="btn btn-outline-primary w-100 py-3"
+                                        @onclick="IrAUsuarios">
+
+                                    <div class="fs-3">
+                                        👥
+                                    </div>
+
+                                    Gestionar Usuarios
+
+                                </button>
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <button type="button"
+                                        class="btn btn-outline-primary w-100 py-3"
+                                        @onclick="IrAEstadisticas">
+
+                                    <div class="fs-3">
+                                        📊
+                                    </div>
+
+                                    Estadísticas
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-grid">
+
+                            <button type="button"
+                                    class="btn btn-outline-danger"
+                                    @onclick="CerrarSesion">
+                                🚪 Cerrar Sesión
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 }
+
 
 @code {
     protected override void OnInitialized()

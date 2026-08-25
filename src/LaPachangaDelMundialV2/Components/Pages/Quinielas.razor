@@ -9,107 +9,353 @@
 
 @if (!Sesion.EstaLogueado)
 {
-    <p>Redirigiendo...</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="card shadow">
+
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4>⚽ La Pachanga del Mundial</h4>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <p>Redirigiendo...</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <h3>Mis Quinielas</h3>
-    <button @onclick="VolverDashboard">← Volver</button>
-    <hr />
+    <div class="container mt-5">
 
-    <div>
-        <button @onclick='() => pestanaActiva = "misquinielas"'>Mis Quinielas</button>
-        <button @onclick='() => pestanaActiva = "crear"'>Crear Quiniela</button>
-        <button @onclick='() => pestanaActiva = "unirse"'>Unirse a Quiniela</button>
-    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
 
-    <hr />
+                <div class="card shadow">
 
-    @if (pestanaActiva == "misquinielas")
-    {
-        <h5>Mis Quinielas</h5>
-        @if (misQuinielas.Count == 0)
-        {
-            <p>No pertenecés a ninguna quiniela todavía.</p>
-        }
-        else
-        {
-            @foreach (var quinielas in misQuinielas)
-            {
-                <div style="border:1px solid gray; padding:10px; margin:10px 0;">
-                    <h6>@quinielas.Nombre (@quinielas.Tipo)</h6>
-                    <p>Integrantes: @quinielas.IdsIntegrantes.Count</p>
-                    <button @onclick="() => VerTimeline(quinielas)">Ver Timeline</button>
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3>🏆 Mis Quinielas</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="mb-4">
+
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    @onclick="VolverDashboard">
+                                ← Volver
+                            </button>
+
+                        </div>
+
+                        <ul class="nav nav-tabs mb-4">
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "misquinielas" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "misquinielas"'>
+                                    🏆 Mis Quinielas
+                                </button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "crear" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "crear"'>
+                                    ➕ Crear Quiniela
+                                </button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "unirse" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "unirse"'>
+                                    🤝 Unirse a Quiniela
+                                </button>
+                            </li>
+
+                        </ul>
+
+                        @if (pestanaActiva == "misquinielas")
+                        {
+                            <h5 class="mb-3">
+                                🏆 Mis Quinielas
+                            </h5>
+
+                            @if (misQuinielas.Count == 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    No pertenecés a ninguna quiniela todavía.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row g-3">
+
+                                    @foreach (var quiniela in misQuinielas)
+                                    {
+                                        <div class="col-md-6">
+
+                                            <div class="card shadow-sm h-100">
+
+                                                <div class="card-header bg-light">
+
+                                                    <div class="d-flex justify-content-between align-items-center">
+
+                                                        <strong>
+                                                            @quiniela.Nombre
+                                                        </strong>
+
+                                                        @if (quiniela.Tipo == TipoQuiniela.Publica)
+                                                        {
+                                                            <span class="badge bg-success">
+                                                                Pública
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-secondary">
+                                                                Privada
+                                                            </span>
+                                                        }
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-body">
+
+                                                    <p class="mb-3">
+                                                        👥
+                                                        <strong>
+                                                            @quiniela.IdsIntegrantes.Count
+                                                        </strong>
+                                                        integrantes
+                                                    </p>
+
+                                                    <div class="d-grid">
+
+                                                        <button type="button"
+                                                                class="btn btn-outline-primary"
+                                                                @onclick="() => VerTimeline(quiniela)">
+                                                            📋 Ver Timeline
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                            @if (quinielaSeleccionada != null)
+                            {
+                                <hr class="my-4" />
+
+                                <div class="card shadow-sm">
+
+                                    <div class="card-header bg-dark text-white">
+                                        <h5 class="mb-0">
+                                            🔔 Timeline de @quinielaSeleccionada.Nombre
+                                        </h5>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        @if (quinielaSeleccionada.Notificaciones.Count == 0)
+                                        {
+                                            <div class="alert alert-secondary mb-0">
+                                                Sin notificaciones aún.
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="list-group">
+
+                                                @foreach (var notif in quinielaSeleccionada.Notificaciones)
+                                                {
+                                                    <div class="list-group-item">
+                                                        🔔 @notif
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                </div>
+                            }
+                        }
+
+                        @if (pestanaActiva == "crear")
+                        {
+                            <h5 class="mb-3">
+                                ➕ Crear nueva quiniela
+                            </h5>
+
+                            @if (!string.IsNullOrEmpty(mensajeCrear))
+                            {
+                                <div class="alert @(colorMensaje == "green" ? "alert-success" : "alert-danger")">
+                                    @mensajeCrear
+                                </div>
+                            }
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Nombre
+                                </label>
+
+                                <input class="form-control"
+                                       @bind="nombreNuevaQuiniela"
+                                       placeholder="Nombre de la quiniela" />
+
+                            </div>
+
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+                                    Tipo
+                                </label>
+
+                                <select class="form-select"
+                                        @bind="tipoNuevaQuiniela">
+
+                                    <option value="Privada">
+                                        Privada
+                                    </option>
+
+                                    <option value="Publica">
+                                        Pública
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="d-grid">
+
+                                <button type="button"
+                                        class="btn btn-success"
+                                        @onclick="CrearQuiniela">
+                                    🏆 Crear Quiniela
+                                </button>
+
+                            </div>
+                        }
+
+                        @if (pestanaActiva == "unirse")
+                        {
+                            <h5 class="mb-3">
+                                🤝 Unirse a una quiniela
+                            </h5>
+
+                            @if (!string.IsNullOrEmpty(mensajeUnirse))
+                            {
+                                <div class="alert @(colorMensajeUnirse == "green" ? "alert-success" : "alert-danger")">
+                                    @mensajeUnirse
+                                </div>
+                            }
+
+                            <p class="text-muted">
+                                Quinielas disponibles:
+                            </p>
+
+
+                            @if (quinielasDisponibles.Count == 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    No hay quinielas disponibles para unirse.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row g-3">
+
+                                    @foreach (var quiniela in quinielasDisponibles)
+                                    {
+                                        <div class="col-md-6">
+
+                                            <div class="card shadow-sm h-100">
+
+                                                <div class="card-header bg-light">
+
+                                                    <div class="d-flex justify-content-between align-items-center">
+
+                                                        <strong>
+                                                            @quiniela.Nombre
+                                                        </strong>
+
+                                                        @if (quiniela.Tipo == TipoQuiniela.Publica)
+                                                        {
+                                                            <span class="badge bg-success">
+                                                                Pública
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-secondary">
+                                                                Privada
+                                                            </span>
+                                                        }
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-body">
+
+                                                    <p class="mb-3">
+                                                        👥
+                                                        <strong>
+                                                            @quiniela.IdsIntegrantes.Count
+                                                        </strong>
+                                                        integrantes
+                                                    </p>
+
+                                                    <div class="d-grid">
+
+                                                        <button type="button"
+                                                                class="btn btn-success"
+                                                                @onclick="() => UnirseAQuiniela(quiniela)">
+                                                            🤝 Unirse
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                        }
+
+                    </div>
                 </div>
-            }
-        }
 
-        @if (quinielaSeleccionada != null)
-        {
-            <hr />
-            <h5>Timeline de @quinielaSeleccionada.Nombre</h5>
-            @if (quinielaSeleccionada.Notificaciones.Count == 0)
-            {
-                <p>Sin notificaciones aún.</p>
-            }
-            else
-            {
-                @foreach (var notif in quinielaSeleccionada.Notificaciones)
-                {
-                    <p>🔔 @notif</p>
-                }
-            }
-        }
-    }
-
-    @if (pestanaActiva == "crear")
-    {
-        <h5>Crear nueva quiniela</h5>
-
-        @if (!string.IsNullOrEmpty(mensajeCrear))
-        {
-            <p style="color:@colorMensaje;">@mensajeCrear</p>
-        }
-
-        <div>
-            <label>Nombre:</label>
-            <input @bind="nombreNuevaQuiniela" placeholder="Nombre de la quiniela" />
-        </div>
-        <br />
-        <div>
-            <label>Tipo:</label>
-            <select @bind="tipoNuevaQuiniela">
-                <option value="Privada">Privada</option>
-                <option value="Publica">Pública</option>
-            </select>
-        </div>
-        <br />
-        <button @onclick="CrearQuiniela">Crear</button>
-    }
-
-    @if (pestanaActiva == "unirse")
-    {
-        <h5>Unirse a una quiniela</h5>
-
-        @if (!string.IsNullOrEmpty(mensajeUnirse))
-        {
-            <p style="color:@colorMensajeUnirse;">@mensajeUnirse</p>
-        }
-
-        <p>Quinielas disponibles:</p>
-        @foreach (var quiniela in quinielasDisponibles)
-        {
-            <div style="border:1px solid gray; padding:10px; margin:5px 0;">
-                <p><strong>@quiniela.Nombre</strong> (@quiniela.Tipo) — @quiniela.IdsIntegrantes.Count integrantes</p>
-                <button @onclick="() => UnirseAQuiniela(quiniela)">Unirse</button>
             </div>
-        }
+        </div>
 
-        @if (quinielasDisponibles.Count == 0)
-        {
-            <p>No hay quinielas disponibles para unirse.</p>
-        }
-    }
+    </div>
 }
 
 @code {

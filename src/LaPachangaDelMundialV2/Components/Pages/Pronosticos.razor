@@ -12,141 +12,442 @@
 
 @if (!Sesion.EstaLogueado)
 {
-    <p>Redirigiendo...</p>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <div class="card shadow">
+
+                    <div class="card-header bg-dark text-white text-center">
+                        <h4>⚽ La Pachanga del Mundial</h4>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <p>Redirigiendo...</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <h3>Pronósticos</h3>
-    <button @onclick="VolverDashboard">← Volver</button>
-    <hr />
+    <div class="container mt-5">
 
-    <div>
-        <button @onclick='() => pestanaActiva = "pronosticar"'>Pronosticar</button>
-        <button @onclick='() => pestanaActiva = "historial"'>Mi Historial</button>
-        <button @onclick='() => pestanaActiva = "ranking"'>Ranking</button>
-    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
 
-    <hr />
+                <div class="card shadow">
 
-    @if (pestanaActiva == "pronosticar")
-    {
-        <h5>Partidos disponibles para pronosticar</h5>
+                    <div class="card-header bg-dark text-white text-center">
+                        <h3>🎯 Pronósticos</h3>
+                    </div>
 
-        @if (partidosPendientes.Count == 0)
-        {
-            <p>No hay partidos disponibles para pronosticar.</p>
-        }
-        else
-        {
-            @foreach (var partido in partidosPendientes)
-            {
-                string local = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal);
-                string visitante = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante);
-                bool yaPronostico = PronosticoCtrl.YaPronostico(Sesion.UsuarioActivo.Id, partido.Id);
+                    <div class="card-body">
 
-                <div style="border:1px solid gray; padding:10px; margin:5px 0;">
-                    <p><strong>@partido.FechaHora.ToString("dd/MM HH:mm")</strong> — @local vs @visitante [@partido.Fase]</p>
-
-                    @if (yaPronostico)
-                    {
-                        <p style="color:green;">✓ Ya pronosticaste este partido</p>
-                    }
-                    else
-                    {
-                        <div>
-                            <label>@local:</label>
-                            <input type="number" min="0" max="20"
-                                   @bind="golesLocal[partido.Id]" style="width:50px;" />
-                            <label> - @visitante:</label>
-                            <input type="number" min="0" max="20"
-                                   @bind="golesVisitante[partido.Id]" style="width:50px;" />
-                            <button @onclick="() => Pronosticar(partido)">Guardar</button>
+                        <div class="mb-4">
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    @onclick="VolverDashboard">
+                                ← Volver
+                            </button>
                         </div>
-                    }
+
+                        <ul class="nav nav-tabs mb-4">
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "pronosticar" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "pronosticar"'>
+                                    🎯 Pronosticar
+                                </button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "historial" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "historial"'>
+                                    📋 Mi Historial
+                                </button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button"
+                                        class="nav-link @(pestanaActiva == "ranking" ? "active" : "")"
+                                        @onclick='() => pestanaActiva = "ranking"'>
+                                    🏆 Ranking
+                                </button>
+                            </li>
+
+                        </ul>
+
+                        @if (pestanaActiva == "pronosticar")
+                        {
+                            <h5 class="mb-3">
+                                ⚽ Partidos disponibles para pronosticar
+                            </h5>
+
+                            @if (partidosPendientes.Count == 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    No hay partidos disponibles para pronosticar.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row g-3">
+
+                                    @foreach (var partido in partidosPendientes)
+                                    {
+                                        string local =
+                                        PartidoCtrl.ObtenerNombreSeleccion(
+                                        partido.CodigoLocal);
+
+                                        string visitante =
+                                        PartidoCtrl.ObtenerNombreSeleccion(
+                                        partido.CodigoVisitante);
+
+                                        bool yaPronostico =
+                                        PronosticoCtrl.YaPronostico(
+                                        Sesion.UsuarioActivo.Id,
+                                        partido.Id);
+
+                                        <div class="col-12">
+
+                                            <div class="card shadow-sm">
+
+                                                <div class="card-header bg-light">
+
+                                                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                                                        <strong>
+                                                            @local
+                                                            <span class="text-muted mx-2">
+                                                                vs
+                                                            </span>
+                                                            @visitante
+                                                        </strong>
+
+                                                        <span class="badge bg-secondary mt-2 mt-md-0">
+                                                            @partido.Fase
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-body">
+
+                                                    <p class="text-muted">
+                                                        📅
+                                                        @partido.FechaHora.ToString("dd/MM HH:mm")
+                                                    </p>
+
+                                                    @if (yaPronostico)
+                                                    {
+                                                        <div class="alert alert-success mb-0">
+                                                            ✓ Ya pronosticaste este partido.
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="row align-items-end">
+
+                                                            <div class="col-md-4 mb-3 mb-md-0">
+
+                                                                <label class="form-label">
+                                                                    @local
+                                                                </label>
+
+                                                                <input type="number"
+                                                                       min="0"
+                                                                       max="20"
+                                                                       class="form-control"
+                                                                       @bind="golesLocal[partido.Id]" />
+
+                                                            </div>
+
+                                                            <div class="col-md-4 mb-3 mb-md-0">
+
+                                                                <label class="form-label">
+                                                                    @visitante
+                                                                </label>
+
+                                                                <input type="number"
+                                                                       min="0"
+                                                                       max="20"
+                                                                       class="form-control"
+                                                                       @bind="golesVisitante[partido.Id]" />
+
+                                                            </div>
+
+                                                            <div class="col-md-4">
+
+                                                                <button type="button"
+                                                                        class="btn btn-success w-100"
+                                                                        @onclick="() => Pronosticar(partido)">
+                                                                    💾 Guardar Pronóstico
+                                                                </button>
+
+                                                            </div>
+
+                                                        </div>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(mensajePronostico))
+                            {
+                                <div class="alert alert-success mt-4">
+                                    @mensajePronostico
+                                </div>
+                            }
+                        }
+
+                        @if (pestanaActiva == "historial")
+                        {
+                            <h5 class="mb-3">
+                                📋 Mi Historial de Pronósticos
+                            </h5>
+
+                            @if (historial.Count == 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    No tenés pronósticos registrados aún.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped table-hover align-middle">
+
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Partido</th>
+                                                <th>Tu pronóstico</th>
+                                                <th>Resultado real</th>
+                                                <th>Puntos</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            @foreach (var pronostico in historial)
+                                            {
+                                                Partido partido =
+                                                PartidoCtrl.ObtenerTodos()
+                                                .Find(partido =>
+                                                partido.Id == pronostico.IdPartido);
+
+                                                @if (partido != null)
+                                                {
+                                                    string local =
+                                                    PartidoCtrl.ObtenerNombreSeleccion(
+                                                    partido.CodigoLocal);
+
+                                                    string visitante =
+                                                    PartidoCtrl.ObtenerNombreSeleccion(
+                                                    partido.CodigoVisitante);
+
+                                                    string resultado =
+                                                    partido.Estado == EstadoPartido.Finalizado
+                                                    ? $"{partido.GolesLocal} - {partido.GolesVisitante}"
+                                                    : "Pendiente";
+
+                                                    string puntos =
+                                                    partido.Estado == EstadoPartido.Finalizado
+                                                    ? pronostico.PuntosObtenidos.ToString()
+                                                    : "-";
+
+                                                    <tr>
+
+                                                        <td>
+                                                            <strong>
+                                                                @local
+                                                            </strong>
+                                                            <span class="text-muted">
+                                                                vs
+                                                            </span>
+                                                            <strong>
+                                                                @visitante
+                                                            </strong>
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="badge bg-primary">
+                                                                @pronostico.GolesLocal
+                                                                -
+                                                                @pronostico.GolesVisitante
+                                                            </span>
+                                                        </td>
+
+                                                        <td>
+                                                            @if (partido.Estado == EstadoPartido.Finalizado)
+                                                            {
+                                                                <span class="badge bg-success">
+                                                                    @resultado
+                                                                </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-secondary">
+                                                                    Pendiente
+                                                                </span>
+                                                            }
+                                                        </td>
+
+                                                        <td>
+                                                            @if (partido.Estado == EstadoPartido.Finalizado)
+                                                            {
+                                                                <span class="badge bg-success">
+                                                                    @puntos
+                                                                </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="text-muted">
+                                                                    -
+                                                                </span>
+                                                            }
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            }
+                        }
+
+                        @if (pestanaActiva == "ranking")
+                        {
+                            <h5 class="mb-3">
+                                🏆 Ranking
+                            </h5>
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+                                    Seleccionar ranking
+                                </label>
+
+                                <select class="form-select"
+                                        @bind="quinielaRanking"
+                                        @bind:after="CargarRanking">
+
+                                    <option value="global">
+                                        Ranking Global
+                                    </option>
+
+                                    @foreach (var quiniela in misQuinielas)
+                                    {
+                                        <option value="@quiniela.Id">
+                                            @quiniela.Nombre
+                                        </option>
+                                    }
+
+                                </select>
+
+                            </div>
+
+
+                            @if (ranking.Count == 0)
+                            {
+                                <div class="alert alert-secondary">
+                                    No hay información disponible para el ranking.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+
+                                    <table class="table table-striped table-hover align-middle">
+
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Usuario</th>
+                                                <th>Puntos</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            @for (int i = 0; i < ranking.Count; i++)
+                                            {
+                                                <tr>
+
+                                                    <td>
+                                                        @if (i == 0)
+                                                        {
+                                                            <span class="badge bg-warning text-dark">
+                                                                🥇 1
+                                                            </span>
+                                                        }
+                                                        else if (i == 1)
+                                                        {
+                                                            <span class="badge bg-secondary">
+                                                                🥈 2
+                                                            </span>
+                                                        }
+                                                        else if (i == 2)
+                                                        {
+                                                            <span class="badge bg-warning text-dark">
+                                                                🥉 3
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            @(i + 1)
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        <strong>
+                                                            @ranking[i].NombreUsuario
+                                                        </strong>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="badge bg-success">
+                                                            @ranking[i].Puntos
+                                                        </span>
+                                                    </td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            }
+
+                        }
+
+                    </div>
                 </div>
-            }
-        }
 
-        @if (!string.IsNullOrEmpty(mensajePronostico))
-        {
-            <p style="color:green;">@mensajePronostico</p>
-        }
-    }
+            </div>
+        </div>
 
-    @if (pestanaActiva == "historial")
-    {
-        <h5>Mi Historial de Pronósticos</h5>
-
-        @if (historial.Count == 0)
-        {
-            <p>No tenés pronósticos registrados aún.</p>
-        }
-        else
-        {
-            <table border="1" cellpadding="5">
-                <tr>
-                    <th>Partido</th>
-                    <th>Tu pronóstico</th>
-                    <th>Resultado real</th>
-                    <th>Puntos</th>
-                </tr>
-                @foreach (var pronostico in historial)
-                {
-                    Partido partido = PartidoCtrl.ObtenerTodos().Find(partido => partido.Id == pronostico.IdPartido);
-                    @if (partido != null)
-                    {
-                        string local = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoLocal);
-                        string visitante = PartidoCtrl.ObtenerNombreSeleccion(partido.CodigoVisitante);
-                        string resultado = partido.Estado == EstadoPartido.Finalizado
-                        ? $"{partido.GolesLocal} - {partido.GolesVisitante}"
-                        : "Pendiente";
-                        string puntos = partido.Estado == EstadoPartido.Finalizado
-                        ? pronostico.PuntosObtenidos.ToString()
-                        : "-";
-
-                        <tr>
-                            <td>@local vs @visitante</td>
-                            <td>@pronostico.GolesLocal - @pronostico.GolesVisitante</td>
-                            <td>@resultado</td>
-                            <td>@puntos</td>
-                        </tr>
-                    }
-                }
-            </table>
-        }
-    }
-
-    @if (pestanaActiva == "ranking")
-    {
-        <h5>Ranking</h5>
-
-        <select @bind="quinielaRanking" @bind:after="CargarRanking">
-            <option value="global">Ranking Global</option>
-            @foreach (var quiniela in misQuinielas)
-            {
-                <option value="@quiniela.Id">@quiniela.Nombre</option>
-            }
-        </select>
-
-        <br />
-        <br />
-
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>#</th>
-                <th>Usuario</th>
-                <th>Puntos</th>
-            </tr>
-            @for (int i = 0; i < ranking.Count; i++)
-            {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@ranking[i].NombreUsuario</td>
-                    <td>@ranking[i].Puntos</td>
-                </tr>
-            }
-        </table>
-    }
+    </div>
 }
 
 @code {

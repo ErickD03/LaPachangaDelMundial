@@ -6,36 +6,53 @@
 @inject UsuarioController UsuarioCtrl
 @inject NavigationManager Nav
 
-<h3>Registro de Usuario</h3>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3>⚽ La Pachanga del Mundial</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Registro de Usuario</h5>
 
-@if (!string.IsNullOrEmpty(mensaje))
-{
-    <p style="color:@colorMensaje;">@mensaje</p>
-}
+                    @if (!string.IsNullOrEmpty(mensaje))
+                    {
+                        <div class="alert alert-@(colorMensaje == "green" ? "success" : "danger")">
+                            @mensaje
+                        </div>
+                    }
 
-<div>
-    <label>Nombre de usuario:</label>
-    <input @bind="nombreUsuario" placeholder="Mínimo 4 caracteres" />
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de usuario</label>
+                        <input class="form-control" @bind="nombreUsuario" placeholder="Mínimo 4 caracteres" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input class="form-control" @bind="contrasena" type="password" placeholder="Mínimo 6 caracteres" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">País preferido</label>
+                        <select class="form-select" @bind="codigoPais">
+                            <option value="">-- Seleccioná un país --</option>
+                            @foreach (var seleccion in selecciones)
+                            {
+                                <option value="@seleccion.Codigo">@seleccion.Nombre</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" @onclick="Registrar">Registrarse</button>
+                        <button class="btn btn-outline-secondary" @onclick="IrALogin">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<br />
-<div>
-    <label>Contraseña:</label>
-    <input @bind="contrasena" type="password" placeholder="Mínimo 6 caracteres" />
-</div>
-<br />
-<div>
-    <label>País preferido:</label>
-    <select @bind="codigoPais">
-        <option value="">-- Seleccioná un país --</option>
-        @foreach (var seleccion in selecciones)
-        {
-            <option value="@seleccion.Codigo">@seleccion.Nombre</option>
-        }
-    </select>
-</div>
-<br />
-<button @onclick="Registrar">Registrarse</button>
-<button @onclick="IrALogin">Cancelar</button>
 
 @code {
     string nombreUsuario = "";
