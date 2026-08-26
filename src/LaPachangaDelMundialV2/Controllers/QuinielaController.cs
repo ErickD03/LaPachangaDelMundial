@@ -7,22 +7,35 @@ using LaPachangaDelMundialV2.Utils;
 
 namespace LaPachangaDelMundialV2.Controllers
 {
+    /// <summary>
+    /// controlador de quinielas
+    /// </summary>
     public class QuinielaController
     {
         private readonly List<Quiniela> _quinielas;
 
+        /// <summary>
+        /// inicializa el controlador y carga las quinielas
+        /// </summary>
         public QuinielaController()
         {
             _quinielas = JsonLoader.CargarQuinielas();
         }
 
-        // retorna las todas las quinielas //
+        /// <summary>
+        /// retorna las todas las quinielas
+        /// </summary>
+        /// <returns></returns>
         public List<Quiniela> ObtenerTodas()
         {
             return _quinielas;
         }
 
-        // retorna las quinielas de un usuario en particular //
+        /// <summary>
+        /// retorna las quinielas de un usuario en particular
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
         public List<Quiniela> ObtenerPorUsuario(string idUsuario)
         {
             List<Quiniela> lista = new List<Quiniela>();
@@ -38,7 +51,10 @@ namespace LaPachangaDelMundialV2.Controllers
             return lista;
         }
 
-        // devuelve quienielas publicas //
+        /// <summary>
+        /// devuelve quienielas publicas
+        /// </summary>
+        /// <returns></returns>
         public List<Quiniela> ObtenerPublicas()
         {
             List<Quiniela> lista = new List<Quiniela>();
@@ -53,7 +69,13 @@ namespace LaPachangaDelMundialV2.Controllers
             return lista;
         }
 
-        // crea nueva quinuela //
+        /// <summary>
+        /// crea nueva quinuela
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="tipo"></param>
+        /// <param name="idCreador"></param>
+        /// <returns></returns>
         public bool Crear(string nombre, TipoQuiniela tipo, string idCreador)
         {
             foreach (Quiniela quiniela in _quinielas)
@@ -82,7 +104,12 @@ namespace LaPachangaDelMundialV2.Controllers
             return true;
         }
 
-        // agrega usuario a una quiniela que ya exista //
+        /// <summary>
+        /// agrega usuario a una quiniela que ya exista
+        /// </summary>
+        /// <param name="idQuiniela"></param>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
         public bool UnirseAQuiniela(string idQuiniela, string idUsuario)
         {
             Quiniela quiniela = null;
@@ -110,7 +137,11 @@ namespace LaPachangaDelMundialV2.Controllers
             return true;
         }
 
-        // agrega notificacion al timeline de la quiniela //
+        /// <summary>
+        /// agrega notificacion al timeline de la quiniela
+        /// </summary>
+        /// <param name="idQuiniela"></param>
+        /// <param name="mensaje"></param>
         public void AgregarNotificacion(string idQuiniela, string mensaje)
         {
             Quiniela quiniela = null;

@@ -5,11 +5,17 @@ using LaPachangaDelMundialV2.Utils;
 
 namespace LaPachangaDelMundialV2.Controllers
 {
+    /// <summary>
+    /// controlador encargado de gestionar los partidos
+    /// </summary>
     public class PartidoController
     {
         private List<Partido> _partidos;
         private readonly List<Seleccion> _selecciones;
 
+        /// <summary>
+        /// inicializa el controlador y carga los datos
+        /// </summary>
         public PartidoController()
         {
             _partidos = JsonLoader.CargarPartidos();
@@ -46,7 +52,6 @@ namespace LaPachangaDelMundialV2.Controllers
         /// </summary>
         public void ActualizarEstados()
         {
-            // Recargamos los partidos frescos del JSON cada vez
             _partidos = JsonLoader.CargarPartidos();
 
             DateTime fechaActual = SistemaFecha.FechaActual;
@@ -260,15 +265,45 @@ namespace LaPachangaDelMundialV2.Controllers
     /// </summary>
     public class PosicionGrupo
     {
+        /// <summary>
+        /// código del equipo
+        /// </summary>
         public string Codigo { get; set; }
+        /// <summary>
+        /// nombre del equipo
+        /// </summary>
         public string Nombre { get; set; }
+        /// <summary>
+        /// partidos jugados
+        /// </summary>
         public int PartidosJugados { get; set; }
+        /// <summary>
+        /// partidos ganados
+        /// </summary>
         public int Ganados { get; set; }
+        /// <summary>
+        /// partidos empatados
+        /// </summary>
         public int Empatados { get; set; }
+        /// <summary>
+        /// partidos perdidos
+        /// </summary>
         public int Perdidos { get; set; }
+        /// <summary>
+        /// goles a favor
+        /// </summary>
         public int GolesFavor { get; set; }
+        /// <summary>
+        /// goles en contra
+        /// </summary>
         public int GolesContra { get; set; }
+        /// <summary>
+        /// puntos obtenidos
+        /// </summary>
         public int Puntos { get; set; }
+        /// <summary>
+        /// diferencia entre goles a favor y en contra
+        /// </summary>
         public int DiferenciaGoles => GolesFavor - GolesContra;
     }
 }

@@ -8,12 +8,15 @@ using System.IO;
 namespace LaPachangaDelMundialV2.Controllers
 {
     /// <summary>
-    /// 
+    /// controlador de pronosticos
     /// </summary>
     public class PronosticoController
     {
         private readonly List<Pronostico> _pronosticos;
 
+        /// <summary>
+        /// inicializa el controlador y carga los pronósticos
+        /// </summary>
         public PronosticoController()
         {
             _pronosticos = CargarPronosticos();
@@ -242,10 +245,22 @@ namespace LaPachangaDelMundialV2.Controllers
         }
     }
 
+    /// <summary>
+    /// representa un elemento del ranking
+    /// </summary>
     public class RankingItem
     {
+        /// <summary>
+        /// identificador del usuario
+        /// </summary>
         public string IdUsuario { get; set; }
+        /// <summary>
+        /// nombre del usuario
+        /// </summary>
         public string NombreUsuario { get; set; }
+        /// <summary>
+        /// puntos obtenidos
+        /// </summary>
         public int Puntos { get; set; }
     }
 }

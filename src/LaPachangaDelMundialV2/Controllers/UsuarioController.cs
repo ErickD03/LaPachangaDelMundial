@@ -6,10 +6,16 @@ using System.Linq;
 
 namespace LaPachangaDelMundialV2.Controllers
 {
+    /// <summary>
+    /// controlador de usuarios
+    /// </summary>
     public class UsuarioController
     {
         private readonly List<Usuario> _usuarios;
 
+        /// <summary>
+        /// inicializa el controlador y carga los usuarios
+        /// </summary>
         public UsuarioController()
         {
             _usuarios = JsonLoader.CargarUsuarios();
@@ -115,6 +121,11 @@ namespace LaPachangaDelMundialV2.Controllers
             System.IO.File.WriteAllText(ruta, contenido);
         }
 
+        /// <summary>
+        /// restablece la contraseña de un usuario
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="nuevaContrasena"></param>
         public void ResetearContrasena(string idUsuario, string nuevaContrasena)
         {
             foreach (Usuario usuario in _usuarios)
@@ -128,6 +139,10 @@ namespace LaPachangaDelMundialV2.Controllers
             GuardarUsuarios();
         }
 
+        /// <summary>
+        /// desactiva un usuario
+        /// </summary>
+        /// <param name="idUsuario"></param>
         public void DesactivarUsuario(string idUsuario)
         {
             foreach (Usuario usuario in _usuarios)
@@ -141,6 +156,10 @@ namespace LaPachangaDelMundialV2.Controllers
             GuardarUsuarios();
         }
 
+        /// <summary>
+        /// activa un usuario
+        /// </summary>
+        /// <param name="idUsuario"></param>
         public void ActivarUsuario(string idUsuario)
         {
             foreach (Usuario usuario in _usuarios)
@@ -154,6 +173,11 @@ namespace LaPachangaDelMundialV2.Controllers
             GuardarUsuarios();
         }
 
+        /// <summary>
+        /// obtiene un usuario desactivado por su nombre
+        /// </summary>
+        /// <param name="nombreUsuario"></param>
+        /// <returns></returns>
         public Usuario ObtenerDesactivado(string nombreUsuario)
         {
             foreach (Usuario usuario in _usuarios)
